@@ -71,6 +71,8 @@ Docker version 19.03.12, build v19.03.12
 
 ## Links and sources
 
+[Nix Flake MVP by Eelco Dolstra](https://gist.github.com/edolstra/40da6e3a4d4ee8fd019395365e0772e7)
+
 
 cd "$(basename "$_" .git)", [source](https://stackoverflow.com/a/59392290)
 
