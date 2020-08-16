@@ -1,7 +1,11 @@
 #
 
-If you want to run the `flake` hello world that [Eelco Dolstra](https://edolstra.github.io/) have wrote 
+If you want to run the `flake` hello world that [Eelco Dolstra](https://edolstra.github.io/) 
+(the creator of NixOS [ ["technically"](https://www.youtube.com/embed/fsgYVi2PQr0?start=102&end=127&version=3) the 
+creator was [Armijn Hemel](https://github.com/armijnhemel/) ]) have wrote 
 [Nix Flakes, Part 1: An introduction and tutorial](https://www.tweag.io/blog/2020-05-25-flakes/) using:
+- Docker
+- ??
 
 
 ## Docker
@@ -47,6 +51,8 @@ Docker version 19.03.12, build v19.03.12
 
 ## Links and sources
 
+
+[Using experimental Nix features in Nixos, and when they will land in stable](https://discourse.nixos.org/t/using-experimental-nix-features-in-nixos-and-when-they-will-land-in-stable/7401)
 
 cd "$(basename "$_" .git)", [source](https://stackoverflow.com/a/59392290)
 
