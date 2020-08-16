@@ -18,7 +18,8 @@ lnl7/nix:2.3.6 bash \
  && nix-shell -I nixpkgs=channel:nixos-20.03 --packages nixFlakes'
 ```
 
-Run the interactive commands using `--experimental-features 'nix-command flakes'`:
+Run the interactive commands using `--experimental-features 'nix-command flakes'`
+
 For example:
 
 ```
