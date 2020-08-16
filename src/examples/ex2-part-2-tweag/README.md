@@ -18,6 +18,23 @@ lnl7/nix:2.3.6 bash \
  && nix-shell -I nixpkgs=channel:nixos-20.03 --packages nixFlakes'
 ```
 
+Run the interactive commands using `--experimental-features 'nix-command flakes'`:
+For example:
+
+```
+[nix-shell:/]# time nix --experimental-features 'nix-command flakes' search nixpkgs blender
+* legacyPackages.x86_64-linux.blender (2.83.4)
+  3D Creation/Animation/Publishing System
+
+real    1m6.052s
+user    0m14.823s
+sys     0m10.419s
+[nix-shell:/]# 
+```
+
+Yes, it is slow in the first time.
+
+
 ### Install Docker
 
 If you want to install [Docker](https://www.docker.com/) you can follow the official instructions to install [docker-ce](https://docs.docker.com/engine/install/).
