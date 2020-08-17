@@ -19,9 +19,9 @@ docker run \
 --rm \
 lnl7/nix:2.3.6 bash \
 -c 'nix-env --install --attr nixpkgs.commonsCompress nixpkgs.gnutar nixpkgs.lzma.bin nixpkgs.git \
- && git clone --depth=1 https://github.com/GNU-ES/hello.git \
+ && git clone https://github.com/GNU-ES/hello.git \
  && cd "$(basename "$_" .git)" \
- && git checkout 26c2bdaddbd0fdfb5c6a36b0d76a09a8cff691a5 \
+ && git checkout d1bdee43831d01108f9f580f32a0d6a4f3c0f01e \
  && nix-shell -I nixpkgs=channel:nixos-20.03 --packages nixFlakes'
 ```
 
