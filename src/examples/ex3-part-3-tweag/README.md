@@ -31,7 +31,10 @@ git init my-flake \
 
 I don't know how to use `nixos-container` using Docker and only `Nix`. I really think that is is possible because of this
 [Dejà vu: Updating NixOS local VMs ](http://blog.patapon.info/nixos-local-vm/), use `Ctrl + c` and search for this text 
-`Building without nixos-rebuild`.
+`Building without nixos-rebuild`, and this 
+[Eelco Dolstra (the creator of flake) comment](https://github.com/NixOS/nixpkgs/pull/68897#discussion_r377142616). 
+Maybe use an Docker conteiner with `NixOS` would be usefull, for example, 
+[https://hub.docker.com/r/nixos/nix/](https://hub.docker.com/r/nixos/nix/).
 
 
 ### Runing in NixOS
