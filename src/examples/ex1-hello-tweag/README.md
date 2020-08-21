@@ -60,8 +60,10 @@ Docker version 19.03.12, build v19.03.12
 
 [NixOS system configurations should be stored as flakes in (local) Git repositories](https://gist.github.com/edolstra/40da6e3a4d4ee8fd019395365e0772e7#nixos-system-configuration)
 
-
 [Using experimental Nix features in Nixos, and when they will land in stable](https://discourse.nixos.org/t/using-experimental-nix-features-in-nixos-and-when-they-will-land-in-stable/7401)
+
+Not sure if it is worth watch:
+[NixOS Office Hours, 2020-02-21](https://youtu.be/FKpeI8U8-AE?t=155), Streamed live on Feb 21, 2020 about "Today, we are discussing some recent changes related to Flakes in Nix, Nixpkgs, and Hydra."
 
 cd "$(basename "$_" .git)", [source](https://stackoverflow.com/a/59392290)
 
