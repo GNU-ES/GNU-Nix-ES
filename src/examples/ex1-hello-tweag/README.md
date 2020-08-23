@@ -54,7 +54,7 @@ Docker version 19.03.12, build v19.03.12
 
 [Eelco Dolstra: "The idea is that your NixOS system is itself a flake, so its flake.lock pins the exact version of Nixpkgs."](https://github.com/nixos/rfcs/pull/49#issuecomment-511756456)
 
-[Nix Flake MVP](https://gist.github.com/edolstra/40da6e3a4d4ee8fd019395365e0772e7#nixos-system-configuration) by Eelco Dolstra.
+[Nix Flake MVP](https://gist.github.com/edolstra/40da6e3a4d4ee8fd019395365e0772e7#nixos-system-configuration) by gist Eelco Dolstra.
 
 [Flake support #68897](https://github.com/NixOS/nixpkgs/pull/68897), the PR by Eelco Dolstra that created `flake`.
 
@@ -70,3 +70,7 @@ Not sure if it is worth watch:
 cd "$(basename "$_" .git)", [source](https://stackoverflow.com/a/59392290)
 
 [Nix Flakes, Part 1: An introduction and tutorial](https://www.tweag.io/blog/2020-05-25-flakes/)
+
+
+Has an example of "f90wrap" 
+[A Tutorial Introduction to Nix](https://www.reddit.com/r/NixOS/comments/icyekr/a_tutorial_introduction_to_nix_rohit_goswami/g299qzk/)
