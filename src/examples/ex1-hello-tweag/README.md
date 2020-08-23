@@ -38,6 +38,8 @@ Hello World
 
 And that is it, it should have worked!
 
+TODO: how to make it run in one line? [Maybe?](https://stackoverflow.com/a/46803057)
+
 
 ### Install Docker
 
@@ -74,3 +76,6 @@ cd "$(basename "$_" .git)", [source](https://stackoverflow.com/a/59392290)
 
 Has an example of "f90wrap" 
 [A Tutorial Introduction to Nix](https://www.reddit.com/r/NixOS/comments/icyekr/a_tutorial_introduction_to_nix_rohit_goswami/g299qzk/)
+
+
+[wiki.nikitavoloboev](https://wiki.nikitavoloboev.xyz/package-managers/nix)
