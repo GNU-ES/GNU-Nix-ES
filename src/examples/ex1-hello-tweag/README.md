@@ -82,3 +82,9 @@ Has an example of "f90wrap"
 
 
 [TROPIN youtube play list](https://www.youtube.com/watch?v=1ZV_47O9_Z8&list=PLZmotIJq3yOJab8-of7gMYrXkZyAjWPOw)
+
+[How to use Nix Flakes system wide](https://gist.github.com/suhr/4bb1f8434d0622588b23f9fe13e79973)
+
+[Let’s nudge for goreleaser nix flakes support](https://discourse.nixos.org/t/lets-nudge-for-goreleaser-nix-flakes-support/8186/7)
+
+[Issue: Understanding Flakes](https://github.com/nrdxp/nixflk/issues/19)
