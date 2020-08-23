@@ -79,3 +79,6 @@ Has an example of "f90wrap"
 
 
 [wiki.nikitavoloboev](https://wiki.nikitavoloboev.xyz/package-managers/nix)
+
+
+[TROPIN youtube play list](https://www.youtube.com/watch?v=1ZV_47O9_Z8&list=PLZmotIJq3yOJab8-of7gMYrXkZyAjWPOw)
