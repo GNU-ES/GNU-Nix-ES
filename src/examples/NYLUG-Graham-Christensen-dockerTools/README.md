@@ -34,3 +34,6 @@ http://sandervanderburg.blogspot.com/2020/07/on-using-nix-and-docker-as-deployme
 
 
 [Jappie Klooster](https://www.youtube.com/channel/UCQxmXSQEYyCeBC6urMWRPVw/playlists)
+
+
+[dockerTools.buildImage and user-writable /tmp](https://discourse.nixos.org/t/dockertools-buildimage-and-user-writable-tmp/5397/8)
