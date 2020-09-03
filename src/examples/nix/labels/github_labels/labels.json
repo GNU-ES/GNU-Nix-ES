@@ -1,0 +1,207 @@
+[
+    {
+        "name": "Prioridade: Crítica",
+        "color": "ee0701",
+        "description": "Isso deve ser resolvido IMEDIATAMENTE. Não ajeitar isso pode ocasionar problemas sérios"
+    },
+    {
+        "name": "Prioridade: Alta",
+        "color": "d93f0b",
+        "description": "Após issues críticos resolvidos, isso deveria ser feito antes de prosseguir"
+    },
+    {
+        "name": "Prioridade: Média",
+        "color": "fbca04",
+        "description": "Esse issue pode ser útil e precisa de alguma atenção"
+    },
+    {
+        "name": "Prioridade: Baixa",
+        "color": "0e8a16",
+        "description": "Uma issue que pode ser um bom primeiro contato para contribuir"
+    },
+    {
+        "name": "Status: Abandonado",
+        "color": "000000",
+        "description": "A gente não liga mais para isso"
+    },
+    {
+        "name": "Status: Bloqueado",
+        "color": "ee0701",
+        "description": "Isso está bloqueado por algo"
+    },
+    {
+        "name": "Status: Em Progresso",
+        "color": "cccccc",
+        "description": "Trabalho em progresso"
+    },
+    {
+        "name": "Status: Aceitamos PR",
+        "color": "2E7733",
+        "description": "Faz um PR para a gente?"
+    },
+    {
+        "name": "Status: Precisa Ser Revisado",
+        "color": "fbca04",
+        "description": "Precisa de code review"
+    },
+    {
+        "name": "Status: Precisa De Mais Informações",
+        "color": "F9C90A",
+        "description": "Está faltando informações cruciais para prosseguir"
+    },
+    {
+        "name": "Status: NÃO MERGEAR!",
+        "color": "ff0000",
+        "description": "Mesmo que tudo esteja verde, não faça o merge deste PR"
+    },
+    {
+        "name": "Status: Duplicado",
+        "color": "ee0701",
+        "description": "Essa issue já existe"
+    },
+    {
+        "name": "Status: Fora do Plano",
+        "color": "ee0701",
+        "description": "Essa sugestão não está dentro dos nossos planos, mas pode estar no futuro ;)"
+    },
+    {
+        "name": "Status: Pronto para implementar",
+        "color": "ee0701",
+        "description": "Essa issue já possui todos os detalhes técnicos necessários para ser feita"
+    },
+    {
+        "name": "Status: Ajuda bem vinda",
+        "color": "ee0701",
+        "description": "Essa issue está aberta para a comunidade trabalhar"
+    },
+    {
+        "name": "Status: Aprovado",
+        "color": "ee0701",
+        "description": "Esse PR está aprovado e pronto para ser mergeado"
+    },
+    {
+        "name": "Tipo: Mudança Titânica :ship:",
+        "color": "b60205",
+        "description": "Inclui muitas mudanças ou mudanças drásticas"
+    },
+    {
+        "name": "Tipo: Bug :bug:",
+        "color": "ee0701",
+        "description": "Falha ou correção"
+    },
+    {
+        "name": "Tipo: Documentação :book:",
+        "color": "5319e7",
+        "description": "Modificação apenas na documentação"
+    },
+    {
+        "name": "Tipo: Funcionalidade :gem:",
+        "color": "1d76db",
+        "description": "Proposta ou funcionalidade"
+    },
+    {
+        "name": "Tipo: Refatoração :recycle:",
+        "color": "fbca04",
+        "description": "Uma mudança que não é nem uma correção nem uma funcionalidade"
+    },
+    {
+        "name": "Tipo: Testando :hammer:",
+        "color": "257759",
+        "description": "Adicionando testes que faltam ou corrigindo testes"
+    },
+    {
+        "name": "Tipo: Manuntenção :wrench:",
+        "color": "abd406",
+        "description": "Mudanças para deixar as coisas mais claras ou removendo ambiguidade, sem alterar o comportamento"
+    },
+    {
+        "name": "Tipo: CI :robot:",
+        "color": "ffd412",
+        "description": "Mudanças na configuração do CI e scripts"
+    },
+    {
+        "name": "Tipo: Questão :grey_question:",
+        "color": "cc317c",
+        "description": "Uma pergunta"
+    },
+    {
+        "name": "Tipo: Discussão :speech_balloon:",
+        "color": "d4c5f9",
+        "description": "Discussão sobre mudanças ou decisões"
+    },
+    {
+        "name": "Tipo: Épico :space_invader:",
+        "color": "3E4B9E",
+        "description": "Uma tarefa complexa que contém sub tarefas"
+    },
+    {
+        "name": "Tipo: Performance :hourglass:",
+        "color": "ee0701",
+        "description": "Essa issue/PR está relacionado a melhorias de performance"
+    },
+    {
+        "name": "Tipo: Externo :alien:",
+        "color": "ee0701",
+        "description": "Esse problema não foi minha culpa"
+    },
+    {
+        "name": "e/1 🕑",
+        "color": "ee0701",
+        "description": "Esforço 1"
+    },
+    {
+        "name": "e/2 🕑",
+        "color": "ee0701",
+        "description": "Esforço 2"
+    },
+    {
+        "name": "e/3 🕑",
+        "color": "ee0701",
+        "description": "Esforço 3"
+    },
+    {
+        "name": "e/4 🕑",
+        "color": "ee0701",
+        "description": "Esforço 4"
+    },
+    {
+        "name": "e/5 🕑",
+        "color": "ee0701",
+        "description": "Esforço 5"
+    },
+    {
+        "name": "e/6 🕑",
+        "color": "ee0701",
+        "description": "Esforço 6"
+    },
+    {
+        "name": "e/7 🕑",
+        "color": "ee0701",
+        "description": "Esforço 7"
+    },
+    {
+        "name": "e/8 🕑",
+        "color": "ee0701",
+        "description": "Esforço 8"
+    },
+    {
+        "name": "e/9 🕑",
+        "color": "ee0701",
+        "description": "Esforço 9"
+    },
+    {
+        "name": "e/10 🕑",
+        "color": "ee0701",
+        "description": "Esforço 10"
+    },
+    {
+        "name": "¯\\_[ツ]_/¯",
+        "color": "ffc107",
+        "description": "Não é mais possível determinar sobre o que a discussão era"
+    },
+    {
+        "name": "[ノಠ益ಠ]ノ彡┻━┻",
+        "color": "333333",
+        "description": "Parece que não é possível chegar a uma conclusão"
+    }
+]

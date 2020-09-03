@@ -1,0 +1,9 @@
+PQ?
+https://nixos.wiki/wiki/Development_environment_with_nix-shell
+
+```
+{ pkgs ? import <nixpkgs> {} }:
+  pkgs.mkShell {
+    buildInputs = [ pkgs.ruby_2_3 ];
+}
+```

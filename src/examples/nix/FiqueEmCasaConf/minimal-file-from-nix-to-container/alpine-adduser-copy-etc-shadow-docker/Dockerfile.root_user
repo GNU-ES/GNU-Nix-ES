@@ -1,0 +1,16 @@
+FROM alpine:3.12.0 as BUILD
+
+RUN apk add --no-cache shadow \
+ && addgroup app_group -g 5000 \
+ && adduser app_user -u 5000 -D -G app_group \
+ && apk del shadow
+
+
+FROM alpine:3.12.0
+
+COPY --from=BUILD /etc/group /etc/group
+COPY --from=BUILD /etc/passwd /etc/passwd
+COPY --from=BUILD /etc/shadow /etc/shadow
+
+# USER app_user
+

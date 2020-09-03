@@ -1,0 +1,68 @@
+
+docker build -t pedroregispoar/python/3.8.1-slim-buster/boilerplate-poetry .
+
+docker run \
+--interactive \
+--rm \
+--tty \
+--volume "$(pwd)":/code \
+--workdir /code \
+pedroregispoar/python/3.8.1-buster/boilerplate-poetry \
+bash
+
+
+docker build \
+--target builder \
+--tag pedroregispoar/python/3.8.1-buster/builder .
+
+docker run \
+--interactive \
+--rm \
+--tty \
+--volume "$(pwd)":/code \
+--workdir /code \
+pedroregispoar/python/3.8.1-buster/builder \
+bash
+
+
+
+poetry export --without-hashes --format requirements.txt > req.txt
+
+
+
+POETRY_VERSION=1.0.0b4
+
+
+docker build --target development -t pedroregispoar/python-boilerplate-poetry-dev .
+
+
+docker build --target production -t pedroregispoar/python-boilerplate-poetry-prod .
+
+
+docker run -it --rm -v "$(pwd)":/code -w /code pedroregispoar/python-boilerplate-poetry-dev bash
+
+
+docker run -it --rm -v "$(pwd)":/code --user $UID:$UID -w /code pedroregispoar/python-boilerplate-poetry bash
+
+
+docker run -it --rm -v "$(pwd)":/code --user $(id -u):$(id -g) -w /code pedroregispoar/python-boilerplate-poetry bash
+
+
+
+
+Links:
+
+
+https://github.com/sdispater/poetry/issues/875
+
+https://www.npmjs.com/package/serverless-python-requirements
+
+
+https://github.com/sdispater/poetry/issues/663#issuecomment-524655798
+
+
+
+
+
+
+.

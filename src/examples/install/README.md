@@ -2,6 +2,7 @@
 
 Ideia: use `ONBUILD RUn` for entrypoint.
 
+[Nix Installation Guide](https://nixos.wiki/wiki/Nix_Installation_Guide)
 
 [Install Nix in multi-user mode on non-NixOS](https://nixos.wiki/wiki/Install_Nix_in_multi-user_mode_on_non-NixOS)
 

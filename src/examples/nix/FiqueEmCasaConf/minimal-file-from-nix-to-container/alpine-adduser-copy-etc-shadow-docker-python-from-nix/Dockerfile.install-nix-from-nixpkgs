@@ -1,0 +1,30 @@
+FROM alpine:3.12.0 as BUILD_USER
+
+RUN apk add --no-cache shadow \
+ && addgroup app_group -g 5000 \
+ && adduser app_user -u 5000 -D -G app_group \
+ && apk del shadow
+
+
+
+FROM nixos/nix:2.3.4 as BUILD_NIX
+
+WORKDIR /output/store
+
+RUN nix-env --profile /output/profile --install --attr nixpkgs.nix 
+
+RUN cp --no-dereference --recursive --verbose $(nix-store --query --requisites /output/profile) /output/store
+
+
+
+FROM alpine:3.12.0
+
+COPY --from=BUILD_USER /etc/group /etc/group
+COPY --from=BUILD_USER /etc/passwd /etc/passwd
+COPY --from=BUILD_USER /etc/shadow /etc/shadow
+
+COPY --from=BUILD_NIX /output/store /nix/store
+COPY --from=BUILD_NIX /output/profile/ /usr/local/
+
+#USER app_user
+
