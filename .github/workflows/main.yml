@@ -24,6 +24,6 @@ jobs:
     - uses: actions/checkout@v2
 
     # Runs a set of commands using the runners shell
-    - name: Run a multi-line script
+    - name: Run examples
       run: |
-        ./run.sh 'src/examples/NYLUG-Graham-Christensen-dockerTools/ex5/1. basic example'
+        ./run.sh 'src/examples/nix/FiqueEmCasaConf/nix-gcc-9.2.0-centos-5.11'

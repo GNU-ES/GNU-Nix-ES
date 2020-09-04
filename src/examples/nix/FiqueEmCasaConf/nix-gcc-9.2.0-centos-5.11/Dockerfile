@@ -1,7 +1,7 @@
-FROM nixos/nix:2.3.4
+FROM nixos/nix:2.3.6
 
 RUN mkdir --parents /output/store
-RUN nix-env --profile /output/profile --install --attr nixpkgs.python39Full nixpkgs.gcc-unwrapped 
+RUN nix-env --profile /output/profile --install --attr nixpkgs.gcc
 
 #RUN cp -av $(nix-store -qR /output/profile) /output/store
 #RUN cp --archive --verbose $(nix-store -qR /output/profile) /output/store
