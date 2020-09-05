@@ -26,4 +26,4 @@ jobs:
     # Runs a set of commands using the runners shell
     - name: Run examples
       run: |
-        ./run.sh 'src/examples/nix/FiqueEmCasaConf/nix-gcc-9.2.0-centos-5.11'
+        ./main.sh
