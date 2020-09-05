@@ -15,3 +15,13 @@ docker run \
 --tty \
 --rm \
 "$IMAGE_VERSION" --run 'nix flake show github:GNU-ES/hello'
+
+
+docker run \
+--interactive \
+--tty \
+--rm \
+--workdir /code \
+--volume "$(pwd)":/code \
+"$IMAGE_VERSION" --run './tweag-tutorial.sh'
+
