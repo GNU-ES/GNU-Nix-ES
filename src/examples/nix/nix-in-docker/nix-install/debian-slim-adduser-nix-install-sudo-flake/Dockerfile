@@ -20,22 +20,12 @@ RUN adduser --quiet --disabled-password --shell /bin/bash --home /home/pedro --g
 USER pedro
 
 RUN mkdir -p ~/.config/nix/nix \
- && echo 'experimental-features = nix-command flakes ca-references' >> /home/pedro/.config/nix/nix.conf
-
-USER pedro
-
-#RUN curl -L https://nixos.org/nix/install | sh
-RUN echo "123" | sudo -S curl -L https://nixos.org/nix/install | sh \
+ && echo 'experimental-features = nix-command flakes ca-references' >> /home/pedro/.config/nix/nix.conf \
+ && echo "123" | sudo -S curl -L https://nixos.org/nix/install | sh \
  && echo '. /home/pedro/.nix-profile/etc/profile.d/nix.sh' >> ~/.bashrc
 
-# TODO:
-# USER root
-#
-# # RUN echo "123" | sudo -S sh -c 'nix-shell -I nixpkgs=channel:nixos-20.03 --packages nixFlakes'
-# RUN . /home/pedro/.nix-profile/etc/profile.d/nix.sh \
-#  && nix-shell -I nixpkgs=channel:nixos-20.03 --packages nixFlakes
-
-USER pedro
+# I have no ideia why this works end use only nix-shell not!
+RUN /home/pedro/.nix-profile/bin/nix-shell -I nixpkgs=channel:nixos-20.03 --packages nixFlakes
 
 ENTRYPOINT ["nix-shell", "-I", "nixpkgs=channel:nixos-20.03", "--packages", "nixFlakes"]
 
