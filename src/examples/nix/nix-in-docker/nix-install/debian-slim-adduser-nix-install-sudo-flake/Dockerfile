@@ -11,23 +11,31 @@ RUN apt-get update \
  && apt-get -y clean  \
  && rm -rf /var/lib/apt/lists/*
 
-#RUN groupadd --gid 5000 pedro_group \
-# && useradd --no-log-init --uid 5000 --gid pedro_group pedro_user
-# && chown -R pedro_user:pedro_group /home/pedro_user
+RUN adduser --quiet --disabled-password --shell /bin/bash --home /home/pedro --gecos "User" pedro \
+ && echo "pedro:123" | chpasswd \
+ && usermod -a -G sudo pedro \
+ && mkdir -m 0755 /nix \
+ && chown pedro /nix
 
-RUN adduser --quiet --disabled-password --shell /bin/bash --home /home/pedro --gecos "User" pedro
+USER pedro
 
-RUN echo "pedro:123" | chpasswd
-
-RUN usermod -a -G sudo pedro
-
-RUN mkdir -m 0755 /nix && chown pedro /nix
+RUN mkdir -p ~/.config/nix/nix \
+ && echo 'experimental-features = nix-command flakes ca-references' >> /home/pedro/.config/nix/nix.conf
 
 USER pedro
 
 #RUN curl -L https://nixos.org/nix/install | sh
 RUN echo "123" | sudo -S curl -L https://nixos.org/nix/install | sh \
  && echo '. /home/pedro/.nix-profile/etc/profile.d/nix.sh' >> ~/.bashrc
+
+# TODO:
+# USER root
+#
+# # RUN echo "123" | sudo -S sh -c 'nix-shell -I nixpkgs=channel:nixos-20.03 --packages nixFlakes'
+# RUN . /home/pedro/.nix-profile/etc/profile.d/nix.sh \
+#  && nix-shell -I nixpkgs=channel:nixos-20.03 --packages nixFlakes
+
+USER pedro
 
 ENTRYPOINT ["nix-shell", "-I", "nixpkgs=channel:nixos-20.03", "--packages", "nixFlakes"]
 
