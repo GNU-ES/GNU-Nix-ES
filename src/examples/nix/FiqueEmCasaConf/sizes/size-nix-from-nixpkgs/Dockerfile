@@ -1,7 +1,7 @@
 FROM lnl7/nix:2.3.6
 
 RUN mkdir --parents /output/store
-RUN nix-env --profile /output/profile --install --attr nixpkgs.python39
+RUN nix-env --profile /output/profile --install --attr nixpkgs.nix
 
 #RUN cp -av $(nix-store -qR /output/profile) /output/store
 #RUN cp --archive --verbose $(nix-store -qR /output/profile) /output/store
