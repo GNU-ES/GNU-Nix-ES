@@ -3,6 +3,10 @@
 [Nix Flakes, Part 3: Managing NixOS systems](https://www.tweag.io/blog/2020-07-31-nixos-flakes/)
 
 
+TODO: We must pin the nixpkgs version using flakes!
+https://stackoverflow.com/questions/50242387/how-to-record-a-reproducible-profile-in-nix-especially-from-nix-env
+
+
 ## Docker
 
 Just open an terminal, if you have docker installed, and run:
