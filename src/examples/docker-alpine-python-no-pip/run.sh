@@ -10,8 +10,12 @@ IMAGE_VERSION="$IMAGE":"$VERSION"
 
 docker build --tag "$IMAGE_VERSION" .
 
+#docker run \
+#--interactive \
+#--tty \
+#--rm \
+#"$IMAGE_VERSION" --version
+
 docker run \
---interactive \
---tty \
 --rm \
 "$IMAGE_VERSION" --version
