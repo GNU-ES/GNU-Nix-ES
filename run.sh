@@ -4,6 +4,7 @@
 #set -euxo pipefail
 
 ##https://stackoverflow.com/a/2013573
+##https://stackoverflow.com/a/2013589
 #SEARCH_PATH=${1:-'examples'}
 #
 ## If you want debug:

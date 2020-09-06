@@ -57,3 +57,6 @@ https://github.com/nix-community/poetry2nix/issues?q=manylinux
 
 TODO: study this
 https://github.com/NixOS/nixpkgs-channels/tree/nixos-unstable/pkgs
+https://github.com/NixOS/nix/issues/2363
+    https://github.com/NixOS/nixpkgs/issues/51368
+
