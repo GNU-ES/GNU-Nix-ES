@@ -19,9 +19,9 @@ for folder in src/examples/*
 do
 	cd "$folder"
   ./run.sh
-  ls -la
-  cd ..
-  ls -la
+#  ls -la
+#  cd ..
+#  ls -la
 done
 
 
