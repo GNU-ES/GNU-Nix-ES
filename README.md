@@ -55,4 +55,5 @@ https://github.com/nix-community/poetry2nix/issues/107
 https://github.com/nix-community/poetry2nix/issues?q=manylinux
 [NixOS/nixpkgs: manylinux packages for Python #73866](https://github.com/NixOS/nixpkgs/pull/73866/files)
 
-
+TODO: study this
+https://github.com/NixOS/nixpkgs-channels/tree/nixos-unstable/pkgs
