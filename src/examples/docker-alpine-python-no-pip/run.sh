@@ -14,5 +14,4 @@ docker run \
 --interactive \
 --tty \
 --rm \
-"$IMAGE_VERSION" \
-sh -c 'python --version'
+"$IMAGE_VERSION" --version
