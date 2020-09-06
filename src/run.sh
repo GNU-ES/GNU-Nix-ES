@@ -14,7 +14,7 @@
 #find . -name 'run.sh' -exec {} \;
 
 echo "$(pwd)"
-
+ls -la
 for folder in $(ls examples)
 do
 	cd "examples/$folder"
