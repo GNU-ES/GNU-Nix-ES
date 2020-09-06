@@ -13,15 +13,17 @@
 #
 #find . -name 'run.sh' -exec {} \;
 
-echo "$(pwd)"
-ls -la
+#echo "$(pwd)"
+#ls -la
 for folder in src/examples/*
 do
 	cd "$folder"
   ./run.sh
+  cd -
+
 #  ls -la
-#  cd ..
-#  ls -la
+#  echo "$folder"
+
 done
 
 
