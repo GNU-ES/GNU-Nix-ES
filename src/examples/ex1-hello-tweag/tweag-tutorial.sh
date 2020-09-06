@@ -25,3 +25,6 @@ cd hello
 
 ls -la
 
+cd ..
+
+rm -r hello
