@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # See https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
-set -euxo pipefail
+#set -euxo pipefail
 
 ##https://stackoverflow.com/a/2013573
 #SEARCH_PATH=${1:-'examples'}
