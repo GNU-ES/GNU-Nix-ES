@@ -1,6 +1,11 @@
 # GNU-Nix-ES
 
 
+## Where should I start?
+
+_For my point of view_ you must start using flakes
+
+
 TODO:
 [Jon Ringer](https://www.youtube.com/user/elitespartan117j27/videos)
 
