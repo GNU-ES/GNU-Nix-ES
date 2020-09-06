@@ -27,4 +27,4 @@ jobs:
     - name: Run examples
       run: |
         ls -la
-        cd src && ./main.sh
+        ./main.sh
