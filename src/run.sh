@@ -13,6 +13,8 @@
 #
 #find . -name 'run.sh' -exec {} \;
 
+echo "$(pwd)"
+
 for folder in $(ls examples)
 do
 	cd "examples/$folder"
