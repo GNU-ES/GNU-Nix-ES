@@ -11,9 +11,15 @@ IMAGE_VERSION="$IMAGE":"$VERSION"
 
 docker build --tag "$IMAGE_VERSION" .
 
+#docker run \
+#--interactive \
+#--rm \
+#--tty \
+#"$IMAGE_VERSION" \
+#sh -c 'gcc --version'
+
+
 docker run \
---interactive \
 --rm \
---tty \
 "$IMAGE_VERSION" \
 sh -c 'gcc --version'
