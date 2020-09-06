@@ -18,4 +18,4 @@ docker build --tag "$IMAGE_VERSION" .
 
 docker run \
 --rm \
-"$IMAGE_VERSION" --version
+"$IMAGE_VERSION" sh -c 'python --version'
