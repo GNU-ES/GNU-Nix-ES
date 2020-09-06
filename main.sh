@@ -9,5 +9,6 @@ set -euxo pipefail
 ./run.sh 'src/examples/nix/nix-in-docker/nix-install/alpine-nix-install/ex1'
 ./run.sh 'src/examples/ex1-hello-tweag'
 ./run.sh 'src/examples/nix/nix-in-docker/nix-install/debian-slim-adduser-nix-install-sudo-flake'
+./run.sh 'src/examples/ex3-part-3-tweag'
 #./run.sh ''
 
