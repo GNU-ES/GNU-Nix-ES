@@ -4,7 +4,7 @@
 # See https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
 set -euxo pipefail
 
-IMAGE='gnu-nix-es/debian-slim-adduser-nix-install-sudo'
+IMAGE='gnu-nix-es/nix-in-docker-install-debian-adduser-sudo-tested-python3'
 VERSION=0.0.1
 
 IMAGE_VERSION="$IMAGE":"$VERSION"
