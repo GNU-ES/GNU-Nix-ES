@@ -11,10 +11,6 @@ RUN apt-get update \
  && apt-get -y clean  \
  && rm -rf /var/lib/apt/lists/*
 
-#RUN groupadd --gid 5000 pedro_group \
-# && useradd --no-log-init --uid 5000 --gid pedro_group pedro_user
-# && chown -R pedro_user:pedro_group /home/pedro_user
-
 RUN adduser --quiet --disabled-password --shell /bin/bash --home /home/pedro --gecos "User" pedro
 
 RUN echo "pedro:123" | chpasswd
@@ -25,7 +21,7 @@ RUN mkdir -m 0755 /nix && chown pedro /nix
 
 USER pedro
 
-#RUN curl -L https://nixos.org/nix/install | sh
+# RUN curl -L https://nixos.org/nix/install | sh
 RUN echo "123" | sudo -S curl -L https://nixos.org/nix/install | sh \
  && echo '. /home/pedro/.nix-profile/etc/profile.d/nix.sh' >> ~/.bashrc
 
