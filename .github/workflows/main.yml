@@ -26,4 +26,6 @@ jobs:
     # Runs a set of commands using the runners shell
     - name: Run examples
       run: |
-        ./run.sh
+#        ./run.sh
+          cd src/examples/docker-alpine-python-no-pip
+         ./run.sh
