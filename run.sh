@@ -21,6 +21,7 @@ do
   ./run.sh
   ls -la
   cd ..
+  ls -la
 done
 
 
