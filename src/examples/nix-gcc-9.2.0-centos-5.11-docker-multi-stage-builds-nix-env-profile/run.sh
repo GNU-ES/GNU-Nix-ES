@@ -4,14 +4,16 @@
 # See https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
 set -euxo pipefail
 
-IMAGE='gnu-nix-es/nix-gcc-9.2.0-centos-5.11'
+IMAGE='gnu-nix-es/alpine-nix-install-ex1'
+VERSION=0.0.1
 
-docker build --tag "$IMAGE" .
+IMAGE_VERSION="$IMAGE":"$VERSION"
+
+docker build --tag "$IMAGE_VERSION" .
 
 docker run \
 --interactive \
 --rm \
 --tty \
-"$IMAGE" \
+"$IMAGE_VERSION" \
 sh -c 'gcc --version'
-
