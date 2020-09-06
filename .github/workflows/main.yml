@@ -26,5 +26,4 @@ jobs:
     # Runs a set of commands using the runners shell
     - name: Run examples
       run: |
-        cd src
-        ./main.sh
+        cd src && ./main.sh
