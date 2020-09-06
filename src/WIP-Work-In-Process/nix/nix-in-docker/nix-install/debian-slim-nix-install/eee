@@ -1,9 +1,0 @@
-docker run \
---interactive \
---privileged \
---rm \
---tty \
---volume "$(pwd)":/code \
---volume /var/run/docker.sock:/var/run/docker.sock \ 
-pedroregispoar/debian-slim-nix-install \
-bash
