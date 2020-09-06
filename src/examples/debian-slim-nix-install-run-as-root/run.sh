@@ -50,4 +50,4 @@ docker run \
 --volume "$(pwd)":/code \
 --volume /var/run/docker.sock:/var/run/docker.sock \
 "$IMAGE_VERSION" \
-bash --command "docker images"
+bash -c "docker images"
