@@ -27,4 +27,4 @@ jobs:
     - name: Run examples
       run: |
         ls -la
-        ./main.sh
+        ./run.sh
