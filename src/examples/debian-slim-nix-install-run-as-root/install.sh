@@ -9,7 +9,9 @@ echo hosts: dns files > /etc/nsswitch.conf
 mkdir /download-nix
 
 # Download Nix and install it into the system.
-NIX_VERSION=2.3.6 && wget --directory-prefix=/download-nix https://nixos.org/releases/nix/nix-${NIX_VERSION}/nix-${NIX_VERSION}-x86_64-linux.tar.xz && tar xf /download-nix/nix-${NIX_VERSION}-x86_64-linux.tar.xz --directory=/download-nix/
+NIX_VERSION=2.3.6
+
+wget --directory-prefix=/download-nix https://nixos.org/releases/nix/nix-${NIX_VERSION}/nix-${NIX_VERSION}-x86_64-linux.tar.xz && tar xf /download-nix/nix-${NIX_VERSION}-x86_64-linux.tar.xz --directory=/download-nix/
 
 # addgroup -g 30000 -S nixbld
 # for i in $(seq 1 30); do adduser -S -D -h /var/empty -g "Nix build user $i" -u $((30000 + i)) -G nixbld nixbld$i ; done
