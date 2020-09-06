@@ -15,7 +15,7 @@
 
 #echo "$(pwd)"
 #ls -la
-for folder in examples/*
+for folder in src/examples/*
 do
 	cd "$folder"
   ./run.sh
