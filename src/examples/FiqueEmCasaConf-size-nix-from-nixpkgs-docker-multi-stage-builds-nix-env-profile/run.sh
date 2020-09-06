@@ -10,4 +10,4 @@ IMAGE_VERSION="$IMAGE":"$VERSION"
 
 docker build --tag "$IMAGE_VERSION" .
 
-docker images | grep sizes
+docker images | grep size
