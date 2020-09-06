@@ -4,11 +4,11 @@
 set -euxo pipefail
 
 #https://stackoverflow.com/a/2013573
-SEARCH_PATH=${1:-'.'}
+SEARCH_PATH=${1:-'src/examples'}
 
 # If you want debug:
 # echo "$SEARCH_PATH"
 
 cd "$SEARCH_PATH"
 
-find . -name 'run.sh' -exec {} \;
+find . -name 'run.sh' -exec {ls} \;
