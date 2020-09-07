@@ -27,9 +27,10 @@ jobs:
 #    - name: Run examples
 #      run: |
 #        ./run.sh
-
+#    # Runs a set of commands using the runners shell
+    - name: Run example!
       run: |
-        cd src/examples/
+        cd src/examples/nix-in-docker-ubuntu-20-04-adduser-nix-install-sudo-flake-python3
         ./run.sh
 
     - name: Inject Revision
