@@ -9,4 +9,5 @@ find . -name 'README.md' -exec sed --expression="s:REVISION:$(git rev-parse $(gi
 
 
 #https://stackoverflow.com/a/15849152
+#https://unix.stackexchange.com/a/12904
 #https://www.everythingcli.org/find-exec-vs-find-xargs/
