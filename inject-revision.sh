@@ -8,5 +8,5 @@ cd src/examples
 find . -name 'README.md' -exec sed --expression="s:REVISION:$(git rev-parse $(git rev-parse --short HEAD)):g" --in-place  {} +
 
 
-https://stackoverflow.com/a/15849152
-https://www.everythingcli.org/find-exec-vs-find-xargs/
+#https://stackoverflow.com/a/15849152
+#https://www.everythingcli.org/find-exec-vs-find-xargs/
