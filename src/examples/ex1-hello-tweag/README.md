@@ -12,11 +12,7 @@ creator was [Armijn Hemel](https://github.com/armijnhemel/) ]) have wrote
 Just open an terminal, if you have docker installed, run:
 
 ```
-git clone https://github.com/GNU-ES/GNU-Nix-ES.git \
-&& cd GNU-Nix-ES \
-&& git checkout e855383c17a3dc04492af055dce91c5bae7453ed \
-&& cd src/examples/ex1-hello-tweag \
-&& ./run.sh
+user-run.sh
 ```
 
 And that is it, it should have worked!
