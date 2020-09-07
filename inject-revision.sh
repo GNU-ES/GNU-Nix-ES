@@ -6,7 +6,7 @@
 cd src/examples
 
 find . -name 'user-run.sh' -exec sed --expression="s:REVISION:$(git rev-parse $(git rev-parse --short HEAD)):g" --in-place  {} +
-find . -name 'README.md' -exec sed "s/user-run.sh/$(cat {})/"
+find . -name 'README.md' -exec sed "s/user-run.sh/'$(cat {})'/"
 
 
 
