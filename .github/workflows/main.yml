@@ -27,6 +27,7 @@ jobs:
     - name: Run examples
       run: |
         ./run.sh
+        find . -name 'README.md' -exec sed --expression="s:REVISION:$(git rev-parse $(git rev-parse --short HEAD)):g" --in-place  {} +
 
 #    - name: Run WIP (Work In Progress) example
 #      run: |
