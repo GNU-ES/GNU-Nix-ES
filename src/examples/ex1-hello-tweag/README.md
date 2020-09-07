@@ -12,7 +12,8 @@ creator was [Armijn Hemel](https://github.com/armijnhemel/) ]) have wrote
 Just open an terminal, if you have docker installed, run:
 
 ```
-user-run.sh
+user-begin
+user-end
 ```
 
 And that is it, it should have worked!
