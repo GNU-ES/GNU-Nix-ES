@@ -1,0 +1,58 @@
+FROM alpine:3.12.0 as BUILD_USER
+
+RUN apk add --no-cache shadow \
+ && addgroup app_group -g 5000 \
+ && adduser app_user -h app_user_home -u 5000 -D -G app_group \
+ && apk del shadow
+
+
+#FROM lnl7/nix:2020-06-07 as BUILD_PYTHON
+#COPY build/ /output/store/
+#WORKDIR /output/store
+#RUN nix-env --profile /output/profile --install --attr \
+#    nixpkgs.man
+#RUN nix-env --profile /output/profile --install --file default2.nix
+#RUN cp --no-dereference --recursive --verbose $(nix-store --query --requisites /output/profile) /output/store
+
+
+FROM python:3.8.5-alpine3.12 as BUILD_APP
+
+COPY --from=BUILD_USER /etc/group /etc/group
+COPY --from=BUILD_USER /etc/passwd /etc/passwd
+COPY --from=BUILD_USER /etc/shadow /etc/shadow
+
+# COPY build/dist/nixfriday-0.1.0-py3-none-any.whl nixfriday-0.1.0-py3-none-any.whl
+
+#RUN mkdir /app_user_home && chown /app_user_home app_user
+
+USER app_user
+
+COPY build/dist/nixfriday-0.1.0-py3-none-any.whl nixfriday-0.1.0-py3-none-any.whl
+
+RUN pip install --upgrade pip==20.2.1 \
+ && pip install --user nixfriday-0.1.0-py3-none-any.whl \
+ && pip uninstall -y pip
+
+
+
+FROM python:3.8.5-alpine3.12
+
+COPY --from=BUILD_USER /etc/group /etc/group
+COPY --from=BUILD_USER /etc/passwd /etc/passwd
+COPY --from=BUILD_USER /etc/shadow /etc/shadow
+#COPY --from=BUILD_USER /home /home
+
+#COPY --from=BUILD_PYTHON /output/store /nix/store
+#COPY --from=BUILD_PYTHON /output/profile/ /usr/local/
+
+RUN mkdir /test
+COPY --from=BUILD_APP /root/.local/lib/python3.8/site-packages /test
+
+#COPY build/dist/nixfriday-0.1.0-py3-none-any.whl nixfriday-0.1.0-py3-none-any.whl
+
+#RUN pip install --upgrade pip==20.2.1 \
+# && pip install --user nixfriday-0.1.0-py3-none-any.whl \
+# && pip uninstall -y pip
+
+#USER app_user
+

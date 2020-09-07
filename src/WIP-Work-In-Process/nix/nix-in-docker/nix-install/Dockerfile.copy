@@ -1,0 +1,6 @@
+FROM debian:buster-20200720-slim
+
+COPY install.sh install.sh
+
+RUN ./install.sh
+

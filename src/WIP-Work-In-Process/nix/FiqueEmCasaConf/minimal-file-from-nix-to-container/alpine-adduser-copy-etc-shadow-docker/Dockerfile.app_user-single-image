@@ -1,0 +1,7 @@
+FROM alpine:3.12.0
+
+RUN apk add --no-cache shadow \
+ && addgroup app_group_single_image -g 5000 \
+ && adduser app_user_single_image -u 5000 -D -G app_group_single_image \
+ && apk del shadow
+
