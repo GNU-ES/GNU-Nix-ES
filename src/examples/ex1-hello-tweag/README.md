@@ -7,34 +7,20 @@ creator was [Armijn Hemel](https://github.com/armijnhemel/) ]) have wrote
 - Docker
 - ??
 
-
 ## Docker
 
 Just open an terminal, if you have docker installed, run:
 
 ```
-docker run \
---interactive \
---tty \
---rm \
-lnl7/nix:2.3.6 bash \
--c 'nix --experimental-features 'nix-command flakes' shell github:GNU-ES/hello --command hello'
-```
-
-When it is finished run:
-
-`nix --experimental-features 'nix-command flakes' shell github:GNU-ES/hello --command hello`
-
-It should look like this output:
-```
-[nix-shell:/hello]# nix --experimental-features 'nix-command flakes' shell github:edolstra/hello --command hello
-...
-Hello World
+git clone https://github.com/GNU-ES/GNU-Nix-ES.git \
+&& cd GNU-Nix-ES \
+&& git checkout 7e2be43e22149a2414d5f84212c0a28f6588f778 \
+&& cd src/examples/ex1-hello-tweag \
+&& ./run.sh \
+&& ./end-mensage.sh
 ```
 
 And that is it, it should have worked!
-
-TODO: how to make it run in one line? [Maybe?](https://stackoverflow.com/a/46803057)
 
 
 ### Install Docker
