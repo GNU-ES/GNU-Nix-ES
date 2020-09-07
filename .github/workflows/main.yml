@@ -74,9 +74,9 @@ jobs:
     #    # Default: ''
     #    remove: "./dir/old_file.js"
 
-        # Name of the tag to add to the new commit (see the paragraph below for more info)
-        # Default: ''
-        tag: "$(git rev-parse $(git rev-parse --short HEAD))"
+#        # Name of the tag to add to the new commit (see the paragraph below for more info)
+#        # Default: ''
+#        tag: "$(git rev-parse $(git rev-parse --short HEAD))"
 
       env:
         # This is necessary in order to push a commit to the repo
