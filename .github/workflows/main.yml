@@ -23,10 +23,10 @@ jobs:
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
     - uses: actions/checkout@v2
 
-    # Runs a set of commands using the runners shell
-    - name: Run examples
-      run: |
-        ./run.sh
+#    # Runs a set of commands using the runners shell
+#    - name: Run examples
+#      run: |
+#        ./run.sh
 
 #      run: |
 #        cd src/examples/debian-slim-nix-install-run-as-root
