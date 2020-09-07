@@ -7,6 +7,6 @@
 REVISION=$(git rev-parse $(git rev-parse --short HEAD))
 
 
-find . -name 'README.md' -exec cat {} +
+#find . -name 'README.md' -exec cat {} +
 
 sed --in-place README.md --expression="s:REVISION:$REVISION:g"
