@@ -1,5 +1,12 @@
+##
 
-TODO: from did I get this `install.sh` script?
+Just run:
+`./run.sh`
+
+
+
+
+TODO: from where did I get this `install.sh` script?
 
 
 
