@@ -28,9 +28,9 @@ jobs:
 #      run: |
 #        ./run.sh
 
-#      run: |
-#        cd src/examples/debian-slim-nix-install-run-as-root
-#        ./run.sh
+      run: |
+        cd src/examples/
+        ./run.sh
 
     - name: Inject Revision
       run: |
