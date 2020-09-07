@@ -12,8 +12,7 @@ creator was [Armijn Hemel](https://github.com/armijnhemel/) ]) have wrote
 Just open an terminal, if you have docker installed, run:
 
 ```
-user-begin
-user-end
+{{ user }}
 ```
 
 And that is it, it should have worked!
