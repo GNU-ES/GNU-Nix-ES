@@ -1,10 +1,12 @@
 let
-    pkgs = import (builtin.fetchTarball { url = "channel:nixos"; } ) {};
+    pkgs = import (builtins.fetchTarball { url = "channel:nixpkgs-unstable"; } ) {};
     inherit (pkgs) runCommand;
+
+    img_orig = "ubuntu-18.04-server-cloudimg-amd64.img";
 in
 rec {
-    image = pkgs.fechurl {
-        url = "https://cloud-images.ubuntu.com/releases/18.04/release/${img_orig}"/
+    image = pkgs.fetchurl {
+        url = "https://cloud-images.ubuntu.com/releases/18.04/release/${img_orig}";
         sha256 = "";
     };
 
@@ -20,7 +22,7 @@ rec {
                 "ubuntu:ubuntu"
             ];
             expire = false;
-        }
+        };
         ssh_pwauth = true;
         mounts = [
             [ "hostshare" "/mnt" "9p" "defaults,trans=virtio,version=version=9p2000.L"]
@@ -31,11 +33,11 @@ rec {
     # for the VM.
     userdata = runCommand
         "userdata.qcow2"
-        { buildInputs = [ pkgs.cloud-utils pkgsyj pkgs.qmeu ]; }
+        { buildInputs = [ pkgs.cloud-utils pkgs.yj pkgs.qmeu ]; }
         ''
             {
                 echo '#cloud-config'
-                echo '${builtin.toJson cloudInit}' | yj -jy
+                echo '${builtins.toJson cloudInit}' | yj -jy
             } > cloud-init.yaml
             cloud-localds user-data.raw cloud-init.yaml
             qemu-img convert -p -f raw user-data.raw -O qcow2 "$out"
@@ -43,7 +45,7 @@ rec {
 
      # Prepare the VM snapshot for faster resume.
      prepare = runCommand "prepare"
-        { buildInputs = [ pkgs.qemu (pkgs.qemu (pkgs.python.withPackes (p: [p.pexpect ])) ]; }
+        { buildInputs = [ pkgs.qemu (pkgs.python.withPackages (p: [ p.pexpect ])) ]; }
         ''
             export LANG=C.UTF-8
             export LC_ALL=C.UTF-8
@@ -51,7 +53,6 @@ rec {
             # Copy the imges to work on them
             cp --reflink=auto ${image} disk.qcow2
             cp --reflink=auto ${userdata} userdata.qcow2
-            cp --reflink=auto ${default.nix}
             chmod +w disk.qcow2 userdata.qcow2
 
             # Make some room on the root image
