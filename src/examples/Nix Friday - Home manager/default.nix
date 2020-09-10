@@ -7,9 +7,8 @@ in
 rec {
     image = pkgs.fetchurl {
         url = "https://cloud-images.ubuntu.com/releases/18.04/release/${img_orig}";
-        sha256 = "";
+        sha256 = "1i2yxndxb6yc9l6c99pypbd92lfq5aac4klq7y2v93c9qvx2cgpc";
     };
-
     # this is the cloud-init config
     cloudInit = {
         ssh_authorized_keys = [
@@ -37,7 +36,7 @@ rec {
         ''
             {
                 echo '#cloud-config'
-                echo '${builtins.toJson cloudInit}' | yj -jy
+                echo '${builtins.toJSON cloudInit}' | yj -jy
             } > cloud-init.yaml
             cloud-localds user-data.raw cloud-init.yaml
             qemu-img convert -p -f raw user-data.raw -O qcow2 "$out"
