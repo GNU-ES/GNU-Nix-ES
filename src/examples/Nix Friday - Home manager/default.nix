@@ -33,7 +33,7 @@ rec {
     # for the VM.
     userdata = runCommand
         "userdata.qcow2"
-        { buildInputs = [ pkgs.cloud-utils pkgs.yj pkgs.qmeu ]; }
+        { buildInputs = [ pkgs.cloud-utils pkgs.yj pkgs.qemu ]; }
         ''
             {
                 echo '#cloud-config'
@@ -50,7 +50,7 @@ rec {
             export LANG=C.UTF-8
             export LC_ALL=C.UTF-8
 
-            # Copy the imges to work on them
+            # Copy the images to work on them
             cp --reflink=auto ${image} disk.qcow2
             cp --reflink=auto ${userdata} userdata.qcow2
             chmod +w disk.qcow2 userdata.qcow2
