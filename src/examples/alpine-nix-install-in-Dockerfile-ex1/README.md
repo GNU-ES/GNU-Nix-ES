@@ -5,7 +5,7 @@
 git clone https://github.com/GNU-ES/GNU-Nix-ES.git \
 && cd GNU-Nix-ES \
 && git checkout REVISION \
-&& cd EXAMPLE_PATH \
+&& cd src/examples/alpine-nix-install-in-Dockerfile-ex1 \
 && ./run.sh
 ```
 

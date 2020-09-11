@@ -5,7 +5,7 @@
 git clone https://github.com/GNU-ES/GNU-Nix-ES.git \
 && cd GNU-Nix-ES \
 && git checkout REVISION \
-&& cd EXAMPLE_PATH \
+&& cd debian-slim-nix-install-run-as-root \
 && ./run.sh
 ```
 
