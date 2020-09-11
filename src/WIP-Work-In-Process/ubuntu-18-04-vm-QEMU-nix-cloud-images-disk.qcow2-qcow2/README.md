@@ -57,6 +57,17 @@ echo "123" | sudo -S curl -L https://nixos.org/nix/install | sh \
 && echo '. /home/pedro/.nix-profile/etc/profile.d/nix.sh' >> ~/.bashrc
 
 
+TODO:
+nix-env --install --attr nixpkgs.docker
+sudo adduser pedro
+vim install.sh \
+&& chmod +x install.sh \
+&& ./install.sh \
+&& sudo addgroup docker \
+&& nix --version \
+&& docker --version \
+&& docker run --rm hello
+
 
 
 https://serverfault.com/questions/632718/access-pty-login-prompt-in-vm
