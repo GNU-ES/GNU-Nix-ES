@@ -5,7 +5,8 @@
 git clone https://github.com/GNU-ES/GNU-Nix-ES.git \
 && cd GNU-Nix-ES \
 && git checkout REVISION \
-&& cd alpine-nix-install-script-ex1 \
+&& cd src/examples \
+&& alpine-nix-install-script-ex1 \
 && ./run.sh
 ```
 
