@@ -1,4 +1,10 @@
+
+
 # Usage
+
+
+Note that it is adapted from [what Zimbatm did](https://github.com/zimbatm/nix-experiments/tree/d5c6a2506d5f1a9b60b5c47e5829ff36007aa864/ubuntu-vm)
+thanks, really, it was an amazing improvement, it is as if I had reached the [Iron Age](https://en.wikipedia.org/wiki/Iron_Age) just now! Thank you!!
 
 For now all that we have a is a Ubuntu VM to test the installer manually.
 Automated tests come next.
@@ -51,6 +57,14 @@ echo "123" | sudo -S curl -L https://nixos.org/nix/install | sh \
 && echo '. /home/pedro/.nix-profile/etc/profile.d/nix.sh' >> ~/.bashrc
 
 
+
+
+https://serverfault.com/questions/632718/access-pty-login-prompt-in-vm
+
+https://stackoverflow.com/a/59403566
+
+Must see:
+https://askubuntu.com/a/1996
 
 
 # Login
