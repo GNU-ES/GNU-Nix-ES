@@ -74,9 +74,30 @@ https://serverfault.com/questions/632718/access-pty-login-prompt-in-vm
 
 https://stackoverflow.com/a/59403566
 
+About the daemon:
+https://github.com/NixOS/nixpkgs/blob/bba8571c39d41ac432fd74922e53737fb11eb85d/pkgs/applications/virtualization/docker/default.nix
+https://github.com/NixOS/nixpkgs/issues/47201
+https://stackoverflow.com/questions/56763989/dockerd-not-running-on-nixos
+
+`systemctl show --property ActiveState docker` BMitch
+https://stackoverflow.com/a/43723174
+
+`systemctl is-active docker`
+https://stackoverflow.com/a/47382158
+
+https://stackoverflow.com/a/52752360
+https://stackoverflow.com/a/43978990
+
 Must see:
 https://askubuntu.com/a/1996
 
+
+Others Refs:
+https://docs.docker.com/engine/install/debian/
+https://stackoverflow.com/questions/29224136/how-to-make-a-script-run-commands-as-root
+https://stackoverflow.com/questions/7875540/how-to-write-multiple-line-string-using-bash-with-variables
+https://github.com/NixOS/nix/issues/1489
+https://github.com/NixOS/nix/issues/1880
 
 # Login
 

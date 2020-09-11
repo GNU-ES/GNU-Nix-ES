@@ -60,3 +60,17 @@ https://github.com/NixOS/nixpkgs-channels/tree/nixos-unstable/pkgs
 https://github.com/NixOS/nix/issues/2363
     https://github.com/NixOS/nixpkgs/issues/51368
 
+https://github.com/NixOS/nixpkgs/blob/master/doc/languages-frameworks/python.section.md#load-environment-from-nix-expression
+
+https://stackoverflow.com/questions/46107199/how-to-run-a-nix-shell-with-a-default-nix-file
+
+MUST see:
+https://msitko.pl/blog/2020/04/22/isolated-ennvironments-with-nix-shell-and-zsh.html
+https://nixos.wiki/wiki/FAQ/Pinning_Nixpkgs
+https://lazamar.github.io/download-specific-package-version-with-nix/
+https://nixos.wiki/wiki/Nixpkgs/Create_and_debug_packages
+https://www.reddit.com/r/NixOS/comments/inyo1i/what_is_a_simple_and_easy_way_to_installbuild_a/
+https://www.reddit.com/r/NixOS/comments/a3w67x/install_a_package_from_a_specific_version_of/
+https://discourse.nixos.org/t/building-nixos-system-with-nix-build-and-a-channel-specifier/4747/2
+https://www.tweag.io/blog/2020-08-12-poetry2nix/
+https://www.youtube.com/watch?v=TbIHRHy7_JM

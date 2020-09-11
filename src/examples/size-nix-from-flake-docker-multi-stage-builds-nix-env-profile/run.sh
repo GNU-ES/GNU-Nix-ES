@@ -15,3 +15,4 @@ docker build \
 "$IMAGE_VERSION" .
 
 docker images | grep $(git rev-parse --short HEAD)
+

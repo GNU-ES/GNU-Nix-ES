@@ -92,3 +92,11 @@ flake.nix
      }
   };
 }
+
+
+https://github.com/nrdxp/nixflk/issues/19
+
+
+Advanced:
+
+https://github.com/NixOS/nix/blob/flakes/flake.nix
