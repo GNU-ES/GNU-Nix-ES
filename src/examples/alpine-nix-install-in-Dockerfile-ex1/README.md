@@ -1,0 +1,35 @@
+
+# First
+
+Run the script:
+`./run.sh`
+
+
+If it works play in the interactive mode:
+
+```
+IMAGE="gnu-nix-es/"$(basename "$(pwd)")""
+VERSION=0.0.1
+
+IMAGE_VERSION="$IMAGE":"$VERSION"
+
+docker build --tag "$IMAGE_VERSION" .
+
+docker run \
+--interactive \
+--tty \
+--rm \
+--user pedro \
+"$IMAGE_VERSION" \
+sh 
+```
+
+Now it has a value for `IMAGE_VERSION`. You can check that with `echo "$IMAGE_VERSION"`.
+
+# TODOS
+
+A need sphinx!
+https://docs.alpinelinux.org/user-handbook/0.1a/Working/post-install.html
+RUN echo '%wheel ALL=(ALL) ALL' > /etc/sudoers.d/wheel
+
+- look the install.sh
