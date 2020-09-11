@@ -28,4 +28,4 @@ do
 done
 
 
-./utils/end-mensage.sh
+./src/utils/end-mensage.sh
