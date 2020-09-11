@@ -22,3 +22,5 @@ docker run \
 --user pedro \
 "$IMAGE_VERSION" \
 sh -c "nix --version && nix-env --install --attr nixpkgs.hello"
+
+./utils/end-mensage.sh
