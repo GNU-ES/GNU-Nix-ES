@@ -4,7 +4,7 @@
 #!/usr/bin/env bash
 git clone https://github.com/GNU-ES/GNU-Nix-ES.git \
 && cd GNU-Nix-ES \
-&& git checkout REVISION \
+&& git checkout ba46b30472a520cdf1d7279c9751f584c1636314 \
 && cd src/examples/alpine-nix-install-in-Dockerfile-ex1 \
 && ./run.sh
 ```
