@@ -7,6 +7,9 @@ cd src/examples
 
 find . -name 'README.md' -exec sed --expression="s:REVISION:$(git rev-parse $(git rev-parse --short HEAD)):g" --in-place  {} +
 
+find src/examples/ -name 'README.md' -exec sed --expression="s:EXAMPLE_PATH:src/examples/$("basename $(pwd)")):g" --in-place  {} +
+
+
 
 #function substitute_BLOCK_with_FILEcontents {
 #  local BLOCK_StartRegexp="${1}"
