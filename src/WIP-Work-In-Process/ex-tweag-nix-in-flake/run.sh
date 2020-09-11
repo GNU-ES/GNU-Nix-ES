@@ -4,7 +4,7 @@
 #set -euxo pipefail
 
 
-IMAGE="gnu-nix-es/"$(basename "$(pwd)")""
+IMAGE="gnu-nix-es/$(git rev-parse --short HEAD)"
 VERSION=0.0.1
 IMAGE_VERSION="$IMAGE":"$VERSION"
 
