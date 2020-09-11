@@ -1,8 +1,8 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
+
 
 # See https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
 set -eux pipefail
-
 
 IMAGE="gnu-nix-es/$(git rev-parse --short HEAD)"
 VERSION=0.0.1
@@ -15,12 +15,17 @@ docker build \
 --tag \
 "$IMAGE_VERSION" .
 
+#docker run \
+#--interactive \
+#--rm \
+#--tty \
+#"$IMAGE_VERSION" \
+#sh -c 'gcc --version'
+
+
 docker run \
---interactive \
---tty \
 --rm \
---user pedro \
 "$IMAGE_VERSION" \
-sh -c "nix --version && nix-env --install --attr nixpkgs.hello"
+sh -c 'gcc --version'
 
 ../.././utils/end-mensage.sh

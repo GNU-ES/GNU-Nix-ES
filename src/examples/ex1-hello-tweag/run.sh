@@ -1,8 +1,7 @@
 #!/usr/bin/env sh
 
 # See https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
-set -eux pipefail
-
+#set -euxo pipefail
 
 IMAGE="gnu-nix-es/$(git rev-parse --short HEAD)"
 VERSION=0.0.1
@@ -15,12 +14,20 @@ docker build \
 --tag \
 "$IMAGE_VERSION" .
 
+
 docker run \
 --interactive \
 --tty \
 --rm \
---user pedro \
-"$IMAGE_VERSION" \
-sh -c "nix --version && nix-env --install --attr nixpkgs.hello"
+"$IMAGE_VERSION" --run 'nix flake show github:GNU-ES/hello'
+
+
+docker run \
+--interactive \
+--tty \
+--rm \
+--workdir /code \
+--volume "$(pwd)":/code \
+"$IMAGE_VERSION" --run './tweag-tutorial.sh'
 
 ../.././utils/end-mensage.sh
