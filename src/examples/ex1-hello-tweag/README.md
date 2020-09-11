@@ -15,7 +15,7 @@ Just open an terminal, if you have docker installed, run:
 #!/usr/bin/env bash
 git clone https://github.com/GNU-ES/GNU-Nix-ES.git \
 && cd GNU-Nix-ES \
-&& git checkout REVISION \
+&& git checkout d09a7bb8f3fc62dc2715c612a38af9a8d260f1e7 \
 && cd EXAMPLE_PATH \
 && ./run.sh
 ```

@@ -1,27 +1,21 @@
-#
-
-
-
-
-
-
-## Docker
-
-Just open an terminal, if you have docker installed, run:
+# First
 
 ```
-docker build --tag pedroregispoar/alpine-python-no-pip . \
-&& echo 'End of build!' \
-&& docker run \
---interactive \
---tty \
---rm \
-pedroregispoar/alpine-python-no-pip \
-sh -c 'python --version'
+#!/usr/bin/env bash
+git clone https://github.com/GNU-ES/GNU-Nix-ES.git \
+&& cd GNU-Nix-ES \
+&& git checkout REVISION \
+&& cd EXAMPLE_PATH \
+&& ./run.sh
 ```
 
+If you already have cloned, run the script:
+`./run.sh`
 
-And that is it, it should have worked!
+
+## Play around
+
+If it works play in the interactive mode
 
 
 ### Install Docker
