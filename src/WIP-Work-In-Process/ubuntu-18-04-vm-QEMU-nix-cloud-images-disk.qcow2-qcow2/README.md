@@ -70,8 +70,7 @@ rm -f disk.qcow2 userdata.qcow2 \
 
 
 ```
-echo \
-&& sudo adduser --quiet --disabled-password --shell /bin/bash --home /home/pedro --gecos "User" pedro \
+sudo adduser --quiet --disabled-password --shell /bin/bash --home /home/pedro --gecos "User" pedro \
 && echo "pedro:123" | sudo chpasswd \
 && sudo usermod -a -G sudo "$USER" \
 && sudo mkdir -m 0755 /nix \
@@ -82,8 +81,7 @@ echo \
 && nix-env --install --attr nixpkgs.docker \
 && docker --version \
 && docker run hello-world \
-&& sudo reboot \
-&& echo
+&& sudo reboot
 ```
 
 Error after reboot:
@@ -100,15 +98,13 @@ See 'docker run --help'.
 
 I have no ideia why the output does not work well, so run one by one (line by line):
 ```
-echo \
-&& systemctl show --property ActiveState docker \
+systemctl show --property ActiveState docker \
 && systemctl is-active docker \
 && systemctl status docker \
 && docker info \
 && service docker status \
 && service docker start \
-&& systemctl start docker \
-&& echo
+&& systemctl start docker
 ```
 
 The deeper that I went for now:
