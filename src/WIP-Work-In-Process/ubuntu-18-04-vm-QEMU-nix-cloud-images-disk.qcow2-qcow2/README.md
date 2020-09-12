@@ -29,7 +29,7 @@ You can see a YouTube video example [Nix Friday - Home manager, (00:01:59 all du
 ```
 git clone https://github.com/GNU-ES/GNU-Nix-ES.git \
 && cd GNU-Nix-ES \
-&& git checkout 310ec283048bd5a27da414f684da91f0a8083814 \
+&& git checkout 29bd8bfdd901fcd3074c373bb448e20880c1d656 \
 && cd src/WIP-Work-In-Process/ubuntu-18-04-vm-QEMU-nix-cloud-images-disk.qcow2-qcow2 \
 && ./wootbuntu 
 ```
