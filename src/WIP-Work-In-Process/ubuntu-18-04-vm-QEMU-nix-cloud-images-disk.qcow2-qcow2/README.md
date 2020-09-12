@@ -3,8 +3,11 @@
 # Usage
 
 
-Note that it is adapted from [what Zimbatm did](https://github.com/zimbatm/nix-experiments/tree/d5c6a2506d5f1a9b60b5c47e5829ff36007aa864/ubuntu-vm)
-thanks, really, it was an amazing improvement, it is as if I had reached the [Iron Age](https://en.wikipedia.org/wiki/Iron_Age) just now! Thank you!!
+Note that it is adapted from [what Zimbatm did](https://github.com/zimbatm/nix-experiments/tree/d5c6a2506d5f1a9b60b5c47e5829ff36007aa864/ubuntu-vm),
+and I have found it because of [this youtube video (I pinned the relevant part, and it is in the correct moment etc, it has 00:02:30)](https://www.youtube.com/embed/2emuPcomQ98?start=90&end=228&version=3)
+ **thanks**, really, it was an amazing improvement, it was is as if I was stuck in the [Iron Age](https://en.wikipedia.org/wiki/Iron_Age), and have find 
+[hardware virtualisation](https://en.wikipedia.org/wiki/Hardware_virtualization) with [KVM](https://en.wikipedia.org/wiki/Hardware_virtualization) using 
+[Nix](https://nixos.org/manual/nix/stable/#ch-about-nix) just now! Thank you!!
 
 For now all that we have a is a Ubuntu VM to test the installer manually.
 Automated tests come next.
@@ -13,8 +16,16 @@ Run ./wootbuntu to start the VM. It will automatically download the ISO and
 setup QEMU. Make sure to have KVM enabled on your machine for it to be fast
 (/dev/kvm should exist on the host).
 
-# Management commands 
+# Install
 
+Note: you may need anable KVM. Refs: ["KVM: disabled by BIOS" error](https://www.linux-kvm.org/page/FAQ#.22KVM:_disabled_by_BIOS.22_error),
+ [Note: You may need to enable virtualization support in your BIOS](https://wiki.archlinux.org/index.php/KVM).
+
+You can see a YouTube video example [Nix Friday - Home manager, (00:01:59 all duration)]( https://www.youtube.com/embed/2emuPcomQ98?start=227&end=346&version=3),
+ he explains about [4.1. Single User Installation](https://nixos.org/manual/nix/stable/#sect-single-user-installation) 
+ and about  [4.2. Multi User Installation](https://nixos.org/manual/nix/stable/#sect-multi-user-installation).
+
+## First clone and open a terminal and run:
 ```
 git clone https://github.com/GNU-ES/GNU-Nix-ES.git \
 && cd GNU-Nix-ES \
@@ -23,12 +34,8 @@ git clone https://github.com/GNU-ES/GNU-Nix-ES.git \
 && ./wootbuntu 
 ```
 
-## Clear and boot again
- 
-```
-rm disk.qcow2 userdata.qcow2 \
-&& ./wootbuntu 
-```
+TODO: bypass this anoying input of user and login, it are going to be really cool to use this VM, 
+like a Docker container, but with hardware virtualization (and I know slower, really slower, but it is ok for me).
 
 ## Test 1
 
@@ -40,22 +47,69 @@ curl -fsSL https://get.docker.com | sudo sh \
 && sudo reboot
 ```
 
+TODO: bypass this anoying interative process of input manually things, pretty sure that it is possible to be done.
+
 ### Test if it works
+
+TODO: merge, somehow, this command with the above install one.
+
 ```
 docker run hello-world
 ```
 
-## Test 2
 
+### Clear and boot again
+ 
+```
+rm -f disk.qcow2 userdata.qcow2 \
+&& ./wootbuntu 
+```
+
+## Test 2, Nix, Poetry, flask (Broken)
+
+
+```
 sudo adduser --quiet --disabled-password --shell /bin/bash --home /home/pedro --gecos "User" pedro \
 && echo "pedro:123" | sudo chpasswd \
 && sudo usermod -a -G sudo "$USER" \
 && sudo mkdir -m 0755 /nix \
-&& chown "$USER" /nix
+&& sudo chown "$USER" /nix \
+&& echo "123" | sudo -S curl -L https://nixos.org/nix/install | sh \
+&& echo '. /home/pedro/.nix-profile/etc/profile.d/nix.sh' >> ~/.bashrc \
+&& . /home/ubuntu/.nix-profile/etc/profile.d/nix.sh \
+&& nix-env --install --attr nixpkgs.python39 nixpkgs.poetry \
+&& python --version \
+&& poetry --version \
+&& poetry new test \
+&& cd test \
+&& poetry add flask \
+&& python -c 'import flask'
+```
 
-echo "123" | sudo -S curl -L https://nixos.org/nix/install | sh \
-&& echo '. /home/pedro/.nix-profile/etc/profile.d/nix.sh' >> ~/.bashrc
+The solution should be to make a nix `shell.nix` with `python` and `poetry` like in [Nix Friday - poetry2nix part 1](https://youtu.be/XfqJulSAPBQ?t=1128)
+ but while restart from scratch still being annoying and boring it is hard to be done (I dont know how to mount a volume like I do in Docker).
 
+
+# Ref and TODOS
+
+
+TODO: [Enabling nested virtualization in KVM](https://docs.fedoraproject.org/en-US/quick-docs/using-nested-virtualization-in-kvm/)
+
+TODO: disable virtual env creation! Look in the poetry docs [local configuration](https://python-poetry.org/docs/configuration/#local-configuration)
+
+TODO: the humanity really need it
+https://python-poetry.org/docs/#enable-tab-completion-for-bash-fish-or-zsh
+
+
+TODO: make a nix `shell.nix` with `python` and `poetry` like in [Nix Friday - poetry2nix part 1](https://youtu.be/XfqJulSAPBQ?t=1128)
+
+TODO:
+git clone https://github.com/NixOS/nixpkgs \
+&& nix-env --file nixpkgs/ --upgrade discord
+
+Refs:
+https://nixos.org/manual/nixpkgs/stable/#chap-quick-start
+https://github.com/NixOS/nixpkgs/pull/97710/files
 
 TODO:
 nix-env --install --attr nixpkgs.docker
@@ -67,6 +121,15 @@ vim install.sh \
 && nix --version \
 && docker --version \
 && docker run --rm hello
+
+
+TODO:
+         Mounting /mnt...
+[FAILED] Failed to mount /mnt.
+See 'systemctl status mnt.mount' for details.
+[DEPEND] Dependency failed for Local File Systems.
+         Starting Set console font and keymap...
+         Starting ebtables ruleset management...
 
 
 

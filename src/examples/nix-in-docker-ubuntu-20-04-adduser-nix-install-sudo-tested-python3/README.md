@@ -10,6 +10,8 @@ git clone https://github.com/GNU-ES/GNU-Nix-ES.git \
 && ./run.sh
 ```
 
+{{ nome }}
+
 If you already have cloned, run the script:
 `./run.sh`
 
