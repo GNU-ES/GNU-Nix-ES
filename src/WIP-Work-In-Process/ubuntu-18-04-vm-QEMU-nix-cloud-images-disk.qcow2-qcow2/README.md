@@ -65,7 +65,76 @@ rm -f disk.qcow2 userdata.qcow2 \
 && ./wootbuntu 
 ```
 
-## Test 2, Nix, Poetry, flask (Broken)
+
+## Test 2, Nix, Docker install (Broken)
+
+
+```
+echo \
+&& sudo adduser --quiet --disabled-password --shell /bin/bash --home /home/pedro --gecos "User" pedro \
+&& echo "pedro:123" | sudo chpasswd \
+&& sudo usermod -a -G sudo "$USER" \
+&& sudo mkdir -m 0755 /nix \
+&& sudo chown "$USER" /nix \
+&& echo "123" | sudo -S curl -L https://nixos.org/nix/install | sh \
+&& echo '. /home/pedro/.nix-profile/etc/profile.d/nix.sh' >> ~/.bashrc \
+&& . /home/ubuntu/.nix-profile/etc/profile.d/nix.sh \
+&& nix-env --install --attr nixpkgs.docker \
+&& docker --version \
+&& docker run hello-world \
+&& sudo reboot \
+&& echo
+```
+
+Error after reboot:
+```
+ubuntu@ubuntu:~$ docker run hello-world
+docker: Cannot connect to the Docker daemon at unix:///var/run/docker.sock. Is the docker daemon runni.
+See 'docker run --help'.
+```
+
+
+## Commands for debug:
+
+### Run one by one
+
+I have no ideia why the output does not work well, so run one by one (line by line):
+```
+echo \
+&& systemctl show --property ActiveState docker \
+&& systemctl is-active docker \
+&& systemctl status docker \
+&& docker info \
+&& service docker status \
+&& service docker start \
+&& systemctl start docker \
+&& echo
+```
+
+The deeper that I went for now:
+```
+ubuntu@ubuntu:~$ systemctl start docker
+==== AUTHENTICATING FOR org.freedesktop.systemd1.manage-units ===
+Authentication is required to start 'docker.service'.
+Authenticating as: Ubuntu (ubuntu)
+Password: 
+==== AUTHENTICATION COMPLETE ===
+Failed to start docker.service: Unit docker.service not found.
+```
+
+**How to solve this?!**
+
+### Refs
+
+`systemctl show --property ActiveState docker` 
+BMitch https://stackoverflow.com/a/43723174
+https://stackoverflow.com/a/47382158
+https://stackoverflow.com/a/52752360
+https://stackoverflow.com/a/43978990
+
+
+
+## Test 3, Nix, Poetry, flask (Broken)
 
 
 ```
@@ -141,15 +210,6 @@ About the daemon:
 https://github.com/NixOS/nixpkgs/blob/bba8571c39d41ac432fd74922e53737fb11eb85d/pkgs/applications/virtualization/docker/default.nix
 https://github.com/NixOS/nixpkgs/issues/47201
 https://stackoverflow.com/questions/56763989/dockerd-not-running-on-nixos
-
-`systemctl show --property ActiveState docker` BMitch
-https://stackoverflow.com/a/43723174
-
-`systemctl is-active docker`
-https://stackoverflow.com/a/47382158
-
-https://stackoverflow.com/a/52752360
-https://stackoverflow.com/a/43978990
 
 Must see:
 https://askubuntu.com/a/1996
