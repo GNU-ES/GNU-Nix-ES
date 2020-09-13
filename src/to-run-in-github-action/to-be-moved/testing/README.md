@@ -3,7 +3,7 @@
 #!/usr/bin/env bash
 git clone https://github.com/GNU-ES/GNU-Nix-ES.git \
 && cd GNU-Nix-ES \
-&& git checkout 0c61cf3e4e40faa18cf1f26a0b1a7073d9e67dca \
+&& git checkout 7ec95d183a37481aa93b59523faa64af31e06a08 \
 && cd src/examples/to-run-in-github-action \
 && ./run.sh
 
