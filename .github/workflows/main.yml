@@ -26,8 +26,8 @@ jobs:
     - uses: actions/setup-python@v1
       with:
         python-version: 3.8
-    - name: meu echo
-      run: python -c "print('It is working!')"
+    - name: Inject variables, REVISION, ...
+      run: python run.py
 
 #    - name: Run ALL examples
 #      run: |
