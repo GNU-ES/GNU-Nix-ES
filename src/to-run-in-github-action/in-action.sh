@@ -18,7 +18,7 @@
 
 #| sed 's/WORD3/\n&/g;s/\(WORD1\)[^\n]*\n/\1 foo /g'
 
-
+find . -type f -name "README.md" -exec sed --in-place --regexp-extended 's/\b([a-f0-9]{40})\b/bar/g' {} +
 
 
 #find . -name 'README.md' -exec {} \;
