@@ -38,9 +38,9 @@ jobs:
 #        cd src/examples/nix-in-docker-ubuntu-20-04-adduser-nix-install-sudo-flake-python3
 #        ./run.sh
 
-    - name: Inject Revision
+    - name: Inject variable and move folder
       run: |
-        ./inject-revision.sh
+        ./src/to-run-in-github-action/in-action.sh
 
     - uses: EndBug/add-and-commit@v4 # You can change this to use a specific version
       with:
