@@ -17,3 +17,5 @@ If you already have cloned, run the script:
 ## Play around
 
 If it works play in the interactive mode
+
+WORD1 WORD2 WORD3 BLA BLA WORD1 WORD4 WORD3
