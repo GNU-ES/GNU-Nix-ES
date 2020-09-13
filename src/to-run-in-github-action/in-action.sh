@@ -14,7 +14,12 @@
 #
 #find . -name 'README.md' -exec {} \;
 
-find . -name 'README.md' -exec cat {} | sed 's/WORD3/\n&/g;s/\(WORD1\)[^\n]*\n/\1 foo /g'
+#find . -name 'README.md' -exec cat {} \;
+
+#| sed 's/WORD3/\n&/g;s/\(WORD1\)[^\n]*\n/\1 foo /g'
+
+
+
 
 #find . -name 'README.md' -exec {} \;
 
