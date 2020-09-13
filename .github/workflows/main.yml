@@ -40,7 +40,7 @@ jobs:
 
     - name: Inject variable and move folder
       run: |
-        ./src/to-run-in-github-action/in-action.sh
+        ./GNU-Nix-ES/src/to-run-in-github-action/in-action.sh
 
     - uses: EndBug/add-and-commit@v4 # You can change this to use a specific version
       with:
