@@ -12,3 +12,6 @@ RUN cp --no-dereference --recursive --verbose $(nix-store --query --requisites /
 FROM ubuntu:20.04
 COPY --from=0 /output/store /nix/store
 COPY --from=0 /output/profile/ /usr/local/
+
+RUN python --version && gcc --version
+

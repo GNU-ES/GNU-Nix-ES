@@ -1,0 +1,24 @@
+#!/usr/bin/env sh
+
+# See https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
+set -eux pipefail
+
+IMAGE='gnu-nix-es/ex4-flake-python'
+VERSION=0.0.1
+
+IMAGE_VERSION="$IMAGE":"$VERSION"
+
+docker build --tag "$IMAGE_VERSION" .
+
+#docker run \
+#--interactive \
+#--tty \
+#--rm \
+#"$IMAGE_VERSION" --run 'nix flake show github:GNU-ES/hello'
+
+
+#docker run \
+#--interactive \
+#--tty \
+#--rm \
+#"$IMAGE_VERSION" bash -c 'python --version && gcc --version'

@@ -10,7 +10,7 @@ RUN apk add --no-cache shadow \
 
 FROM lnl7/nix:2020-06-07 as BUILD_PYTHON
 
-COPY build/ /output/store/
+# COPY build/ /output/store/
 
 WORKDIR /output/store
 
@@ -24,8 +24,8 @@ RUN nix-env --profile /output/profile --install --attr \
 #    nixpkgs.xorg.libICE \
 #    nixpkgs.glib
 
-#RUN nix-env --profile /output/profile --file many.nix --install
-RUN nix-env --profile /output/profile --install --file default2.nix
+RUN nix-env --profile /output/profile --file many.nix --install
+# RUN nix-env --profile /output/profile --install --file default2.nix
 
 RUN cp --no-dereference --recursive --verbose $(nix-store --query --requisites /output/profile) /output/store
 
@@ -51,12 +51,12 @@ RUN cp --no-dereference --recursive --verbose $(nix-store --query --requisites /
 
 FROM alpine:3.12.0
 
-COPY --from=BUILD_USER /etc/group /etc/group
-COPY --from=BUILD_USER /etc/passwd /etc/passwd
-COPY --from=BUILD_USER /etc/shadow /etc/shadow
-
-COPY --from=BUILD_PYTHON /output/store /nix/store
-COPY --from=BUILD_PYTHON /output/profile/ /usr/local/
+# COPY --from=BUILD_USER /etc/group /etc/group
+# COPY --from=BUILD_USER /etc/passwd /etc/passwd
+# COPY --from=BUILD_USER /etc/shadow /etc/shadow
+#
+# COPY --from=BUILD_PYTHON /output/store /nix/store
+# COPY --from=BUILD_PYTHON /output/profile/ /usr/local/
 
 #COPY --from=BUILD_APP ./nix/store/ihy2vly61ndky6qlv1q4dfdiv28vszkh-python3-3.7.7/lib/python3.7/site-packages/ ./nix/store/ihy2vly61ndky6qlv1q4dfdiv28vszkh-python3-3.7.7/lib/python3.7/site-packages/
 

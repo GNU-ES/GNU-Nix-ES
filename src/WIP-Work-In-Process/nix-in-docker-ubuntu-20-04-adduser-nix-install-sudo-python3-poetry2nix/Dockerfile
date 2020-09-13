@@ -1,24 +1,3 @@
-FROM nixos/nix:2.3.4 as builder
-
-RUN nix-env --file '<nixpkgs>' --install --attr man
-
-WORKDIR /output/store
-
-COPY . .
-
-RUN nix-env --profile /output/profile --install --attr nixpkgs.python39Full nixpkgs.gcc-unwrapped
-# RUN nix-env --profile /output/profile --file default.nix --install
-
-#RUN cp -av $(nix-store -qR /output/profile) /output/store
-#RUN cp --archive --verbose $(nix-store -qR /output/profile) /output/store
-#RUN cp -dpR --verbose $(nix-store -qR /output/profile) /output/store
-RUN cp --no-dereference --recursive --verbose $(nix-store --query --requisites /output/profile) /output/store
-
-
-# FROM debian:buster-slim as prod
-# COPY --from=0 /output/store /nix/store
-# COPY --from=0 /output/profile/ /usr/local/
-
 FROM ubuntu:20.04
 
 RUN apt-get update \
@@ -50,16 +29,15 @@ RUN echo "123" | sudo -S curl -L https://nixos.org/nix/install | sh \
 
 RUN /nix/var/nix/profiles/per-user/pedro/profile/bin/nix-env --install --attr nixpkgs.commonsCompress nixpkgs.gnutar nixpkgs.lzma.bin nixpkgs.git
 
-# RUN mkdir -p ~/.config/nix/nix \
-#  && echo 'experimental-features = nix-command flakes ca-references' >> ~/.config/nix/nix.conf
+RUN mkdir -p ~/.config/nix/nix \
+ && echo 'experimental-features = nix-command flakes ca-references' >> ~/.config/nix/nix.conf
 
 # Why there is no long form of the flag -I in `nix-shell -I` ?
-# RUN /nix/var/nix/profiles/per-user/pedro/profile/bin/nix-shell -I nixpkgs=channel:nixos-20.03 --packages nixFlakes
+RUN /nix/var/nix/profiles/per-user/pedro/profile/bin/nix-shell -I nixpkgs=channel:nixos-20.03 --packages nixFlakes
 
 # ENTRYPOINT ["nix-shell", "-I", "nixpkgs=channel:nixos-20.03", "--packages", "nixFlakes"]
 
-COPY --from=0 /output/store /nix/store
-COPY --from=0 /output/profile/ /usr/local/
+
 
 ONBUILD ENV \
     ENV=/etc/profile \

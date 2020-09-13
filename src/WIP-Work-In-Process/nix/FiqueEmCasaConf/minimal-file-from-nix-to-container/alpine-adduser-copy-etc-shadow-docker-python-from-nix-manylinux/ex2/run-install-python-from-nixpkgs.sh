@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-docker build --file Dockerfile.install-python-from-nixpkgs --tag pedroregispoar/alpine-adduser-copy-etc-shadow-docker-python-from-nix-manylinux .
+docker build --tag pedroregispoar/alpine-adduser-copy-etc-shadow-docker-python-from-nix-manylinux .
 
 
 docker run \
