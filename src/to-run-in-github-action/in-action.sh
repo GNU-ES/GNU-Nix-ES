@@ -34,6 +34,7 @@ else
     echo "$(pwd)"
     ls -la
     ./inject-revision-and-folder-name.sh "$FOLDER"
+    ls -la
     ./move-to-examples.sh "$FOLDER"
   else
 #      echo command returned some error
