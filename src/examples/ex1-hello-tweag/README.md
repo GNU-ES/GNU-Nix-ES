@@ -14,7 +14,7 @@ Just open an terminal, if you have docker installed, run:
 ```
 git clone https://github.com/GNU-ES/GNU-Nix-ES.git \
 && cd GNU-Nix-ES \
-&& git checkout 04625e4723a118309ab5c097748f5e0359ca08b4 \
+&& git checkout a192c21fe14c0139df83ec37afe04018ec5614b3 \
 && cd src/examples/ex1-hello-tweag \
 && ./run.sh
 ```
