@@ -8,7 +8,7 @@ REVISION=$(git rev-parse $(git rev-parse --short HEAD))
 #ls -la
 #cd "$1"/${2:-''}
 #https://stackoverflow.com/a/3601734
-echo "$1"/${2:-''}
+cd "$1"/${2:-''}
 
 find . -type f -name "README.md" -exec sed --in-place --regexp-extended "s/\b([a-f0-9]{40})\b/"$REVISION"/g" {} +
 
