@@ -14,12 +14,12 @@ docker build \
 "$IMAGE_VERSION" .
 
 
-#docker run \
-#--interactive \
-#--tty \
-#--rm \
-#"$IMAGE_VERSION" --run 'nix flake show github:GNU-ES/hello'
-#
+docker run \
+--interactive \
+--tty \
+--rm \
+"$IMAGE_VERSION" --run 'nix flake show github:GNU-ES/hello'
+
 #
 #docker run \
 #--interactive \
