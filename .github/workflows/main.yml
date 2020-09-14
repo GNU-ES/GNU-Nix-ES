@@ -85,7 +85,7 @@ jobs:
     - name: Inject variables after run!
       run: |
 #        ls -la src/to-run-in-github-action/
-        ccd src/to-run-in-github-action/
+        cd src/to-run-in-github-action/
         ./inject-revision-and-folder-name.sh "$(cat folder-name.txt)" ../examples
 
     - uses: EndBug/add-and-commit@v4 # You can change this to use a specific version
