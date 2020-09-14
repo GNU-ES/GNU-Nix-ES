@@ -6,8 +6,9 @@
 echo "$(pwd)"
 cd src/to-run-in-github-action/
 echo "$(pwd)"
-#."$(pwd)"/to-run-in-github-action/check-run.sh
 
+
+# https://stackoverflow.com/a/10605775
 FOLDER="$(find to-be-moved -mindepth 1 -maxdepth 1 -type d | cut --delimiter='/' --field=2)"
 #echo DEGUG "$FOLDER"
 
