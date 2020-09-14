@@ -5,4 +5,4 @@
 
 git add .
 
-git commit --mensage "Add example:$1"
+git commit --message "Add example:$1"

@@ -30,4 +30,4 @@ IMAGE_VERSION="$IMAGE":"$VERSION"
 #--volume "$(pwd)":/code \
 #"$IMAGE_VERSION" --run './tweag-tutorial.sh'
 
-../.././utils/end-mensage.sh
+#../.././utils/end-mensage.sh
