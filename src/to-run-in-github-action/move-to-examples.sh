@@ -4,5 +4,5 @@
 #set -euxo pipefail
 
 cd to-be-moved
-echo "Moving "$1" to examples."
-mv "$1" ../../examples/
+echo "Moving "$1" to ${2:-'examples'}."
+mv "$1" ../../${2:-'examples'}/
