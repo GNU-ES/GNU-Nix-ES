@@ -4,7 +4,7 @@
 #!/usr/bin/env bash
 git clone https://github.com/GNU-ES/GNU-Nix-ES.git \
 && cd GNU-Nix-ES \
-&& git checkout 1df7e7014d9aed5421f822d802ea52e268ee2dec \
+&& git checkout fbd10b24fef93ff6f7a08449f9244f634e58b596 \
 && cd src/examples/ex4-flake-python \
 && cd ex4-flake-python \
 && ./run.sh

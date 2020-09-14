@@ -5,7 +5,7 @@
 
 REVISION=$(git rev-parse $(git rev-parse --short HEAD))
 
-cd to-be-moved
+cd to-be-moved/"$1"
 
 find . -type f -name "README.md" -exec sed --in-place --regexp-extended "s/\b([a-f0-9]{40})\b/"$REVISION"/g" {} +
 
