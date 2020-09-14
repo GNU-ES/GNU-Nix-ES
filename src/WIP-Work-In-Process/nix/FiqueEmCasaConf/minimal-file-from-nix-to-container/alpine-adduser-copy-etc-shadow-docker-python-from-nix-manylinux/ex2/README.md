@@ -8,4 +8,4 @@ Para checar:
 Então deve ser possivel fazer no `Nix`.
 
 
-https://github.com/docker-library/python/blob/83626329c2beef0ea644fb0f5f30cd4bc979a008/3.8/alpine3.12/Dockerfile
+https://github.com/docker-library/python/blob/2b480d7e63667db153452545f9f450e6e0ac1bdf/3.8/alpine3.12/Dockerfile

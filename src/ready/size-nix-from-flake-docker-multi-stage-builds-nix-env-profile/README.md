@@ -4,7 +4,7 @@
 #!/usr/bin/env bash
 git clone https://github.com/GNU-ES/GNU-Nix-ES.git \
 && cd GNU-Nix-ES \
-&& git checkout 83626329c2beef0ea644fb0f5f30cd4bc979a008 \
+&& git checkout 2b480d7e63667db153452545f9f450e6e0ac1bdf \
 && cd src/examples/ \
 && cd size-nix-from-flake-docker-multi-stage-builds-nix-env-profile \
 && ./run.sh
