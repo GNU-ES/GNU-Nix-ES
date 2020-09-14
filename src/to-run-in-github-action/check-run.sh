@@ -5,6 +5,8 @@
 
 cd to-be-moved
 
+ls -ls
+
 # https://stackoverflow.com/a/10605775
 FOLDER_NAME="$(find . -mindepth 1 -maxdepth 1 -type d | cut --delimiter='/' --field=2)"
 
