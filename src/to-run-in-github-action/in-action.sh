@@ -26,15 +26,17 @@ else
 #  var="$(./check-run.sh "$FOLDER" 2>&1)"
 #  echo $var
 
-  if ./check-run.sh "$FOLDER"; then
+  ./check-run.sh "$FOLDER"
+  
+  if $?; then
       echo command returned true
   else
       echo command returned some error
   fi
 
-  ./commit.sh "$FOLDER"
-
-  ./inject-revision-and-folder-name.sh "$FOLDER"
-
-  ./move-to-examples.sh "$FOLDER"
+#  ./commit.sh "$FOLDER"
+#
+#  ./inject-revision-and-folder-name.sh "$FOLDER"
+#
+#  ./move-to-examples.sh "$FOLDER"
 fi
