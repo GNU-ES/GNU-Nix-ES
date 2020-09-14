@@ -5,6 +5,6 @@
 
 ls -la
 
-./inject-revision-and-folder-name.sh ../examples "$(cat folder-name.txt)"
+./src/to-run-in-github-action/inject-revision-and-folder-name.sh ../examples "$(cat folder-name.txt)"
 
 rm -rf folder-name.txt
