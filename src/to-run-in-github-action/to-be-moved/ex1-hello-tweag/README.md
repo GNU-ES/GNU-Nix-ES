@@ -12,12 +12,10 @@ creator was [Armijn Hemel](https://github.com/armijnhemel/) ]) have wrote
 Just open an terminal, if you have docker installed, run:
 
 ```
-#!/usr/bin/env bash
 git clone https://github.com/GNU-ES/GNU-Nix-ES.git \
 && cd GNU-Nix-ES \
 && git checkout b6b55764b07087a2567d636da433b3166ae194bf \
 && cd src/examples/ex1-hello-tweag \
-&& cd ex1-hello-tweag \
 && ./run.sh
 ```
 
