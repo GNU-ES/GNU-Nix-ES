@@ -7,7 +7,7 @@
 ./docker-build.sh
 
 exit_code=$?
-echo 'The exite code:'$exit_code
+echo 'The exit_code:'$exit_code
 
 if [ $exit_code -eq 0 ] ; then
   echo 'The ./run.sh seens to have worked correcly.'
