@@ -1,16 +1,13 @@
 #!/usr/bin/env bash
 
 # See https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
-#set -euxo pipefail
+#set -eux pipefail
 
-cd to-be-moved
-
-ls -ls
-
-cd "$1"
-
-ls -ls
+echo "$(pwd)"
+ls -la
+cd to-be-moved/"$1"
+echo "$(pwd)"
+ls -la
 
 ./run.sh
 
-cd ..
