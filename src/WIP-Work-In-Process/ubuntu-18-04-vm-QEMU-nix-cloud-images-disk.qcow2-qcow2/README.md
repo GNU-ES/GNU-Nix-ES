@@ -3,7 +3,7 @@
 # Usage
 
 
-Note that it is adapted from [what Zimbatm did](https://github.com/zimbatm/nix-experiments/tree/d5c6a2506d5f1a9b60b5c47e5829ff36007aa864/ubuntu-vm),
+Note that it is adapted from [what Zimbatm did](https://github.com/zimbatm/nix-experiments/tree/053a5f241c81afe647dc0ddda20b4942050aa1b9/ubuntu-vm),
 and I have found it because of [this youtube video (I pinned the relevant part, and it is in the correct moment etc, it has 00:02:30)](https://www.youtube.com/embed/2emuPcomQ98?start=90&end=228&version=3)
  **thanks**, really, it was an amazing improvement, it was is as if I was stuck in the [Iron Age](https://en.wikipedia.org/wiki/Iron_Age), and have find 
 [hardware virtualisation](https://en.wikipedia.org/wiki/Hardware_virtualization) with [KVM](https://en.wikipedia.org/wiki/Hardware_virtualization) using 
@@ -29,7 +29,7 @@ You can see a YouTube video example [Nix Friday - Home manager, (00:01:59 all du
 ```
 git clone https://github.com/GNU-ES/GNU-Nix-ES.git \
 && cd GNU-Nix-ES \
-&& git checkout 29bd8bfdd901fcd3074c373bb448e20880c1d656 \
+&& git checkout 053a5f241c81afe647dc0ddda20b4942050aa1b9 \
 && cd src/WIP-Work-In-Process/ubuntu-18-04-vm-QEMU-nix-cloud-images-disk.qcow2-qcow2 \
 && ./wootbuntu 
 ```
@@ -203,7 +203,7 @@ https://serverfault.com/questions/632718/access-pty-login-prompt-in-vm
 https://stackoverflow.com/a/59403566
 
 About the daemon:
-https://github.com/NixOS/nixpkgs/blob/bba8571c39d41ac432fd74922e53737fb11eb85d/pkgs/applications/virtualization/docker/default.nix
+https://github.com/NixOS/nixpkgs/blob/053a5f241c81afe647dc0ddda20b4942050aa1b9/pkgs/applications/virtualization/docker/default.nix
 https://github.com/NixOS/nixpkgs/issues/47201
 https://stackoverflow.com/questions/56763989/dockerd-not-running-on-nixos
 

@@ -14,7 +14,7 @@ Just open an terminal, if you have docker installed, run:
 ```
 git clone https://github.com/GNU-ES/GNU-Nix-ES.git \
 && cd GNU-Nix-ES \
-&& git checkout 113b03f863d0bec76671f1d1c2cc751fd06307e8 \
+&& git checkout 053a5f241c81afe647dc0ddda20b4942050aa1b9 \
 && cd src/examples/ex1-hello-tweag \
 && ./run.sh
 ```
@@ -113,6 +113,6 @@ https://stackoverflow.com/a/40534558
 import re
 
 
-string = '&& git checkout 113b03f863d0bec76671f1d1c2cc751fd06307e8 \\'
+string = '&& git checkout 053a5f241c81afe647dc0ddda20b4942050aa1b9 \\'
 
 print(re.sub(r'(?<=^&& git checkout \b).*(?=\b)', 'WWW', string))
