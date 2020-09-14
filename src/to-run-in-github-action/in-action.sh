@@ -22,25 +22,22 @@ else
   echo "$FOLDER" > "folder-name.txt"
 
 #  ./check-run.sh "$FOLDER"
-  #https://unix.stackexchange.com/a/132514
+#  https://unix.stackexchange.com/a/132514
 #  var="$(./check-run.sh "$FOLDER" 2>&1)"
 #  echo $var
 
   ./check-run.sh "$FOLDER"
   exit_code=$?
+
   if [ $exit_code -eq 0 ]; then
 #    echo command returned true
-    echo "$(pwd)"
-    ls -la
-#    ./commit.sh "$FOLDER"
-
+#    echo "$(pwd)"
+#    ls -la
     ./inject-revision-and-folder-name.sh "$FOLDER"
-
     ./move-to-examples.sh "$FOLDER"
   else
-      echo command returned some error
+#      echo command returned some error
     ./inject-revision-and-folder-name.sh "$FOLDER"
-
     ./move-to-examples.sh "$FOLDER" broken
   fi
 fi
