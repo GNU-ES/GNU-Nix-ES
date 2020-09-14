@@ -29,7 +29,7 @@ else
   ./check-run.sh "$FOLDER"
   exit_code=$?
   if [ $exit_code -eq 0 ]; then
-      echo command returned true
+#    echo command returned true
     ./commit.sh "$FOLDER"
 
     ./inject-revision-and-folder-name.sh "$FOLDER"
