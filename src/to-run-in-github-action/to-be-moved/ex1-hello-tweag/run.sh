@@ -3,12 +3,13 @@
 ## See https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
 #set -eux pipefail
 
+# Capture $1 if it it given
+USE_TYY=$1
+
 IMAGE="gnu-nix-es/$(git rev-parse --short HEAD)"
 VERSION=0.0.1
 IMAGE_VERSION="$IMAGE":"$VERSION"
 
-
-docker -H localhost:2375 run -it -v /mnt/c/code:/var/app -w "/var/app" centos:7
 
 docker build \
 --label org.opencontainers.image.created=$(date -u +"%Y-%m-%dT%H:%M:%SZ") \
@@ -19,9 +20,10 @@ docker build \
 
 docker run \
 --interactive \
---tty \
+${USE_TTY:-''} \
 --rm \
-"$IMAGE_VERSION" --run 'nix flake show github:GNU-ES/hello'
+"$IMAGE_VERSION" --run 'ls -la'
+#"$IMAGE_VERSION" --run 'nix flake show github:GNU-ES/hello'
 
 #
 #docker run \
