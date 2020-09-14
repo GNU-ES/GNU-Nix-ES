@@ -23,8 +23,14 @@ else
 
 #  ./check-run.sh "$FOLDER"
   #https://unix.stackexchange.com/a/132514
-  var="$(./check-run.sh "$FOLDER" 2>&1)"
-  echo $var
+#  var="$(./check-run.sh "$FOLDER" 2>&1)"
+#  echo $var
+
+  if ./check-run.sh "$FOLDER"; then
+      echo command returned true
+  else
+      echo command returned some error
+  fi
 
   ./commit.sh "$FOLDER"
 
