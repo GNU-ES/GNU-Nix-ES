@@ -30,6 +30,8 @@ else
   exit_code=$?
   if [ $exit_code -eq 0 ]; then
 #    echo command returned true
+    echo "$(pwd)"
+    ls -la
     ./commit.sh "$FOLDER"
 
     ./inject-revision-and-folder-name.sh "$FOLDER"
