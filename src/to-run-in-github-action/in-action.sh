@@ -21,7 +21,10 @@ else
 
   echo "$FOLDER" > "folder-name.txt"
 
-  ./check-run.sh "$FOLDER"
+#  ./check-run.sh "$FOLDER"
+  #https://unix.stackexchange.com/a/132514
+  var="$(./check-run.sh "$FOLDER" 2>&1)"
+  echo $var
 
   ./commit.sh "$FOLDER"
 
