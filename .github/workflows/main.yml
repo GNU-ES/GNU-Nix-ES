@@ -23,12 +23,6 @@ jobs:
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
     - uses: actions/checkout@v2
 
-    - uses: actions/setup-python@v1
-      with:
-        python-version: 3.8
-    - name: Inject variables, REVISION, ...
-      run: python run.py
-
 #    - name: Run ALL examples
 #      run: |
 #        ./run.sh
