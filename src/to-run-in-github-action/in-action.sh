@@ -30,15 +30,17 @@ else
   exit_code=$?
 
   if [ $exit_code -eq 0 ]; then
-#    echo command returned true
-    echo "$(pwd)"
+    echo 'The ./run.sh seens to have worked correcly.'
+    echo 'The current diretory is: '"$(pwd)"
     ls -la
     ./inject-revision-and-folder-name.sh "$FOLDER"
     ls -la
     ./move-to-examples.sh "$FOLDER"
   else
-#      echo command returned some error
+    echo 'The ./run.sh may have failed.'
+    echo 'Inject revision for failed.'
     ./inject-revision-and-folder-name.sh "$FOLDER"
+    echo 'Moving to broken folder.'
     ./move-to-examples.sh "$FOLDER" broken
   fi
 fi
