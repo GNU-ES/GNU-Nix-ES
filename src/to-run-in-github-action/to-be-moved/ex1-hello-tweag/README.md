@@ -104,15 +104,3 @@ https://github.com/nrdxp/nixflk/issues/19
 Advanced:
 
 https://github.com/NixOS/nix/blob/flakes/flake.nix
-
-
-
-# DOING:
-https://stackoverflow.com/a/40534558
-
-import re
-
-
-string = '&& git checkout 70ee555b31a26d0e014007d2b9f4b0a2accfa020 \\'
-
-print(re.sub(r'(?<=^&& git checkout \b).*(?=\b)', 'WWW', string))
