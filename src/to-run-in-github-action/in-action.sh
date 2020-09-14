@@ -32,7 +32,7 @@ else
 #    echo command returned true
     echo "$(pwd)"
     ls -la
-    ./commit.sh "$FOLDER"
+#    ./commit.sh "$FOLDER"
 
     ./inject-revision-and-folder-name.sh "$FOLDER"
 
