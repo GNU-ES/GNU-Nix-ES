@@ -21,9 +21,9 @@ else
 
   ./check-run.sh "$FOLDER"
 
-  ./move-to-examples.sh "$FOLDER"
-
-  ./commit.sh "$FOLDER"
-
-  ./inject-revision-and-folder-name.sh "$FOLDER"
+#  ./move-to-examples.sh "$FOLDER"
+#
+#  ./commit.sh "$FOLDER"
+#
+#  ./inject-revision-and-folder-name.sh "$FOLDER"
 fi
