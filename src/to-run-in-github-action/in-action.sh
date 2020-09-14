@@ -27,8 +27,8 @@ else
 #  echo $var
 
   ./check-run.sh "$FOLDER"
-  
-  if $?; then
+  exit_code=$?
+  if [ $exit_code -eq 0 ]; then
       echo command returned true
   else
       echo command returned some error
