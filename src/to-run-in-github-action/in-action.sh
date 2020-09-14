@@ -31,8 +31,8 @@ else
 
   if [ $exit_code -eq 0 ]; then
 #    echo command returned true
-#    echo "$(pwd)"
-#    ls -la
+    echo "$(pwd)"
+    ls -la
     ./inject-revision-and-folder-name.sh "$FOLDER"
     ./move-to-examples.sh "$FOLDER"
   else
