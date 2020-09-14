@@ -64,7 +64,7 @@ jobs:
 
         # The message for the commit
         # Default: 'Commit from GitHub Actions'
-        message: 'Add REVISION'
+#        message: 'Add REVISION'
 
     #    # Name of the branch to use, if different from the one that triggered the workflow
     #    # Default: the branch that triggered the workflow (from GITHUB_REF)
@@ -76,7 +76,7 @@ jobs:
 
 #        # Name of the tag to add to the new commit (see the paragraph below for more info)
 #        # Default: ''
-#        tag: "$(git rev-parse $(git rev-parse --short HEAD))"
+        tag: "$(git rev-parse $(git rev-parse --short HEAD))"
 
       env:
         # This is necessary in order to push a commit to the repo

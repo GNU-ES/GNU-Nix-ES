@@ -15,3 +15,6 @@ FOLDER_NAME="$1"
 
 # https://stackoverflow.com/a/48546369
 find . -type f -name "README.md" -exec sed --in-place --regexp-extended "s/&& cd src\/examples[^ ]*/\&\& cd src\/examples\/"$FOLDER_NAME"/g" {} +
+
+
+git log .. -p -- src/examples > changes.patch
