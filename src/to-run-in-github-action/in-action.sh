@@ -19,6 +19,8 @@ else
 
   echo "$FOLDER"
 
+#  echo "$FOLDER" > "folder-name.txt"
+
   ./check-run.sh "$FOLDER"
 
   ./inject-revision-and-folder-name.sh "$FOLDER"
