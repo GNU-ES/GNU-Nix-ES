@@ -5,9 +5,18 @@
 
 REVISION=$(git rev-parse $(git rev-parse --short HEAD))
 
-cd to-be-moved/"$1"
+cd "$1"
+
+echo "$1"${2:-''}
 
 find . -type f -name "README.md" -exec sed --in-place --regexp-extended "s/\b([a-f0-9]{40})\b/"$REVISION"/g" {} +
+
+
+#if [ ! -z $2 ]; then
+#    echo 'up'
+#else
+#    echo 'down'
+#fi
 
 
 FOLDER_NAME="$1"

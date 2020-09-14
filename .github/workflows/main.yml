@@ -32,9 +32,9 @@ jobs:
 #        cd src/examples/nix-in-docker-ubuntu-20-04-adduser-nix-install-sudo-flake-python3
 #        ./run.sh
 
-#    - name: Inject variable and move folder
-#      run: |
-#        ./src/to-run-in-github-action/in-action.sh
+    - name: Inject variable and move folder
+      run: |
+        ./src/to-run-in-github-action/in-action.sh
 
     - uses: EndBug/add-and-commit@v4 # You can change this to use a specific version
       with:
@@ -82,5 +82,23 @@ jobs:
         # This is necessary in order to push a commit to the repo
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Leave this line unchanged
 
+    - name: Inject variable and move folder
       run: |
         ./src/to-run-in-github-action/in-action.sh
+
+    - uses: EndBug/add-and-commit@v4 # You can change this to use a specific version
+      with:
+    #    # The arguments for the `git add` command (see the paragraph below for more info)
+    #    # Default: '.'
+    #    add: 'src'
+
+        # The name of the user that will be displayed as the author of the commit
+        # Default: author of the commit that triggered the run
+        author_name: GNU-Nix-ES
+
+        # The email of the user that will be displayed as the author of the commit
+        # Default: author of the commit that triggered the run
+        author_email: pedroregispoar@gmail.com
+      env:
+        # This is necessary in order to push a commit to the repo
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Leave this line unchanged

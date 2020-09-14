@@ -3,9 +3,7 @@
 # See https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
 #set -euxo pipefail
 
-git config --global user.email "pedroalencarregis@hotmail.com"
-git config --global user.name "PedroRegisPOAR"
 
-git add .
+./inject-revision-and-folder-name.sh ../examples "$(cat folder-name.txt)"
 
-git commit --message "Add example:$1"
+rm -rf folder-name.txt
