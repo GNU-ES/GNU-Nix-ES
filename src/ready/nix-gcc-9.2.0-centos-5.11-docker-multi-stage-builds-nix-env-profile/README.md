@@ -4,7 +4,7 @@
 #!/usr/bin/env bash
 git clone https://github.com/GNU-ES/GNU-Nix-ES.git \
 && cd GNU-Nix-ES \
-&& git checkout 2b480d7e63667db153452545f9f450e6e0ac1bdf \
+&& git checkout 4be4d491780c476d79e42f1d8750244665db450e \
 && cd src/examples/ \
 && cd nix-gcc-9.2.0-centos-5.11-docker-multi-stage-builds-nix-env-profile \
 && ./run.sh
