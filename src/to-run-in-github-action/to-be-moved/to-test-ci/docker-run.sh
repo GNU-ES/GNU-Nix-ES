@@ -9,10 +9,11 @@
 exit_code=$?
 echo 'The exite code:'$exit_code
 
-if [ $exit_code -eq 1 ] ; then
+if [ $exit_code -eq 0 ] ; then
   echo 'The ./run.sh seens to have worked correcly.'
 else
   echo 'The ./run.sh may have failed.'
+  exit 99
 fi
 
 IMAGE="gnu-nix-es/$(git rev-parse --short HEAD)"
