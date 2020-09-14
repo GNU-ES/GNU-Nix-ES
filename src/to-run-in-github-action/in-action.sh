@@ -30,13 +30,17 @@ else
   exit_code=$?
   if [ $exit_code -eq 0 ]; then
       echo command returned true
+    ./commit.sh "$FOLDER"
+
+    ./inject-revision-and-folder-name.sh "$FOLDER"
+
+    ./move-to-examples.sh "$FOLDER"
   else
       echo command returned some error
+#    ./commit.sh "$FOLDER"
+#
+#    ./inject-revision-and-folder-name.sh "$FOLDER"
+#
+#    ./move-to-examples.sh "$FOLDER"
   fi
-
-#  ./commit.sh "$FOLDER"
-#
-#  ./inject-revision-and-folder-name.sh "$FOLDER"
-#
-#  ./move-to-examples.sh "$FOLDER"
 fi
