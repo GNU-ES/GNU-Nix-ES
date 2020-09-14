@@ -9,7 +9,7 @@ set -eux pipefail
 exit_code=$?
 echo 'The exit_code:'$exit_code
 
-if [ $exit_code -eq 0 ] ; then
+if [ $exit_code -ne 0 ] ; then
   echo 'The ./run.sh seens to have worked correcly.'
 else
   echo 'The ./run.sh may have failed.'
