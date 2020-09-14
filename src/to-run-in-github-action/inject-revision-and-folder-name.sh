@@ -5,8 +5,8 @@
 
 REVISION=$(git rev-parse $(git rev-parse --short HEAD))
 
-#cd "$1"
-
+#ls -la
+cd "$1"/${2:-''}
 #https://stackoverflow.com/a/3601734
 #echo "$1"${2:-''}
 
