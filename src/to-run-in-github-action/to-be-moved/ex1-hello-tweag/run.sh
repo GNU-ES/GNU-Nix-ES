@@ -7,6 +7,9 @@ IMAGE="gnu-nix-es/$(git rev-parse --short HEAD)"
 VERSION=0.0.1
 IMAGE_VERSION="$IMAGE":"$VERSION"
 
+
+docker -H localhost:2375 run -it -v /mnt/c/code:/var/app -w "/var/app" centos:7
+
 docker build \
 --label org.opencontainers.image.created=$(date -u +"%Y-%m-%dT%H:%M:%SZ") \
 --label org.opencontainers.image.revision=$(git rev-parse $(git rev-parse --short HEAD)) \
