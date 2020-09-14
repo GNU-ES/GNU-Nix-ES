@@ -3,8 +3,6 @@
 ## See https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
 #set -eux pipefail
 
-# Capture $1 if it it given
-USE_TYY=$1
 
 IMAGE="gnu-nix-es/$(git rev-parse --short HEAD)"
 VERSION=0.0.1

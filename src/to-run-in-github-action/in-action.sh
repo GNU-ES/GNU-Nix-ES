@@ -28,7 +28,7 @@ else
 
   ./check-run.sh "$FOLDER"
   exit_code=$?
-  echo 'The exite code:'$exit_code
+#  echo 'The exite code:'$exit_code
   if [ $exit_code -eq 0 ] || [ $exit_code -eq 1 ] ; then
     echo 'The ./run.sh seens to have worked correcly.'
     echo 'The current diretory is: '"$(pwd)"
