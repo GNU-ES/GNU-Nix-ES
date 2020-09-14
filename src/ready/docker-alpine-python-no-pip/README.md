@@ -4,8 +4,8 @@
 #!/usr/bin/env bash
 git clone https://github.com/GNU-ES/GNU-Nix-ES.git \
 && cd GNU-Nix-ES \
-&& git checkout 053a5f241c81afe647dc0ddda20b4942050aa1b9 \
-&& cd src/examples \
+&& git checkout 83626329c2beef0ea644fb0f5f30cd4bc979a008 \
+&& cd src/examples/ \
 && cd docker-alpine-python-no-pip \
 && ./run.sh
 ```
@@ -32,4 +32,4 @@ Docker version 19.03.12, build v19.03.12
 ## Links and sources
 
 
-[Dockerfile souce](https://github.com/docker-library/python/blob/053a5f241c81afe647dc0ddda20b4942050aa1b9/3.8/alpine3.12/Dockerfile)
+[Dockerfile souce](https://github.com/docker-library/python/blob/83626329c2beef0ea644fb0f5f30cd4bc979a008/3.8/alpine3.12/Dockerfile)

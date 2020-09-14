@@ -8,7 +8,7 @@
 
 
 
-https://github.com/NixOS/nixpkgs/blob/053a5f241c81afe647dc0ddda20b4942050aa1b9/pkgs/development/libraries/libspatialindex/default.nix
+https://github.com/NixOS/nixpkgs/blob/83626329c2beef0ea644fb0f5f30cd4bc979a008/pkgs/development/libraries/libspatialindex/default.nix
 
 
 `docker build --tag pedroregispoar/nixos/libspatialindex .`
