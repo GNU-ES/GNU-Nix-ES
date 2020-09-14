@@ -4,8 +4,8 @@
 #!/usr/bin/env bash
 git clone https://github.com/GNU-ES/GNU-Nix-ES.git \
 && cd GNU-Nix-ES \
-&& git checkout 2192bf9fd983b70a692be0541ddc3f583e327a72 \
-&& cd src/examples \
+&& git checkout b1f08d59e9ce77453616586c183efb8ae7928b63 \
+&& cd src/examples/alpine-nix-install-script-ex1 \
 && alpine-nix-install-script-ex1 \
 && ./run.sh
 ```
