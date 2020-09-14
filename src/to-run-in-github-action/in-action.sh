@@ -3,18 +3,18 @@
 # See https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
 #set -euxo pipefail
 
-echo "$(pwd)"
-cd src/to-run-in-github-action/
-echo "$(pwd)"
 
+#echo "$(pwd)"
+cd src/to-run-in-github-action/
+#echo "$(pwd)"
 
 # https://stackoverflow.com/a/10605775
 FOLDER="$(find to-be-moved -mindepth 1 -maxdepth 1 -type d | cut --delimiter='/' --field=2)"
 #echo DEGUG "$FOLDER"
 
-if [ -n "$FOLDER_NAME" ]; then
-  echo "The to-be-moved folder is empty."
-  echo "So, nothing to move!"
+if [ "$FOLDER" == '' ]; then
+  echo "The to-be-moved folder does not have any folder."
+  echo "So, nothing to do!"
 else
 
   echo "$FOLDER"
