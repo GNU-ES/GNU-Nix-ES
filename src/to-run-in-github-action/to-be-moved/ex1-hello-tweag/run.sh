@@ -20,7 +20,7 @@ docker build \
 
 docker run \
 --interactive \
-${USE_TTY:-''} \
+--tty \
 --rm \
 "$IMAGE_VERSION" --run 'ls -la'
 #"$IMAGE_VERSION" --run 'nix flake show github:GNU-ES/hello'
