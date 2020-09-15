@@ -42,14 +42,15 @@ else
         echo 'Moving to broken folder.'
         ./move-to-examples.sh "$FOLDER" broken
     fi
+fi
 
-    if [ ! -z "$1" ]; then
-        echo 'Inject revision for second commit in github Action.'
-        FOLDER=$(cat "folder-name.txt")
-        if [ -d "examples/$FOLDER" ]; then
-            /inject-revision-and-folder-name.sh 'examples\/'"$FOLDER"
-        else
-            /inject-revision-and-folder-name.sh 'broken\/'"$FOLDER"
-        fi
+if [ ! -z "$1" ]; then
+    echo 'Inject revision for second commit in github Action.'
+    FOLDER=$(cat "folder-name.txt")
+    if [ -d "examples/$FOLDER" ]; then
+        /inject-revision-and-folder-name.sh 'examples\/'"$FOLDER"
+    else
+        /inject-revision-and-folder-name.sh 'broken\/'"$FOLDER"
     fi
+    rm folder-name.txt
 fi
