@@ -25,4 +25,4 @@ docker run \
 --tty \
 --rm \
 "$IMAGE_VERSION" \
-sh -c 'echo Worked!'
+sh -c 'ech Worked!'
