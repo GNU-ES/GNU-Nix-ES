@@ -5,17 +5,8 @@
 
 #echo "$(pwd)"
 #ls -la
-#cd to-be-moved/"$1"
+cd to-be-moved/"$1"
 #echo "$(pwd)"
 #ls -la
-#
-#./run.sh
 
-
-ls -la
-echo '###############################'
-cd /to-test-ci/"$1"/
-echo "$1"
-ls -la
 ./run.sh
-
