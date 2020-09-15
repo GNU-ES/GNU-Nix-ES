@@ -20,9 +20,12 @@ IMAGE="gnu-nix-es/$(git rev-parse --short HEAD)"
 VERSION=0.0.1
 IMAGE_VERSION="$IMAGE":"$VERSION"
 
+# https://stackoverflow.com/questions/40536778/how-to-workaround-the-input-device-is-not-a-tty-when-using-grunt-shell-to-invo
+# https://stackoverflow.com/questions/43099116/error-the-input-device-is-not-a-tty
+#--interactive \
+#--tty \
+
 docker run \
---interactive \
---tty \
 --rm \
 "$IMAGE_VERSION" \
 sh -c 'ech Worked!'
