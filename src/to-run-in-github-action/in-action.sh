@@ -39,7 +39,7 @@ else
   else
     echo 'The ./run.sh may have failed.'
     echo 'Inject revision for failed.'
-    ./inject-revision-and-folder-name.sh "$FOLDER"
+    ./inject-revision-and-folder-name.sh 'broken/'"$FOLDER"
     echo 'Moving to broken folder.'
     ./move-to-examples.sh "$FOLDER" broken
   fi
