@@ -45,6 +45,11 @@ else
 
     if [ ! -z "$1" ]; then
         echo 'Inject revision for second commit in github Action.'
-        /inject-revision-and-folder-name.sh "$1"
+        FOLDER=$(cat "folder-name.txt")
+        if [ -d "examples/$FOLDER" ]; then
+            /inject-revision-and-folder-name.sh 'examples\/'"$FOLDER"
+        else
+            /inject-revision-and-folder-name.sh 'broken\/'"$FOLDER"
+        fi
     fi
 fi
