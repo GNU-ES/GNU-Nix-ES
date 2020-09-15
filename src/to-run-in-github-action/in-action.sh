@@ -35,9 +35,6 @@ else
         ./inject-revision-and-folder-name.sh 'examples\/'"$FOLDER"
         ls -la
         ./move-to-examples.sh "$FOLDER"
-
-        FLAG_FILE='must-not-be-broken.txt'
-        echo '' > "$FLAG_FILE"
     else
         echo 'The ./run.sh may have failed.'
         echo 'Inject revision for failed.'
@@ -46,8 +43,8 @@ else
         ./move-to-examples.sh "$FOLDER" broken
     fi
 
-    if [ -f $FLAG_FILE ]; then
-        echo 'Injecting commit from github Action.'
+    if [ ! -z "$1" ]; then
+        echo 'Inject revision for second commit in github Action.'
         /inject-revision-and-folder-name.sh "$1"
     fi
 fi
