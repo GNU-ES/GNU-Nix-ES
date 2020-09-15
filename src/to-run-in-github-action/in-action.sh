@@ -47,7 +47,7 @@ else
     fi
 
     if [ -f $FLAG_FILE ]; then
-        echo 'Doing the second commit.'
+        echo 'Injecting commit from github Action.'
+        /inject-revision-and-folder-name.sh "$1"
     fi
-
 fi
