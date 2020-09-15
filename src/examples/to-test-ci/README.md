@@ -8,7 +8,7 @@ Just open an terminal, if you have git and Docker installed, and run:
 ```
 git clone https://github.com/GNU-ES/GNU-Nix-ES.git \
 && cd GNU-Nix-ES \
-&& git checkout b9b3a1ba9edca7449dd4e3b0475bf811e7809d78 \
+&& git checkout 5b4239d5655d0431d8745bc53c38c67c9f9165c8 \
 && cd src/examples/to-test-ci \
 && ./run.sh
 ```
