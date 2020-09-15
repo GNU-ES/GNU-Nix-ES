@@ -52,7 +52,7 @@ if [ ! -z "$1" ]; then
         ./to-run-in-github-action/inject-revision-and-folder-name.sh 'examples\/'"$FOLDER"
     fi
 
-    if [ -d "examples/$FOLDER" ]; then
+    if [ -d "broken/$FOLDER" ]; then
         ./to-run-in-github-action/inject-revision-and-folder-name.sh 'broken\/'"$FOLDER"
     fi
 
