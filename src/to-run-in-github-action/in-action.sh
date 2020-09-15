@@ -47,7 +47,7 @@ if [ ! -z "$1" ]; then
     FOLDER=$(cat "folder-name.txt")
 
     cd ..
-
+    ls -la
     if [ -d "examples/$FOLDER" ]; then
         ./src/inject-revision-and-folder-name.sh 'examples\/'"$FOLDER"
     fi
