@@ -33,7 +33,7 @@ else
     echo 'The ./run.sh seens to have worked correcly.'
     echo 'The current diretory is: '"$(pwd)"
     ls -la
-    ./inject-revision-and-folder-name.sh "$FOLDER"
+    ./inject-revision-and-folder-name.sh 'examples/'"$FOLDER"
     ls -la
     ./move-to-examples.sh "$FOLDER"
   else
