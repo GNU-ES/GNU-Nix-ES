@@ -33,13 +33,13 @@ else
     echo 'The ./run.sh seens to have worked correcly.'
     echo 'The current diretory is: '"$(pwd)"
     ls -la
-    ./inject-revision-and-folder-name.sh 'examples/'"$FOLDER"
+    ./inject-revision-and-folder-name.sh 'examples\/'"$FOLDER"
     ls -la
     ./move-to-examples.sh "$FOLDER"
   else
     echo 'The ./run.sh may have failed.'
     echo 'Inject revision for failed.'
-    ./inject-revision-and-folder-name.sh 'broken/'"$FOLDER"
+    ./inject-revision-and-folder-name.sh 'broken\/'"$FOLDER"
     echo 'Moving to broken folder.'
     ./move-to-examples.sh "$FOLDER" broken
   fi

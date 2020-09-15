@@ -28,4 +28,4 @@ IMAGE_VERSION="$IMAGE":"$VERSION"
 docker run \
 --rm \
 "$IMAGE_VERSION" \
-sh -c 'ech Worked!'
+sh -c 'echo Worked!'
