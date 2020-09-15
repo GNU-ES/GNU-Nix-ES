@@ -49,12 +49,12 @@ if [ ! -z "$1" ]; then
     cd ..
     ls -la
     if [ -d "examples/$FOLDER" ]; then
-        ./src/inject-revision-and-folder-name.sh 'examples\/'"$FOLDER"
+        ./to-run-in-github-action/inject-revision-and-folder-name.sh 'examples\/'"$FOLDER"
     fi
 
     if [ -d "examples/$FOLDER" ]; then
-        ./src/inject-revision-and-folder-name.sh 'broken\/'"$FOLDER"
+        ./to-run-in-github-action/inject-revision-and-folder-name.sh 'broken\/'"$FOLDER"
     fi
 
-    rm src/folder-name.txt
+    rm to-run-in-github-action/folder-name.txt
 fi
