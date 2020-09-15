@@ -43,7 +43,7 @@ fi
 if [ ! -z "$1" ]; then
 
     echo 'Inject revision for second commit in github Action.'
-
+    ls -la
     FOLDER=$(cat "folder-name.txt")
 
     cd ..
