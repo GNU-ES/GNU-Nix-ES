@@ -81,13 +81,13 @@ jobs:
       env:
         # This is necessary in order to push a commit to the repo
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Leave this line unchanged
-
-    - name: Inject variables after run!
-      run: |
-        cd src/to-run-in-github-action/
-        ls -la
-        echo "$(cat folder-name.txt)"
-        ./inject-revision-and-folder-name2.sh ../examples/"$(cat folder-name.txt)"
+#
+#    - name: Inject variables after run!
+#      run: |
+#        cd src/to-run-in-github-action/
+#        ls -la
+#        echo "$(cat folder-name.txt)"
+#        ./inject-revision-and-folder-name2.sh 'examples\/'"$(cat folder-name.txt)"
 
     - uses: EndBug/add-and-commit@v4 # You can change this to use a specific version
       with:
