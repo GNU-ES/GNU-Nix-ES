@@ -14,7 +14,7 @@
 
 ls -la
 echo '###############################'
-ls -la to-be-moved/"$1"
-
-./to-be-moved/"$1"/run.sh
+cd /to-be-moved/"$1"
+ls -la
+./run.sh
 
