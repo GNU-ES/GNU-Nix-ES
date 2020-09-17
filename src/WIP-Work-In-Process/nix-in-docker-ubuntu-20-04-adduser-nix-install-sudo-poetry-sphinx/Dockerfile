@@ -22,12 +22,8 @@ COPY ./adduser-sudo.sh adduser-sudo.sh
 
 RUN ./adduser-sudo.sh
 
-# COPY ./poetry.toml poetry.toml
-# COPY ./poetry.lock poetry.lock
-
 RUN pip install --upgrade pip \
- && pip install sphinx
+ && pip install Sphinx==3.2.1
 
-USER pedro
 
 

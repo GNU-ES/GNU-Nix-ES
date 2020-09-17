@@ -101,3 +101,9 @@ echo "$INPUTED_USER_OR_DEFAULT":"$INPUTED_PASSWORD_OR_DEFAULT" | chpasswd
 # TODO
 # Study the implementation of adduser
 # https://askubuntu.com/a/726067
+#
+# Really bad, sorry.
+# http://manpages.ubuntu.com/manpages/xenial/pt/man8/adduser.8.html
+
+# Refs
+#https://stackoverflow.com/a/2013589
