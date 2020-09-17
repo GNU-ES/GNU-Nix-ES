@@ -23,16 +23,12 @@ docker run \
 --volume "$(pwd)":/code \
 --workdir /code \
 "gnu-nix-es/$(git rev-parse --short HEAD)":"0.0.1" \
-bash
+bash -c "yes | sphinx-quickstart --author GNU-Nix-ES --language en --project GNU-Nix-ES --release 0.0.0 && make html"
+
+sudo chown --recursive "$(id --user)":"$(id --group)" .
+
+# TODO: add a clean
+#sudo rm -r source build make.bat Makefile
 
 # TODO:
 # use sudo tee etc to save the output
-sphinx-quickstart \
---author GNU-Nix-ES \
---language en \
---project GNU-Nix-ES \
---release 0.0.0
-
-make html
-
-#sudo chown --recursive "$(id --user)":"$(id --group)" .
