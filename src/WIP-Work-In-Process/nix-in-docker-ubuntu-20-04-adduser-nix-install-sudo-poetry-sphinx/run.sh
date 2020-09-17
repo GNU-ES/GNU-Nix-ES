@@ -4,9 +4,8 @@
 # See https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
 #set -eux pipefail
 
-IMAGE="gnu-nix-es/$(git rev-parse --short HEAD)"
-VERSION=0.0.1
-IMAGE_VERSION="$IMAGE":"$VERSION"
+
+IMAGE_VERSION="gnu-nix-es/$(git rev-parse --short HEAD)":"0.0.1"
 
 
 docker build \
@@ -18,11 +17,12 @@ docker build \
 
 docker run \
 --interactive \
+--rm \
 --tty \
 --user root \
 --volume "$(pwd)":/code \
 --workdir /code \
-"$IMAGE_VERSION" \
+"gnu-nix-es/$(git rev-parse --short HEAD)":"0.0.1" \
 bash
 
 #sudo chown --recursive "$(id --user)":"$(id --group)" .
