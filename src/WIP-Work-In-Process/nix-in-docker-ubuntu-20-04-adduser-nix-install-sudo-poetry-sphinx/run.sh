@@ -25,4 +25,12 @@ docker run \
 "gnu-nix-es/$(git rev-parse --short HEAD)":"0.0.1" \
 bash
 
+sphinx-quickstart \
+--author GNU-Nix-ES \
+--language en \
+--project GNU-Nix-ES \
+--release 0.0.0
+
+make html
+
 #sudo chown --recursive "$(id --user)":"$(id --group)" .
