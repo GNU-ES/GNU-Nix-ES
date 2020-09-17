@@ -18,11 +18,9 @@ RUN apt-get update \
  && apt-get -y clean  \
  && rm -rf /var/lib/apt/lists/*
 
-RUN adduser --quiet --disabled-password --shell /bin/bash --home /home/pedro --gecos "User" pedro
+COPY ./adduser-sudo.sh adduser-sudo.sh
 
-RUN echo "pedro:123" | chpasswd
-
-RUN usermod -a -G sudo pedro
+RUN ./adduser-sudo.sh
 
 # COPY ./poetry.toml poetry.toml
 # COPY ./poetry.lock poetry.lock
