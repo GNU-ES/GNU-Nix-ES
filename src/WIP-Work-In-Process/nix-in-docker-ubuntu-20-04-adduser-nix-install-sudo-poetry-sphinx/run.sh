@@ -25,6 +25,8 @@ docker run \
 "gnu-nix-es/$(git rev-parse --short HEAD)":"0.0.1" \
 bash
 
+# TODO:
+# use sudo tee etc to save the output
 sphinx-quickstart \
 --author GNU-Nix-ES \
 --language en \
