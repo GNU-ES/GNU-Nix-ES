@@ -32,3 +32,6 @@ sudo chown --recursive "$(id --user)":"$(id --group)" .
 
 # TODO:
 # use sudo tee etc to save the output
+#
+# Ref to start use `yes`:
+#https://askubuntu.com/a/805324
