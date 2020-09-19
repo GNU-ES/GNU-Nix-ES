@@ -7,7 +7,8 @@
 
 IMAGE_VERSION="gnu-nix-es/$(git rev-parse --short HEAD)":"0.0.1"
 
-
+# Here is used a "trick" to inject informations, like the date and git revision, and
+# the image name is changed, it is good for the next command, the `docker run` one.
 docker build \
 --label org.opencontainers.image.created=$(date -u +"%Y-%m-%dT%H:%M:%SZ") \
 --label org.opencontainers.image.revision=$(git rev-parse $(git rev-parse --short HEAD)) \
