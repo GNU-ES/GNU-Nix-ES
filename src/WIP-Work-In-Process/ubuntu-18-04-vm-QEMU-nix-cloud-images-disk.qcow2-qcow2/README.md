@@ -155,8 +155,26 @@ The solution should be to make a nix `shell.nix` with `python` and `poetry` like
  but while restart from scratch still being annoying and boring it is hard to be done (I dont know how to mount a volume like I do in Docker).
 
 
+## Podman
+
+```
+curl -L https://nixos.org/nix/install | sh \
+&& git clone https://github.com/containers/podman.git \
+&& cd podman \
+&& nix build -f nix/ \
+&& ./result/bin/podman --version
+```
+
+[Rootless containers with Podman: The basics](https://developers.redhat.com/blog/2020/09/25/rootless-containers-with-podman-the-basics/)
+
+[Static build](https://podman.io/getting-started/installation.html#static-build) using Nix. 
+How to do it using muslibc and not the glibc?
+
+
 # Ref and TODOS
 
+
+[Configure and run a QEMU-based VM outside of libvirt with virt-manager](https://developers.redhat.com/blog/2020/03/06/configure-and-run-a-qemu-based-vm-outside-of-libvirt/)
 
 TODO: [Enabling nested virtualization in KVM](https://docs.fedoraproject.org/en-US/quick-docs/using-nested-virtualization-in-kvm/)
 
