@@ -29,8 +29,8 @@ You can see a YouTube video example [Nix Friday - Home manager, (00:01:59 all du
 ```
 git clone https://github.com/GNU-ES/GNU-Nix-ES.git \
 && cd GNU-Nix-ES \
-&& git checkout a674302cf85f80ff9b7368c25ccd8f61d8205cca \
-&& cd src/broken/to-test-ci \
+&& git checkout c7f4968a183b2f21cf8dc014543dec1c32e627bd \
+&& cd src/WIP-Work-In-Process/ubuntu-18-04-vm-QEMU-nix-cloud-images-disk.qcow2-qcow2 \
 && ./wootbuntu 
 ```
 
