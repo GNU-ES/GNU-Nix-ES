@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env sh
 
 # See https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
 #set -euxo pipefail
@@ -9,10 +9,9 @@
 #
 ## If you want debug:
 ## echo "$SEARCH_PATH"
-#
-#cd "$SEARCH_PATH"
-#
-#find . -name 'run.sh' -exec {} \;
+
+
+
 
 #echo "$(pwd)"
 #ls -la
