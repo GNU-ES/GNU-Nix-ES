@@ -100,17 +100,6 @@ echo "$INPUTED_USER_OR_DEFAULT":"$INPUTED_PASSWORD_OR_DEFAULT" | chpasswd
 mkdir -m 0755 /nix
 chown "$INPUTED_USER_OR_DEFAULT" /nix
 
-#
-#echo "Trying sudo -u GNU-Nix-ES bash"
-#sudo -u "$INPUTED_USER_OR_DEFAULT" bash -c "\
-#  echo ""$ whoami" && whoami"
-#  echo 'DEBUG: '"$INPUTED_PASSWORD_OR_DEFAULT"
-##  ls -la
-#  echo "123" | sudo -S curl -L https://nixos.org/nix/install | sh
-##  ls -la /home/GNU-Nix-ES/.bashrc
-##  echo '. /home/GNU-Nix-ES/.nix-profile/etc/profile.d/nix.sh' >> /home/GNU-Nix-ES/.bashrc
-#"
-
 # https://askubuntu.com/a/978467
 sudo -u "$INPUTED_USER_OR_DEFAULT" bash <<EOF
   echo ""$ whoami" && whoami"
