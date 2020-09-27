@@ -3,7 +3,11 @@
 set -ex
 
 apt update
+
 DEBIAN_FRONTEND=noninteractive apt install -y --no-install-recommends "$@"
-apt clean
+
+apt -y autoremove
+apt -y clean
 rm -rf /var/lib/apt/lists/*
+
 exit 0
