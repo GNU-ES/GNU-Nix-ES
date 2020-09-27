@@ -12,3 +12,15 @@ git clone https://github.com/GNU-ES/GNU-Nix-ES.git \
 && cd src/install \
 && ./run.sh
 ```
+
+
+# TODO
+
+Reproduce:
+https://askubuntu.com/a/476489
+
+
+
+# Refs
+
+

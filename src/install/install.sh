@@ -10,3 +10,7 @@
 ## If you want debug:
 ## echo "$SEARCH_PATH"
 
+./utils/install.sh
+
+
+#./tests/debian-slim-nix-install-run-as-root/run.sh

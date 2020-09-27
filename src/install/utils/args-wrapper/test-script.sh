@@ -19,14 +19,3 @@ echo "$bcdefg_variable";
 echo "$bcdefg_123_42_variable";
 
 
-#./test-nix-instalation.sh
-#is_nix_installed=$?
-#echo "$is_nix_installed"
-
-
-
-
-
-if [ -z ${a_variable+x} ]; then
-    echo "a_variable is unset";
-fi
