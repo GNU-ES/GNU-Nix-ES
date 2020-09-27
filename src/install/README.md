@@ -21,6 +21,20 @@ $ docker run -it --rm -v "$(pwd)":/code -w /code ubuntu:20.04
 root@36ece3651664:/code# ./utils/install-using-apt.sh GNU-Nix-ES 123
 
 
+
+IMAGE="gnu-nix-es/$(git rev-parse --short HEAD)"
+VERSION=0.0.1
+IMAGE_VERSION="$IMAGE":"$VERSION"
+
+
+docker build \
+--label org.opencontainers.image.created=$(date -u +"%Y-%m-%dT%H:%M:%SZ") \
+--label org.opencontainers.image.revision=$(git rev-parse $(git rev-parse --short HEAD)) \
+--tag \
+"$IMAGE_VERSION" .
+
+
+
 # TODO
 
 Reproduce:

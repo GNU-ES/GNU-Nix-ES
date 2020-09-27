@@ -29,15 +29,15 @@ echo "Command $1 found! Using it to install Nix."
 
 #./utils/apt-install.sh openssl wget xz-utils
 
-apt update
-
-apt install -y --no-install-recommends ca-certificates lzma xz-utils wget sudo curl openssl
-#DEBIAN_FRONTEND=noninteractive
-#unset DEBIAN_FRONTEND
-
-apt -y autoremove
-apt -y clean
-rm -rf /var/lib/apt/lists/*
+#apt update
+#
+#apt install -y --no-install-recommends ca-certificates lzma xz-utils wget sudo curl openssl
+##DEBIAN_FRONTEND=noninteractive
+##unset DEBIAN_FRONTEND
+#
+#apt -y autoremove
+#apt -y clean
+#rm -rf /var/lib/apt/lists/*
 
 
 INPUTED_USER_OR_DEFAULT=${1:-GNU-Nix-ES}
