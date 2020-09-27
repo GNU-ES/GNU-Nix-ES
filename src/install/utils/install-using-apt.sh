@@ -29,6 +29,16 @@ echo "Command $1 found! Using it to install Nix."
 
 #./utils/apt-install.sh openssl wget xz-utils
 
+apt update
+
+apt install -y --no-install-recommends ca-certificates lzma xz-utils wget sudo curl openssl
+#DEBIAN_FRONTEND=noninteractive
+#unset DEBIAN_FRONTEND
+
+apt -y autoremove
+apt -y clean
+rm -rf /var/lib/apt/lists/*
+
 
 INPUTED_USER_OR_DEFAULT=${1:-GNU-Nix-ES}
 INPUTED_PASSWORD_OR_DEFAULT=${2:-'123'}
@@ -86,15 +96,6 @@ id "$INPUTED_USER_OR_DEFAULT"
 ##id "$INPUTED_USER_OR_DEFAULT" --name
 
 echo "$INPUTED_USER_OR_DEFAULT":"$INPUTED_PASSWORD_OR_DEFAULT" | chpasswd
-apt update
-
-apt install -y --no-install-recommends ca-certificates lzma xz-utils wget sudo curl openssl
-#DEBIAN_FRONTEND=noninteractive
-#unset DEBIAN_FRONTEND
-
-apt -y autoremove
-apt -y clean
-rm -rf /var/lib/apt/lists/*
 
 mkdir -m 0755 /nix
 chown "$INPUTED_USER_OR_DEFAULT" /nix
@@ -117,12 +118,12 @@ sudo -u "$INPUTED_USER_OR_DEFAULT" bash <<EOF
 #  ls -la
   echo "$INPUTED_PASSWORD_OR_DEFAULT" | sudo -S curl -L https://nixos.org/nix/install | sh
   echo '. /home/'"$INPUTED_USER_OR_DEFAULT"'/.nix-profile/etc/profile.d/nix.sh' >> /home/"$INPUTED_USER_OR_DEFAULT"/.bashrc
-#  ls -la /home/GNU-Nix-ES/.bashrc
-#  echo '. /home/GNU-Nix-ES/.nix-profile/etc/profile.d/nix.sh' >> /home/GNU-Nix-ES/.bashrc
+  cat ~/.bashrc | grep nix
+  ls -la /home/"$INPUTED_USER_OR_DEFAULT"/.bashrc
 EOF
 
 
-echo '. /home/'"$INPUTED_USER_OR_DEFAULT"'/.nix-profile/etc/profile.d/nix.sh' >> /home/"$INPUTED_USER_OR_DEFAULT"/.bashrc
+#echo '. /home/'"$INPUTED_USER_OR_DEFAULT"'/.nix-profile/etc/profile.d/nix.sh' >> /home/"$INPUTED_USER_OR_DEFAULT"/.bashrc
 
 #su "$INPUTED_USER_OR_DEFAULT" -c '. /home/"$USER"/.nix-profile/etc/profile.d/nix.sh && nix --version'
 
