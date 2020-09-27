@@ -128,6 +128,6 @@ id \
 && nix --version
 '
 
-shift
-shift
-su "$INPUTED_USER_OR_DEFAULT" "$@"
+#shift
+#shift
+#su "$INPUTED_USER_OR_DEFAULT" "$@"
