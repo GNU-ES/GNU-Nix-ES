@@ -116,6 +116,7 @@ sudo -u "$INPUTED_USER_OR_DEFAULT" bash <<EOF
   echo 'DEBUG: '"$INPUTED_PASSWORD_OR_DEFAULT"
 #  ls -la
   echo "$INPUTED_PASSWORD_OR_DEFAULT" | sudo -S curl -L https://nixos.org/nix/install | sh
+  echo '. /home/'"$INPUTED_USER_OR_DEFAULT"'/.nix-profile/etc/profile.d/nix.sh' >> /home/"$INPUTED_USER_OR_DEFAULT"/.bashrc
 #  ls -la /home/GNU-Nix-ES/.bashrc
 #  echo '. /home/GNU-Nix-ES/.nix-profile/etc/profile.d/nix.sh' >> /home/GNU-Nix-ES/.bashrc
 EOF
