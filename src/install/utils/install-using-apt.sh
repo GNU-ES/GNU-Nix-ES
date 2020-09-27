@@ -99,15 +99,27 @@ rm -rf /var/lib/apt/lists/*
 mkdir -m 0755 /nix
 chown "$INPUTED_USER_OR_DEFAULT" /nix
 
+#
+#echo "Trying sudo -u GNU-Nix-ES bash"
+#sudo -u "$INPUTED_USER_OR_DEFAULT" bash -c "\
+#  echo ""$ whoami" && whoami"
+#  echo 'DEBUG: '"$INPUTED_PASSWORD_OR_DEFAULT"
+##  ls -la
+#  echo "123" | sudo -S curl -L https://nixos.org/nix/install | sh
+##  ls -la /home/GNU-Nix-ES/.bashrc
+##  echo '. /home/GNU-Nix-ES/.nix-profile/etc/profile.d/nix.sh' >> /home/GNU-Nix-ES/.bashrc
+#"
 
-echo "Trying sudo -u GNU-Nix-ES bash"
-sudo -u "$INPUTED_USER_OR_DEFAULT" bash -c '\
+# https://askubuntu.com/a/978467
+sudo -u "$INPUTED_USER_OR_DEFAULT" bash <<EOF
   echo ""$ whoami" && whoami"
+  echo 'DEBUG: '"$INPUTED_PASSWORD_OR_DEFAULT"
 #  ls -la
-  echo "123" | sudo -S curl -L https://nixos.org/nix/install | sh
+  echo "$INPUTED_PASSWORD_OR_DEFAULT" | sudo -S curl -L https://nixos.org/nix/install | sh
 #  ls -la /home/GNU-Nix-ES/.bashrc
 #  echo '. /home/GNU-Nix-ES/.nix-profile/etc/profile.d/nix.sh' >> /home/GNU-Nix-ES/.bashrc
-'
+EOF
+
 
 echo '. /home/'"$INPUTED_USER_OR_DEFAULT"'/.nix-profile/etc/profile.d/nix.sh' >> /home/"$INPUTED_USER_OR_DEFAULT"/.bashrc
 
