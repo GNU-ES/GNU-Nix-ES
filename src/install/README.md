@@ -14,6 +14,13 @@ git clone https://github.com/GNU-ES/GNU-Nix-ES.git \
 ```
 
 
+
+docker run -it --rm -v "$(pwd)":/code -w /code ubuntu:20.04 bash -c './utils/install-using-apt.sh'
+
+$ docker run -it --rm -v "$(pwd)":/code -w /code ubuntu:20.04
+root@36ece3651664:/code# ./utils/install-using-apt.sh GNU-Nix-ES 123
+
+
 # TODO
 
 Reproduce:

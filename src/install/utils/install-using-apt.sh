@@ -30,26 +30,104 @@ echo "Command $1 found! Using it to install Nix."
 #./utils/apt-install.sh openssl wget xz-utils
 
 
-./utils/adduser-sudo.sh
+INPUTED_USER_OR_DEFAULT=${1:-GNU-Nix-ES}
+INPUTED_PASSWORD_OR_DEFAULT=${2:-'123'}
 
-#TOOO: do this in one update and install
-if ! command -v sudo &> /dev/null
-then
-    echo 'The sudo was not detedcted!'
-    echo 'Instaling it!'
-    ./utils/apt-install.sh sudo curl
+if [ -z ${1+x} ]; then
+    if [ "$INPUTED_USER_OR_DEFAULT" != "GNU-Nix-ES" ]; then
+        echo "Some bizar thing happened!"
+        echo "No INPUTED_USER_OR_DEFAULT was given using \$1,"
+        echo "the default user is: "$INPUTED_USER_OR_DEFAULT""
+    else
+        echo "."
+    fi
+else
+    if [ "$INPUTED_USER_OR_DEFAULT" != "$1" ]; then
+        echo "Some bizar thing happened!"
+    else
+        echo "."
+    fi
 fi
 
-#su GNU-Nix-ES -c 'ls -la'
+if [ -z ${2+x} ]; then
+    if [ "$INPUTED_PASSWORD_OR_DEFAULT" != "123" ]; then
+        echo "Some bizar thing happened!"
+        echo "No INPUTED_PASSWORD_OR_DEFAULT was given using \$2,"
+        echo "the default user is: "$INPUTED_PASSWORD_OR_DEFAULT""
+    else
+        echo "."
+    fi
+else
+    if [ "$INPUTED_PASSWORD_OR_DEFAULT" != "$2" ]; then
+        echo "Some bizar thing happened!"
+        echo "The given password using \$2 is $INPUTED_PASSWORD_OR_DEFAULT"
+    else
+        echo "."
+    fi
+fi
 
-curl --version
-xz --version
+INPUTED_USER_OR_DEFAULT=${1:-GNU-Nix-ES}
+INPUTED_PASSWORD_OR_DEFAULT=${2:-'123'}
+
+adduser \
+--disabled-password \
+--force-badname \
+--ingroup sudo \
+--quiet \
+--shell /bin/bash \
+--home /home/"$INPUTED_USER_OR_DEFAULT" \
+--gecos "User" "$INPUTED_USER_OR_DEFAULT"
+
+## Tests:
+cat /etc/passwd | grep "$INPUTED_USER_OR_DEFAULT"
+#id --version
+id "$INPUTED_USER_OR_DEFAULT"
+#id "$INPUTED_USER_OR_DEFAULT" --groups
+##id "$INPUTED_USER_OR_DEFAULT" --name
+
+echo "$INPUTED_USER_OR_DEFAULT":"$INPUTED_PASSWORD_OR_DEFAULT" | chpasswd
+apt update
+
+apt install -y --no-install-recommends ca-certificates lzma xz-utils wget sudo curl openssl
+#DEBIAN_FRONTEND=noninteractive
+#unset DEBIAN_FRONTEND
+
+apt -y autoremove
+apt -y clean
+rm -rf /var/lib/apt/lists/*
+
+mkdir -m 0755 /nix
+chown "$INPUTED_USER_OR_DEFAULT" /nix
 
 
 echo "Trying sudo -u GNU-Nix-ES bash"
-sudo -u GNU-Nix-ES bash -c '\
-  echo "$ whoami" && whoami && echo "^^^^^^ GNU-Nix-ES expected"
+sudo -u "$INPUTED_USER_OR_DEFAULT" bash -c '\
+  echo ""$ whoami" && whoami"
+#  ls -la
   echo "123" | sudo -S curl -L https://nixos.org/nix/install | sh
-  echo '. /home/GNU-Nix-ES/.nix-profile/etc/profile.d/nix.sh' >> ~/.bashrc
-  nix --version
+#  ls -la /home/GNU-Nix-ES/.bashrc
+#  echo '. /home/GNU-Nix-ES/.nix-profile/etc/profile.d/nix.sh' >> /home/GNU-Nix-ES/.bashrc
 '
+
+echo '. /home/'"$INPUTED_USER_OR_DEFAULT"'/.nix-profile/etc/profile.d/nix.sh' >> /home/"$INPUTED_USER_OR_DEFAULT"/.bashrc
+
+#su "$INPUTED_USER_OR_DEFAULT" -c '. /home/"$USER"/.nix-profile/etc/profile.d/nix.sh && nix --version'
+
+
+#"$INPUTED_PASSWORD_OR_DEFAULT"
+
+#./utils/install-using-apt.sh \
+#&& echo '. /home/GNU-Nix-ES/.nix-profile/etc/profile.d/nix.sh' >> /home/GNU-Nix-ES/.bashrc \
+#&& su GNU-Nix-ES -c 'cat ~/.bashrc | grep nix' \
+#&& su GNU-Nix-ES -c '. ~/.bashrc && nix --version'
+
+
+sudo -u "$INPUTED_USER_OR_DEFAULT" bash -c '\
+id \
+&& . /home/"$USER"/.nix-profile/etc/profile.d/nix.sh \
+&& nix --version
+'
+
+shift
+shift
+su "$INPUTED_USER_OR_DEFAULT" "$@"
