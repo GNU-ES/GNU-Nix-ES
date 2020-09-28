@@ -34,6 +34,8 @@ docker build \
 "$IMAGE_VERSION" .
 
 
+docker run -it --rm -v "$(pwd)":/code -w /code "$IMAGE_VERSION" bash -c "./utils/install-using-apt.sh --testing=yes"
+
 
 # TODO
 
