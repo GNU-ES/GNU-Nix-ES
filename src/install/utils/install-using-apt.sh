@@ -39,38 +39,38 @@ echo "Command $1 found! Using it to install Nix."
 #apt -y clean
 #rm -rf /var/lib/apt/lists/*
 
+TESTING=${1:-0}
+INPUTED_USER_OR_DEFAULT=${2:-GNU-Nix-ES}
+INPUTED_PASSWORD_OR_DEFAULT=${3:-'123'}
 
-INPUTED_USER_OR_DEFAULT=${1:-GNU-Nix-ES}
-INPUTED_PASSWORD_OR_DEFAULT=${2:-'123'}
-
-if [ -z ${1+x} ]; then
+if [ -z ${2+x} ]; then
     if [ "$INPUTED_USER_OR_DEFAULT" != "GNU-Nix-ES" ]; then
         echo "Some bizar thing happened!"
-        echo "No INPUTED_USER_OR_DEFAULT was given using \$1,"
+        echo "No INPUTED_USER_OR_DEFAULT was given using \$2,"
         echo "the default user is: "$INPUTED_USER_OR_DEFAULT""
     else
         echo "."
     fi
 else
-    if [ "$INPUTED_USER_OR_DEFAULT" != "$1" ]; then
+    if [ "$INPUTED_USER_OR_DEFAULT" != "$2" ]; then
         echo "Some bizar thing happened!"
     else
         echo "."
     fi
 fi
 
-if [ -z ${2+x} ]; then
+if [ -z ${3+x} ]; then
     if [ "$INPUTED_PASSWORD_OR_DEFAULT" != "123" ]; then
         echo "Some bizar thing happened!"
-        echo "No INPUTED_PASSWORD_OR_DEFAULT was given using \$2,"
+        echo "No INPUTED_PASSWORD_OR_DEFAULT was given using \$3,"
         echo "the default user is: "$INPUTED_PASSWORD_OR_DEFAULT""
     else
         echo "."
     fi
 else
-    if [ "$INPUTED_PASSWORD_OR_DEFAULT" != "$2" ]; then
+    if [ "$INPUTED_PASSWORD_OR_DEFAULT" != "$3" ]; then
         echo "Some bizar thing happened!"
-        echo "The given password using \$2 is $INPUTED_PASSWORD_OR_DEFAULT"
+        echo "The given password using \$3 is $INPUTED_PASSWORD_OR_DEFAULT"
     else
         echo "."
     fi
@@ -88,12 +88,14 @@ adduser \
 --home /home/"$INPUTED_USER_OR_DEFAULT" \
 --gecos "User" "$INPUTED_USER_OR_DEFAULT"
 
-## Tests:
-cat /etc/passwd | grep "$INPUTED_USER_OR_DEFAULT"
-#id --version
-id "$INPUTED_USER_OR_DEFAULT"
-#id "$INPUTED_USER_OR_DEFAULT" --groups
-##id "$INPUTED_USER_OR_DEFAULT" --name
+if [ ! -z ${1+x} ]; then
+    ## Tests:
+    cat /etc/passwd | grep "$INPUTED_USER_OR_DEFAULT"
+    #id --version
+    id "$INPUTED_USER_OR_DEFAULT"
+    id "$INPUTED_USER_OR_DEFAULT" --groups
+    id "$INPUTED_USER_OR_DEFAULT" --name
+fi
 
 echo "$INPUTED_USER_OR_DEFAULT":"$INPUTED_PASSWORD_OR_DEFAULT" | chpasswd
 
@@ -102,28 +104,16 @@ chown "$INPUTED_USER_OR_DEFAULT" /nix
 
 # https://askubuntu.com/a/978467
 sudo -u "$INPUTED_USER_OR_DEFAULT" bash <<EOF
-  echo ""$ whoami" && whoami"
-  echo 'DEBUG: '"$INPUTED_PASSWORD_OR_DEFAULT"
-#  ls -la
-  echo "$INPUTED_PASSWORD_OR_DEFAULT" | sudo -S curl -L https://nixos.org/nix/install | sh
-  echo '. /home/'"$INPUTED_USER_OR_DEFAULT"'/.nix-profile/etc/profile.d/nix.sh' >> /home/"$INPUTED_USER_OR_DEFAULT"/.bashrc
-  cat ~/.bashrc | grep nix
-  ls -la /home/"$INPUTED_USER_OR_DEFAULT"/.bashrc
+    echo "$INPUTED_PASSWORD_OR_DEFAULT" | sudo -S curl -L https://nixos.org/nix/install | sh
+    echo '. /home/'"$INPUTED_USER_OR_DEFAULT"'/.nix-profile/etc/profile.d/nix.sh' >> /home/"$INPUTED_USER_OR_DEFAULT"/.bashrc
+
+#    # Tests:
+#    echo ""$ whoami" && whoami"
+#    cat ~/.bashrc | grep nix
+#    ls -la
+#    ls -la /home/"$INPUTED_USER_OR_DEFAULT"/.bashrc
+#    echo 'DEBUG: '"$INPUTED_PASSWORD_OR_DEFAULT"
 EOF
-
-
-#echo '. /home/'"$INPUTED_USER_OR_DEFAULT"'/.nix-profile/etc/profile.d/nix.sh' >> /home/"$INPUTED_USER_OR_DEFAULT"/.bashrc
-
-#su "$INPUTED_USER_OR_DEFAULT" -c '. /home/"$USER"/.nix-profile/etc/profile.d/nix.sh && nix --version'
-
-
-#"$INPUTED_PASSWORD_OR_DEFAULT"
-
-#./utils/install-using-apt.sh \
-#&& echo '. /home/GNU-Nix-ES/.nix-profile/etc/profile.d/nix.sh' >> /home/GNU-Nix-ES/.bashrc \
-#&& su GNU-Nix-ES -c 'cat ~/.bashrc | grep nix' \
-#&& su GNU-Nix-ES -c '. ~/.bashrc && nix --version'
-
 
 sudo -u "$INPUTED_USER_OR_DEFAULT" bash -c '\
 id \
