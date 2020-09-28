@@ -43,4 +43,15 @@ export PATH=/nix/var/nix/profiles/default/bin:/nix/var/nix/profiles/default/sbin
 export GIT_SSL_CAINFO=/etc/ssl/certs/ca-certificates.crt
 export NIX_SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt
 
-nix-env --install --attr nixpkgs.docker
+nix-env --install --attr nixpkgs.hello
+hello --version
+
+read -p ""
+USER=root
+/nix/var/nix/profiles/per-user/"$USER"/profile/bin/nix-env --install --attr nixpkgs.commonsCompress nixpkgs.gnutar nixpkgs.lzma.bin nixpkgs.git
+
+mkdir -p "$USER"/.config/nix/ \
+echo 'experimental-features = nix-command flakes ca-references' >> "$USER"/.config/nix/nix.conf
+
+# Why there is no long form of the flag -I in `nix-shell -I` ?
+/nix/var/nix/profiles/per-user/"$USER"/profile/bin/nix-shell -I nixpkgs=channel:nixos-20.03 --packages nixFlakes

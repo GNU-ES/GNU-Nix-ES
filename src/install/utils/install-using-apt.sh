@@ -120,21 +120,27 @@ sudo -u "$INPUTED_USER_OR_DEFAULT" bash <<EOF
 #    echo 'DEBUG: '"$INPUTED_PASSWORD_OR_DEFAULT"
 EOF
 
-# Remove the added programs, try keep the system as clear as possible.
-for missing_requirement in "${missing_requirements[@]}"
-do
-    if [ ${missing_requirement} != 'sudo' ]; then
-        apt remove -y $missing_requirement
-    fi
-done
+## Remove the added programs, try keep the system as clear as possible.
+#for missing_requirement in "${missing_requirements[@]}"
+#do
+#    if [ ${missing_requirement} != 'sudo' ]; then
+#        apt remove -y $missing_requirement
+#    fi
+#done
 
+read -p ''
 
 if [ -n "$testing" ]; then
     sudo -u "$INPUTED_USER_OR_DEFAULT" bash -c '\
     id \
     && . /home/"$USER"/.nix-profile/etc/profile.d/nix.sh \
-    && nix --version
+    && nix --version \
+    && /nix/var/nix/profiles/per-user/"$USER"/profile/bin/nix-env --install --attr nixpkgs.commonsCompress nixpkgs.gnutar nixpkgs.lzma.bin nixpkgs.git \
+    && mkdir -p $USER/.config/nix \
+    && echo 'experimental-features = nix-command flakes ca-references' >> "$USER"/.config/nix/nix.conf \
+    && nix-shell -I nixpkgs=channel:nixos-20.03 --packages nixFlakes --run 'nix flake --versio'
     '
 else
     su "$INPUTED_USER_OR_DEFAULT"
 fi
+
