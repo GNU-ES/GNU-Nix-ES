@@ -4,8 +4,7 @@ echo "Command $1 found! Using it to install Nix."
 
 # TODO: check if it is bening running as root
 
-
-./args-wrapper/args-wrapper.sh
+. ./utils/args-wrapper/args-wrapper.sh
 
 ##TOOO: refactor this?
 #if ! command -v openssl &> /dev/null
@@ -40,6 +39,45 @@ echo "Command $1 found! Using it to install Nix."
 #apt -y autoremove
 #apt -y clean
 #rm -rf /var/lib/apt/lists/*
+
+
+if [ -n "$password" ]; then
+    echo "You supplied the 'password' parameter!"
+    INPUTED_PASSWORD_OR_DEFAULT="$password"
+else
+    echo "Using default 'password'!"
+    INPUTED_PASSWORD_OR_DEFAULT='123'
+fi
+
+if [ -n "$testing" ]; then
+    echo "You supplied the testing parameter!"
+#    INPUTED_PASSWORD_OR_DEFAULT="$testing"
+#else
+#    echo "Using default testing!"
+#    INPUTED_PASSWORD_OR_DEFAULT='123'
+fi
+
+if [ -n "$user" ]; then
+    echo "You supplied the 'user' parameter!"
+    INPUTED_USER_OR_DEFAULT="$user"
+else
+    echo "Using default 'user'!"
+    INPUTED_USER_OR_DEFAULT='GNU-Nix-ES'
+fi
+
+#INPUTED_USER_OR_DEFAULT=${2:-GNU-Nix-ES}
+#INPUTED_PASSWORD_OR_DEFAULT=${3:-'123'}
+
+
+if [ ! -z ${1+x} ]; then
+    ## Tests:
+    cat /etc/passwd | grep "$INPUTED_USER_OR_DEFAULT"
+    #id --version
+    id "$INPUTED_USER_OR_DEFAULT"
+    id "$INPUTED_USER_OR_DEFAULT" --groups
+    id "$INPUTED_USER_OR_DEFAULT" --name
+fi
+
 
 TESTING=${1:-0}
 INPUTED_USER_OR_DEFAULT=${2:-GNU-Nix-ES}
@@ -78,8 +116,8 @@ else
     fi
 fi
 
-INPUTED_USER_OR_DEFAULT=${1:-GNU-Nix-ES}
-INPUTED_PASSWORD_OR_DEFAULT=${2:-'123'}
+INPUTED_USER_OR_DEFAULT=${2:-GNU-Nix-ES}
+INPUTED_PASSWORD_OR_DEFAULT=${3:-'123'}
 
 adduser \
 --disabled-password \
