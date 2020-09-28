@@ -45,12 +45,12 @@ if [ -n "$password" ]; then
     echo "You supplied the 'password' parameter!"
     INPUTED_PASSWORD_OR_DEFAULT="$password"
 else
-    echo "Using default 'password'!"
     INPUTED_PASSWORD_OR_DEFAULT='123'
+    echo "Using default password='$INPUTED_PASSWORD_OR_DEFAULT'!"
 fi
 
 if [ -n "$testing" ]; then
-    echo "You supplied the testing parameter!"
+    echo "You supplied the 'testing' parameter!"
 #    INPUTED_PASSWORD_OR_DEFAULT="$testing"
 #else
 #    echo "Using default testing!"
@@ -61,8 +61,8 @@ if [ -n "$user" ]; then
     echo "You supplied the 'user' parameter!"
     INPUTED_USER_OR_DEFAULT="$user"
 else
-    echo "Using default 'user'!"
     INPUTED_USER_OR_DEFAULT='GNU-Nix-ES'
+    echo "Using default 'user'=$INPUTED_USER_OR_DEFAULT!"
 fi
 
 #INPUTED_USER_OR_DEFAULT=${2:-GNU-Nix-ES}
@@ -72,54 +72,14 @@ fi
 if [ -n "$testing" ]; then
     ## Tests:
     cat /etc/passwd | grep "$INPUTED_USER_OR_DEFAULT"
+    id
     #id --version
-    id "$INPUTED_USER_OR_DEFAULT"
-    id "$INPUTED_USER_OR_DEFAULT" --groups
-    id "$INPUTED_USER_OR_DEFAULT" --name
-    id --groups
-    id --name
+#    id "$INPUTED_USER_OR_DEFAULT"
+#    id "$INPUTED_USER_OR_DEFAULT" --groups
+#    id "$INPUTED_USER_OR_DEFAULT" --name
+#    id --groups
+#    id --name
 fi
-
-
-TESTING=${1:-0}
-INPUTED_USER_OR_DEFAULT=${2:-GNU-Nix-ES}
-INPUTED_PASSWORD_OR_DEFAULT=${3:-'123'}
-
-if [ -z ${2+x} ]; then
-    if [ "$INPUTED_USER_OR_DEFAULT" != "GNU-Nix-ES" ]; then
-        echo "Some bizar thing happened!"
-        echo "No INPUTED_USER_OR_DEFAULT was given using \$2,"
-        echo "the default user is: "$INPUTED_USER_OR_DEFAULT""
-    else
-        echo "."
-    fi
-else
-    if [ "$INPUTED_USER_OR_DEFAULT" != "$2" ]; then
-        echo "Some bizar thing happened!"
-    else
-        echo "."
-    fi
-fi
-
-if [ -z ${3+x} ]; then
-    if [ "$INPUTED_PASSWORD_OR_DEFAULT" != "123" ]; then
-        echo "Some bizar thing happened!"
-        echo "No INPUTED_PASSWORD_OR_DEFAULT was given using \$3,"
-        echo "the default user is: "$INPUTED_PASSWORD_OR_DEFAULT""
-    else
-        echo "."
-    fi
-else
-    if [ "$INPUTED_PASSWORD_OR_DEFAULT" != "$3" ]; then
-        echo "Some bizar thing happened!"
-        echo "The given password using \$3 is $INPUTED_PASSWORD_OR_DEFAULT"
-    else
-        echo "."
-    fi
-fi
-
-INPUTED_USER_OR_DEFAULT=${2:-GNU-Nix-ES}
-INPUTED_PASSWORD_OR_DEFAULT=${3:-'123'}
 
 adduser \
 --disabled-password \
@@ -130,13 +90,16 @@ adduser \
 --home /home/"$INPUTED_USER_OR_DEFAULT" \
 --gecos "User" "$INPUTED_USER_OR_DEFAULT"
 
-if [ ! -z ${1+x} ]; then
+if [ -n "$testing" ]; then
     ## Tests:
     cat /etc/passwd | grep "$INPUTED_USER_OR_DEFAULT"
+    id
     #id --version
     id "$INPUTED_USER_OR_DEFAULT"
     id "$INPUTED_USER_OR_DEFAULT" --groups
-    id "$INPUTED_USER_OR_DEFAULT" --name
+#    id "$INPUTED_USER_OR_DEFAULT" --name
+#    id --groups
+#    id --name
 fi
 
 echo "$INPUTED_USER_OR_DEFAULT":"$INPUTED_PASSWORD_OR_DEFAULT" | chpasswd
@@ -165,5 +128,5 @@ if [ -n "$testing" ]; then
     && nix --version
     '
 else
-    su "$INPUTED_USER_OR_DEFAULT" 
+    su "$INPUTED_USER_OR_DEFAULT"
 fi
