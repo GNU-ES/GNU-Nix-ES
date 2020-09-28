@@ -123,7 +123,9 @@ EOF
 # Remove the added programs, try keep the system as clear as possible.
 for missing_requirement in "${missing_requirements[@]}"
 do
-    apt remove -y $missing_requirement
+    if [ ${missing_requirement} != 'sudo' ]; then
+        apt remove -y $missing_requirement
+    fi
 done
 
 
