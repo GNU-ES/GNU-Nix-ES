@@ -30,9 +30,37 @@ echo "Command $1 found! Using it to install Nix."
 
 #./utils/apt-install.sh openssl wget xz-utils
 
+requirements=('ca-certificates' 'xz-utils' 'wget' 'sudo' 'curl' 'openssl')
+missing_requirements=''
+
+for program in "${requirements[@]}"
+do
+#    echo $program
+#    read -p "Input destination to associate to the source $src" dest
+    if ! command -v "$program" &> /dev/null
+    then
+        echo "The "$program" was not detedcted!"
+#        echo 'Instaling it!'
+#        ./utils/apt-install.sh xz-utils
+        missing_requirements+=( "$program" )
+    fi
+done
+
+
+echo
+
+
 apt update
 
-apt install -y --no-install-recommends ca-certificates xz-utils wget sudo curl openssl
+for missing_requirement in "${missing_requirements[@]}"
+do
+    apt install -y --no-install-recommends $missing_requirement
+done
+
+#read -p "Break"
+
+
+#apt install -y --no-install-recommends ca-certificates xz-utils wget sudo curl openssl
 #DEBIAN_FRONTEND=noninteractive
 #unset DEBIAN_FRONTEND
 
