@@ -14,11 +14,14 @@ git clone https://github.com/GNU-ES/GNU-Nix-ES.git \
 ```
 
 
-
-docker run -it --rm -v "$(pwd)":/code -w /code ubuntu:20.04 bash -c './utils/install-using-apt.sh'
-
-$ docker run -it --rm -v "$(pwd)":/code -w /code ubuntu:20.04
-root@36ece3651664:/code# ./utils/install-using-apt.sh GNU-Nix-ES 123
+docker run \
+--interactive \
+--rm \
+--tty \
+--volume "$(pwd)":/code \
+--workdir /code \
+ubuntu:20.04 \
+bash -c "./utils/install-using-apt.sh --testing=yes"
 
 
 
@@ -26,16 +29,19 @@ IMAGE="gnu-nix-es/$(git rev-parse --short HEAD)"
 VERSION=0.0.1
 IMAGE_VERSION="$IMAGE":"$VERSION"
 
-
 docker build \
 --label org.opencontainers.image.created=$(date -u +"%Y-%m-%dT%H:%M:%SZ") \
 --label org.opencontainers.image.revision=$(git rev-parse $(git rev-parse --short HEAD)) \
 --tag \
-"$IMAGE_VERSION" .
-
-
-docker run -it --rm -v "$(pwd)":/code -w /code "$IMAGE_VERSION" bash -c "./utils/install-using-apt.sh --testing=yes"
-
+"$IMAGE_VERSION" . \
+&& docker run \
+--interactive \
+--rm \
+--tty \
+--volume "$(pwd)":/code \
+--workdir /code \
+ubuntu:20.04 \
+bash -c "./utils/install-using-apt.sh --testing=yes"
 
 # TODO
 
