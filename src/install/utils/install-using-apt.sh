@@ -69,13 +69,15 @@ fi
 #INPUTED_PASSWORD_OR_DEFAULT=${3:-'123'}
 
 
-if [ ! -z ${1+x} ]; then
+if [ -n "$testing" ]; then
     ## Tests:
     cat /etc/passwd | grep "$INPUTED_USER_OR_DEFAULT"
     #id --version
     id "$INPUTED_USER_OR_DEFAULT"
     id "$INPUTED_USER_OR_DEFAULT" --groups
     id "$INPUTED_USER_OR_DEFAULT" --name
+    id --groups
+    id --name
 fi
 
 
@@ -155,12 +157,13 @@ sudo -u "$INPUTED_USER_OR_DEFAULT" bash <<EOF
 #    echo 'DEBUG: '"$INPUTED_PASSWORD_OR_DEFAULT"
 EOF
 
-sudo -u "$INPUTED_USER_OR_DEFAULT" bash -c '\
-id \
-&& . /home/"$USER"/.nix-profile/etc/profile.d/nix.sh \
-&& nix --version
-'
 
-#shift
-#shift
-#su "$INPUTED_USER_OR_DEFAULT" "$@"
+if [ -n "$testing" ]; then
+    sudo -u "$INPUTED_USER_OR_DEFAULT" bash -c '\
+    id \
+    && . /home/"$USER"/.nix-profile/etc/profile.d/nix.sh \
+    && nix --version
+    '
+else
+    su "$INPUTED_USER_OR_DEFAULT" 
+fi
