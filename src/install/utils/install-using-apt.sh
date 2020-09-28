@@ -5,6 +5,8 @@ echo "Command $1 found! Using it to install Nix."
 # TODO: check if it is bening running as root
 
 
+./args-wrapper/args-wrapper.sh
+
 ##TOOO: refactor this?
 #if ! command -v openssl &> /dev/null
 #then
