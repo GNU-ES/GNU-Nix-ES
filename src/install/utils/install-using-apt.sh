@@ -6,31 +6,7 @@ echo "Command $1 found! Using it to install Nix."
 
 . ./utils/args-wrapper/args-wrapper.sh
 
-##TOOO: refactor this?
-#if ! command -v openssl &> /dev/null
-#then
-#    echo 'The openssl was not detedcted!'
-#    echo 'Instaling it!'
-#    ./utils/apt-install.sh openssl
-#fi
-#
-#if ! command -v wget &> /dev/null
-#then
-#    echo 'The wget was not detedcted!'
-#    echo 'Instaling it!'
-#    ./utils/apt-install.sh wget
-#fi
-#
-#if ! command -v xz &> /dev/null
-#then
-#    echo 'The xz was not detedcted!'
-#    echo 'Instaling it!'
-#    ./utils/apt-install.sh xz-utils
-#fi
-
-#./utils/apt-install.sh openssl wget xz-utils
-
-requirements=('ca-certificates' 'xz-utils' 'wget' 'sudo' 'curl' 'openssl')
+requirements=('ca-certificates' 'curl' 'openssl' 'sudo' 'xz-utils')
 missing_requirements=''
 
 for program in "${requirements[@]}"
@@ -147,6 +123,12 @@ sudo -u "$INPUTED_USER_OR_DEFAULT" bash <<EOF
 #    ls -la /home/"$INPUTED_USER_OR_DEFAULT"/.bashrc
 #    echo 'DEBUG: '"$INPUTED_PASSWORD_OR_DEFAULT"
 EOF
+
+# Remove the added programs, try keep the system as clear as possible.
+for missing_requirement in "${missing_requirements[@]}"
+do
+    apt remove -y $missing_requirement
+done
 
 
 if [ -n "$testing" ]; then
