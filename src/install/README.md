@@ -24,6 +24,8 @@ ubuntu:20.04 \
 bash -c "./utils/install-using-apt.sh --testing=yes"
 
 
+su GNU-Nix-ES
+sudo curl -L https://nixos.org/nix/install | sh
 
 IMAGE="gnu-nix-es/$(git rev-parse --short HEAD)"
 VERSION=0.0.1
