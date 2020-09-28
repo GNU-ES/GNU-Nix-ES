@@ -4,6 +4,14 @@ echo "Command $1 found! Using it to install Nix."
 
 # TODO: check if it is bening running as root
 
+if command -v nix &> /dev/null
+then
+    echo "The nix is installed!"
+    nix --version
+    exit 0
+fi
+
+
 . ./utils/args-wrapper/args-wrapper.sh
 
 requirements=('ca-certificates' 'curl' 'openssl' 'sudo' 'xz-utils')
@@ -23,23 +31,11 @@ do
 done
 
 
-echo
-
-
 apt update
-
 for missing_requirement in "${missing_requirements[@]}"
 do
     apt install -y --no-install-recommends $missing_requirement
 done
-
-#read -p "Break"
-
-
-#apt install -y --no-install-recommends ca-certificates xz-utils wget sudo curl openssl
-#DEBIAN_FRONTEND=noninteractive
-#unset DEBIAN_FRONTEND
-
 apt -y autoremove
 apt -y clean
 rm -rf /var/lib/apt/lists/*
