@@ -54,20 +54,49 @@ adduser \
 --gecos "User" "$INPUTED_USER_OR_DEFAULT"
 
 ## Tests:
+
+# test_1
+# Given:
+#   - an ubuntu:20.04 docker image
+# When:
+#   - adduser ...
+# Then:
+#   - it must be possible log as the created user (su "$INPUTED_USER_OR_DEFAULT")
+#   - the user must apear in /etc/passwd, so cat /etc/passwd | grep "$INPUTED_USER_OR_DEFAULT"
+#   - TODO
+
+# Here is the tric, if we only
+# su "$INPUTED_USER_OR_DEFAULT"
+# we get stuck as the new shell user (try it to see)
+# but we can pass bash and a command and
+su "$INPUTED_USER_OR_DEFAULT" bash -c 'ls -al'
+
+id
+
+su "$INPUTED_USER_OR_DEFAULT" bash -c 'id'
+
+su "$INPUTED_USER_OR_DEFAULT" -c 'id'
+
 cat /etc/passwd | grep "$INPUTED_USER_OR_DEFAULT"
-#id --version
+
+#id --version | head -n 1
 id "$INPUTED_USER_OR_DEFAULT"
-#id "$INPUTED_USER_OR_DEFAULT" --groups
-##id "$INPUTED_USER_OR_DEFAULT" --name
+id "$INPUTED_USER_OR_DEFAULT" --groups
+## Why this not work?
+#id "$INPUTED_USER_OR_DEFAULT" --name
+
+
 
 echo "$INPUTED_USER_OR_DEFAULT":"$INPUTED_PASSWORD_OR_DEFAULT" | chpasswd
 
-# Tests:
-#id "$INPUTED_USER_OR_DEFAULT"
-#su "$INPUTED_USER_OR_DEFAULT" -c "echo "$INPUTED_PASSWORD_OR_DEFAULT" | sudo --stdin ls -la"
-#su "$INPUTED_USER_OR_DEFAULT" -c "echo "$INPUTED_PASSWORD_OR_DEFAULT" | sudo --stdin id"
-#echo "$INPUTED_PASSWORD_OR_DEFAULT" | sudo --stdin id
-#su "$INPUTED_USER_OR_DEFAULT" -c 'id'
+
+## Tests:
+su "$INPUTED_USER_OR_DEFAULT" -c "echo "$INPUTED_PASSWORD_OR_DEFAULT" | sudo -S ls -la"
+
+su "$INPUTED_USER_OR_DEFAULT" -c "echo "$INPUTED_PASSWORD_OR_DEFAULT" | sudo -S id"
+
+echo "$INPUTED_PASSWORD_OR_DEFAULT" | sudo -S id
+
 
 
 #adduser \
