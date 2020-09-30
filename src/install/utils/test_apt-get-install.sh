@@ -17,8 +17,12 @@
 #    bash -c './apt-get-install.sh sudo | head -n 1'
 #done
 
-# declare an array variable
-declare -a debian_versions=("oldoldstable-20200908-slim" "jessie-20200908-slim" "buster-20200908-slim" "bullseye-20200908-slim" "stretch-20200908-slim" "testing-20200908-slim")
+
+## declare an array variable
+#declare -a debian_versions=("oldoldstable-20200908-slim" "jessie-20200908-slim" "buster-20200908-slim" "bullseye-20200908-slim" "stretch-20200908-slim" "testing-20200908-slim")
+
+declare -a debian_versions=("buster-20200908-slim")
+
 
 # now loop through the above array
 for version in "${debian_versions[@]}"
@@ -30,5 +34,5 @@ do
     --volume "$(pwd)":/code \
     --workdir /code \
     debian:"$version" \
-    bash -c './apt-get-install.sh sudo | head -n 1'
+    bash -c './apt-get-install.sh sudo && ./adduser-with-sudo-privileges.sh'
 done

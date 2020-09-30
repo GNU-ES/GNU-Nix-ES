@@ -4,11 +4,14 @@
 #ls -la
 #. ./utils/args-wrapper/args-wrapper.sh
 
+echo 'Script name='$0
+echo 'The number of arguments $#='$#
+echo 'All arguments passed "$@"='"$@"
 
-if command -v apt &> /dev/null
+if command -v apt-get &> /dev/null
 then
-    echo 'The apt was detedcted!'
-    ./utils/install-using-apt.sh 'apt'
+    echo 'The apt-get was detedcted!'
+    ./utils/install_using_apt_get.sh 'apt-get'
 fi
 
 #
