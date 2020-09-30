@@ -91,7 +91,7 @@ test_run_all_tests () {
     test_password
 }
 
-test_run_all_tests
+#test_run_all_tests
 
 
 # TODOS

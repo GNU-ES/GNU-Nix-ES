@@ -13,6 +13,16 @@ git clone https://github.com/GNU-ES/GNU-Nix-ES.git \
 && ./run.sh
 ```
 
+docker run \
+--interactive \
+--rm \
+--tty \
+--volume "$(pwd)":/code \
+--workdir /code \
+ubuntu:20.04 \
+bash -c "./run.sh && echo $?"
+
+
 
 docker run \
 --interactive \
