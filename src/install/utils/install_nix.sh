@@ -50,8 +50,8 @@ sudo -u "$INPUTED_USER_OR_DEFAULT" bash <<EOF
     echo "$INPUTED_PASSWORD_OR_DEFAULT" | sudo -S /nix/var/nix/profiles/per-user/"$INPUTED_USER_OR_DEFAULT"/profile/bin/nix-env --install --attr nixpkgs.commonsCompress nixpkgs.gnutar nixpkgs.lzma.bin nixpkgs.git
     echo "$INPUTED_PASSWORD_OR_DEFAULT" | sudo -S mkdir -p "$INPUTED_USER_OR_DEFAULT"/.config/nix
     echo 'experimental-features = nix-command flakes ca-references' >> "$INPUTED_USER_OR_DEFAULT"/.config/nix/nix.conf
-    nix-shell -I nixpkgs=channel:nixos-20.03 --packages nixFlakes --run 'nix flake --version'
-    nix-shell -I nixpkgs=channel:nixos-20.03 --packages nixFlakes
+#    nix-shell -I nixpkgs=channel:nixos-20.03 --packages nixFlakes --run 'nix flake --version'
+#    nix-shell -I nixpkgs=channel:nixos-20.03 --packages nixFlakes
 #    ls -al
 #    id
 
@@ -62,6 +62,14 @@ sudo -u "$INPUTED_USER_OR_DEFAULT" bash <<EOF
 #    ls -la /home/"$INPUTED_USER_OR_DEFAULT"/.bashrc
 #    echo 'DEBUG: '"$INPUTED_PASSWORD_OR_DEFAULT"
 EOF
+
+
+
+su -P "$INPUTED_USER_OR_DEFAULT" -c "bash -c '. /home/GNU-Nix-ES/.nix-profile/etc/profile.d/nix.sh && nix-env --install --attr nixpkgs.commonsCompress nixpkgs.gnutar nixpkgs.lzma.bin nixpkgs.git && nix-shell -I nixpkgs=channel:nixos-20.03 --packages nixFlakes && bash'"
+
+#su "$INPUTED_USER_OR_DEFAULT" -c 'nix-shell -I nixpkgs=channel:nixos-20.03 --packages nixFlakes'
+#su "$INPUTED_USER_OR_DEFAULT" -c 'bash -c 'nix-shell'
+
 
 #if [ -n "$testing" ]; then
 #    sudo -u "$INPUTED_USER_OR_DEFAULT" bash -c '\
