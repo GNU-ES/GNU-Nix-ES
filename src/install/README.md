@@ -61,6 +61,12 @@ Reproduce:
 https://askubuntu.com/a/476489
 
 
+In ubuntu:18.04
+root@75d133644b97:/code# su "$INPUTED_USER_OR_DEFAULT" -c 'echo $HOME $USER '
+/home/GNU-Nix-ES GNU-Nix-ES
+root@75d133644b97:/code# su -p "$INPUTED_USER_OR_DEFAULT" -c 'echo $HOME $USER '
+/root
+
 
 # Refs
 
