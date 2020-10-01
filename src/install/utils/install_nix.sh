@@ -4,8 +4,11 @@
 INPUTED_USER_OR_DEFAULT=${1:-GNU-Nix-ES}
 INPUTED_PASSWORD_OR_DEFAULT=${2:-'123'}
 
-mkdir -m 0755 /nix
-chown "$INPUTED_USER_OR_DEFAULT" /nix
+if [ ! -d '/nix' ]; then
+    echo 'Creating /nix'
+    mkdir -m 0755 /nix
+    chown "$INPUTED_USER_OR_DEFAULT" /nix
+fi
 
 ## https://askubuntu.com/a/978467
 #sudo -u "$INPUTED_USER_OR_DEFAULT" bash <<EOF
@@ -33,23 +36,30 @@ chown "$INPUTED_USER_OR_DEFAULT" /nix
 #    exit 0
 #EOF
 
+#sudo_curl_nixos_install
+
 
 sudo -u "$INPUTED_USER_OR_DEFAULT" bash <<EOF
     INPUTED_USER_OR_DEFAULT=${1:-GNU-Nix-ES}
     INPUTED_PASSWORD_OR_DEFAULT=${2:-'123'}
 
-    echo "$INPUTED_PASSWORD_OR_DEFAULT" | sudo -S curl -L https://nixos.org/nix/install | sh
+    if [ ! -f 'utils/nix_oficial_installer.sh' ]; then
+        echo 'sfgsr'
+        curl -L https://nixos.org/nix/install -o nix_oficial_installer.sh
+    fi
+#    echo "$INPUTED_PASSWORD_OR_DEFAULT" | sudo -S curl -L https://nixos.org/nix/install | sh
+    echo "$INPUTED_PASSWORD_OR_DEFAULT" | sudo -S cat nix_oficial_installer.sh | sh
+
 #    echo "$INPUTED_PASSWORD_OR_DEFAULT" | sudo -S
 #    echo ". /home/$INPUTED_USER_OR_DEFAULT/.nix-profile/etc/profile.d/nix.sh" >> /home/"$INPUTED_USER_OR_DEFAULT"/.bashrc
 
 #    . ./home/"$INPUTED_USER_OR_DEFAULT"/.bashrc
-#    . /home/"$INPUTED_USER_OR_DEFAULT"/.nix-profile/etc/profile.d/nix.sh
-
+    . /home/"$INPUTED_USER_OR_DEFAULT"/.nix-profile/etc/profile.d/nix.sh
     nix --version
 
 #    echo "$INPUTED_PASSWORD_OR_DEFAULT" | sudo -S /nix/var/nix/profiles/per-user/"$INPUTED_USER_OR_DEFAULT"/profile/bin/nix-env --install --attr nixpkgs.commonsCompress nixpkgs.gnutar nixpkgs.lzma.bin nixpkgs.git
-    echo "$INPUTED_PASSWORD_OR_DEFAULT" | sudo -S mkdir -p "$INPUTED_USER_OR_DEFAULT"/.config/nix
-    echo 'experimental-features = nix-command flakes ca-references' >> "$INPUTED_USER_OR_DEFAULT"/.config/nix/nix.conf
+#    echo "$INPUTED_PASSWORD_OR_DEFAULT" | sudo -S mkdir -p "$INPUTED_USER_OR_DEFAULT"/.config/nix
+#    echo 'experimental-features = nix-command flakes ca-references' >> "$INPUTED_USER_OR_DEFAULT"/.config/nix/nix.conf
 #    nix-shell -I nixpkgs=channel:nixos-20.03 --packages nixFlakes --run 'nix flake --version'
 #    nix-shell -I nixpkgs=channel:nixos-20.03 --packages nixFlakes
 #    ls -al
@@ -57,15 +67,24 @@ sudo -u "$INPUTED_USER_OR_DEFAULT" bash <<EOF
 
 #     #Tests:
 #    echo ""$ whoami" && whoami"
-    cat ~/.bashrc | grep nix
+#    cat ~/.bashrc | grep nix
 #    ls -la
 #    ls -la /home/"$INPUTED_USER_OR_DEFAULT"/.bashrc
 #    echo 'DEBUG: '"$INPUTED_PASSWORD_OR_DEFAULT"
 EOF
 
+if [ ! -d "/home/$INPUTED_USER_OR_DEFAULT/.config/nix/" ]; then
+    echo 'Creating '"/home/$INPUTED_USER_OR_DEFAULT/.config/nix/"
+    mkdir -p "/home/$INPUTED_USER_OR_DEFAULT/.config/nix/"
+
+    echo 'experimental-features = nix-command flakes ca-references' >> /home/"$INPUTED_USER_OR_DEFAULT"/.config/nix/nix.conf
+    echo ". /home/$INPUTED_USER_OR_DEFAULT/.nix-profile/etc/profile.d/nix.sh" >> /home/"$INPUTED_USER_OR_DEFAULT"/.bashrc
+fi
 
 
-su -P "$INPUTED_USER_OR_DEFAULT" -c "bash -c '. /home/GNU-Nix-ES/.nix-profile/etc/profile.d/nix.sh && nix-env --install --attr nixpkgs.commonsCompress nixpkgs.gnutar nixpkgs.lzma.bin nixpkgs.git && nix-shell -I nixpkgs=channel:nixos-20.03 --packages nixFlakes && bash'"
+su -P "$INPUTED_USER_OR_DEFAULT" -c "bash -c $'. /home/GNU-Nix-ES/.nix-profile/etc/profile.d/nix.sh \
+&& ./utils/requirements-flake.sh \
+&& nix-shell -I nixpkgs=channel:nixos-20.03 --packages nixFlakes'"
 
 #su "$INPUTED_USER_OR_DEFAULT" -c 'nix-shell -I nixpkgs=channel:nixos-20.03 --packages nixFlakes'
 #su "$INPUTED_USER_OR_DEFAULT" -c 'bash -c 'nix-shell'
