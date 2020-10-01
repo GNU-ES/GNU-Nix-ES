@@ -6,9 +6,11 @@ su "$INPUTED_USER_OR_DEFAULT" -c 'home/GNU-Nix-ES/.nix-profile/bin/nix-shell -I 
 Just open an terminal, if you have git and Docker installed, and run:
 
 ```
-git clone https://github.com/GNU-ES/GNU-Nix-ES.git \
+apt-get update \
+&& apt-get install -y git \
+&& git clone https://github.com/GNU-ES/GNU-Nix-ES.git \
 && cd GNU-Nix-ES \
-&& git checkout c6d8df53ed09b762472f1b7789e599cac2ef8809 \
+&& git checkout 44116dfd8a5423a67540b2e97b852b41dc4a5dde \
 && cd src/install \
 && ./run.sh
 ```
@@ -24,15 +26,20 @@ ubuntu:20.04 \
 bash -c './run.sh'
 ```
 
+```
 docker run \
 --interactive \
 --rm \
 --tty \
---volume "$(pwd)":/code \
---workdir /code \
 ubuntu:20.04 \
-bash -c "./utils/install-using-apt.sh --testing=yes"
-
+bash -c "apt-get update \
+&& apt-get install -y git \
+&& git clone https://github.com/GNU-ES/GNU-Nix-ES.git \
+&& cd GNU-Nix-ES \
+&& git checkout 44116dfd8a5423a67540b2e97b852b41dc4a5dde \
+&& cd src/install \
+&& ./run.sh"
+```
 
 su GNU-Nix-ES
 sudo curl -L https://nixos.org/nix/install | sh
