@@ -43,12 +43,15 @@ sudo -u "$INPUTED_USER_OR_DEFAULT" bash <<EOF
     INPUTED_USER_OR_DEFAULT=${1:-GNU-Nix-ES}
     INPUTED_PASSWORD_OR_DEFAULT=${2:-'123'}
 
-    if [ -f 'nix_oficial_installer.sh' ]; then
-        echo 'sfgsr'
-        curl -L https://nixos.org/nix/install -o nix_oficial_installer.sh
-    fi
-#    echo "$INPUTED_PASSWORD_OR_DEFAULT" | sudo -S curl -L https://nixos.org/nix/install | sh
-    echo "$INPUTED_PASSWORD_OR_DEFAULT" | sudo -S cat nix_oficial_installer.sh | sh
+#    echo "$INPUTED_PASSWORD_OR_DEFAULT"
+#
+#    ls -al
+#    if [ ! -f nix_oficial_installer.sh ]; then
+#        echo 'sfgsr'
+#        echo "$INPUTED_PASSWORD_OR_DEFAULT" | sudo -S curl -L https://nixos.org/nix/install -o nix_oficial_installer.sh
+#    fi
+    echo "$INPUTED_PASSWORD_OR_DEFAULT" | sudo -S curl -L https://nixos.org/nix/install | sh
+#    echo "$INPUTED_PASSWORD_OR_DEFAULT" | sudo -S cat nix_oficial_installer.sh | sh
 
 #    echo "$INPUTED_PASSWORD_OR_DEFAULT" | sudo -S
 #    echo ". /home/$INPUTED_USER_OR_DEFAULT/.nix-profile/etc/profile.d/nix.sh" >> /home/"$INPUTED_USER_OR_DEFAULT"/.bashrc
