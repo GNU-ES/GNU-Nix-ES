@@ -43,7 +43,7 @@ sudo -u "$INPUTED_USER_OR_DEFAULT" bash <<EOF
     INPUTED_USER_OR_DEFAULT=${1:-GNU-Nix-ES}
     INPUTED_PASSWORD_OR_DEFAULT=${2:-'123'}
 
-    if [ ! -f 'nix_oficial_installer.sh' ]; then
+    if [ -f 'nix_oficial_installer.sh' ]; then
         echo 'sfgsr'
         curl -L https://nixos.org/nix/install -o nix_oficial_installer.sh
     fi

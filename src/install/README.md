@@ -36,7 +36,7 @@ bash -c "apt-get update \
 && apt-get install -y git \
 && git clone https://github.com/GNU-ES/GNU-Nix-ES.git \
 && cd GNU-Nix-ES \
-&& git checkout 32c705ab18a6b9cc2b0b585f4aeb3731200c273b \
+&& git checkout 2c3d93797f49097a6389106166ce888a2a90c944 \
 && cd src/install \
 && ./run.sh"
 ```
