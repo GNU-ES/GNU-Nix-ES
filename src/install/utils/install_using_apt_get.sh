@@ -16,23 +16,17 @@ INPUTED_PASSWORD_OR_DEFAULT=${2:-'123'}
 
 
 # TODO: check if it is bening running as root
-is_nix_installed () {
-    if command -v nix &> /dev/null
-    then
-        echo "The nix is installed!"
-        nix --version
-        exit 0
-    fi
-}
 
-is_nix_installed
+
+./utils/is_nix_installed.sh
 
 
 . ./utils/args-wrapper/args-wrapper.sh
 
 ./utils/install_requirements.sh
 
-sudo --version
+# Remove this sorce of noise!
+#sudo --version
 
 ./utils/adduser_with_sudo_privileges.sh
 

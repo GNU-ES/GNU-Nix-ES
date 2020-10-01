@@ -1,5 +1,5 @@
 
-
+su "$INPUTED_USER_OR_DEFAULT" -c 'home/GNU-Nix-ES/.nix-profile/bin/nix-shell -I nixpkgs=channel:nixos-20.03 --packages nixFlakes'
 
 ## Docker
 
