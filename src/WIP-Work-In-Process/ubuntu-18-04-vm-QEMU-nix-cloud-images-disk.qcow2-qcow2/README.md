@@ -34,7 +34,7 @@ git clone https://github.com/GNU-ES/GNU-Nix-ES.git \
 && ./wootbuntu 
 ```
 
-TODO: bypass this anoying input of user and login, it are going to be really cool to use this VM, 
+TODO: bypass this annoying input of user and login, it are going to be really cool to use this VM, 
 like a Docker container, but with hardware virtualization (and I know slower, really slower, but it is ok for me).
 
 ## Test 1
@@ -42,12 +42,12 @@ like a Docker container, but with hardware virtualization (and I know slower, re
 ### Install Docker
 ```
 curl -fsSL https://get.docker.com | sudo sh \
-&& sudo usermod -aG docker "$USER" \
+&& sudo usermod --append --groups docker "$USER" \
 && docker --version \
 && sudo reboot
 ```
 
-TODO: bypass this anoying interative process of input manually things, pretty sure that it is possible to be done.
+TODO: bypass this annoying interative process of input manually things, pretty sure that it is possible to be done.
 
 ### Test if it works
 
