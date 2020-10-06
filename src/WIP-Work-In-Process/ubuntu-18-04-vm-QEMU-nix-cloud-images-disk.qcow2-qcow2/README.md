@@ -34,8 +34,9 @@ git clone https://github.com/GNU-ES/GNU-Nix-ES.git \
 && ./wootbuntu 
 ```
 
-TODO: bypass this annoying input of user and login, it are going to be really cool to use this VM, 
-like a Docker container, but with hardware virtualization (and I know slower, really slower, but it is ok for me).
+TODO: bypass this annoying input of user and login, it is going to be really cool to use this VM, 
+like a Docker container, but with hardware virtualization (and I know slower, really slower than 
+Docker to start etc, but it is ok for me).
 
 ## Test 1
 
