@@ -34,6 +34,23 @@ docker --version
 Docker version 19.03.12, build v19.03.12
 ```
 
+
+TODO: Refactor this explanation in a separated importable way. Sphinx?!
+One liner to install Docker.
+
+WARNING: this one liner REBOOTS the machine!
+
+```
+curl -fsSL https://get.docker.com | sudo sh \
+&& sudo usermod --append --groups docker "$USER" \
+&& docker --version \
+&& sudo reboot
+```
+
+To test if the installation worked:
+`docker run hello-world`
+
+
 ## Links and sources
 
 
