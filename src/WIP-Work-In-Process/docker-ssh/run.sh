@@ -31,6 +31,7 @@ docker rm --force "$CONTAINER_NAME"
 SHA_ID=$(docker run --detach --publish-all --name "$CONTAINER_NAME" "$IMAGE_VERSION")
 echo "$SHA_ID"
 
+# https://stackoverflow.com/a/20686101
 IP="$(docker inspect --format='{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' "$SHA_ID")"
 echo "$IP"
 
