@@ -30,3 +30,6 @@ docker run hello-world
 ## Refs
 
 https://docs.docker.com/engine/examples/running_ssh_service/
+
+Why so many commands??! Really hard to check if it works!
+https://linoxide.com/linux-how-to/ssh-docker-container/
