@@ -8,8 +8,14 @@ missing_requirements+=' ca-certificates'
 
 if ! command -v xz &> /dev/null
 then
-    echo "The xz was not detedcted!"
+    echo 'This program was not detedcted=xz'
     missing_requirements+=' xz-utils'
+fi
+
+if ! command -v sha256sum &> /dev/null
+then
+    echo 'This program was not detedcted=sha256sum'
+    missing_requirements+=' coreutils'
 fi
 
 for program in "${requirements[@]}"

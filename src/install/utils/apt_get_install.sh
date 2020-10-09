@@ -11,6 +11,8 @@
 echo 'Script name='$0
 echo 'The number of arguments $#='$#
 echo 'All arguments passed "$@"='"$@"
+
+
 if [ $# -lt 1 ]; then
     echo "You are calling $0 with no parameters, it does not make sense!"
 else
@@ -26,4 +28,3 @@ else
 
     exit 0
 fi
-

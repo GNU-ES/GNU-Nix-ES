@@ -16,6 +16,11 @@ INPUTED_USER_OR_DEFAULT=${1:-GNU-Nix-ES}
 INPUTED_PASSWORD_OR_DEFAULT=${2:-'123'}
 
 
+if ! command -v sudo &> /dev/null
+then
+    ./utils/apt_get_install.sh 'sudo'
+fi
+
 if command -v sudo &> /dev/null
 then
     echo 'Printing the sudo version'
@@ -36,8 +41,6 @@ else
     echo 'The sudo is not installed!'
     exit 1
 fi
-
-
 
 
 ## Tests:
