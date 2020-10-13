@@ -6,7 +6,8 @@ let
      hello > $out/hello
    ''
 in pkgs.dockerTool.buidLayeredImage {
-  name = "hello-data";
-  tag = '0.0.1';
+  name = "hello-output";
+  created = "now";
+  tag = "0.0.1";
   contents = [ hello-out ];
 }
