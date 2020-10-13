@@ -31,26 +31,27 @@ in
 pkgs.dockerTools.buildLayeredImage {
     name = "main";
     tag = "0.0.1";
-    contents = [
-        pkgs.bashInteractive
-        pkgs.coreutils (nonRootShadowSetup { uid = 999; user = "somebody"; })
-        pkgs.curl
-        pkgs.gnutar
-        pkgs.xz
-        pkgs.findutils
-        pkgs.git
-        pkgs.nano
-        pkgs.neovim
-        pkgs.python39Full
-        pkgs.nodejs
-        pkgs.ripgrep
-        pkgs.shadow
-        pkgs.stdenv
-        pkgs.su
-        pkgs.sudo
-        pkgs.texlive.combined.scheme-basic
-        pkgs.wget
-        pkgs.which
-        pkgs.zsh
+    contents = with pkgs; [
+        bashInteractive
+        coreutils (nonRootShadowSetup { uid = 999; user = "somebody"; })
+        curl
+        gnutar
+        xz
+        findutils
+        git
+        man
+        nano
+        neovim
+        python39Full
+        nodejs
+        ripgrep
+        shadow
+        stdenv
+        su
+        sudo
+        texlive.combined.scheme-basic
+        wget
+        which
+        zsh
     ];
 }
