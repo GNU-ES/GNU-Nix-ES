@@ -35,15 +35,14 @@ pkgs.dockerTools.buildLayeredImage {
         bashInteractive
         coreutils (nonRootShadowSetup { uid = 999; user = "somebody"; })
         curl
-        gnutar
-        xz
         findutils
         git
+        gnutar
         man
         nano
         neovim
-        python39Full
         nodejs
+        python39Full
         ripgrep
         shadow
         stdenv
@@ -52,6 +51,7 @@ pkgs.dockerTools.buildLayeredImage {
         texlive.combined.scheme-basic
         wget
         which
+        xz
         zsh
     ];
 }
