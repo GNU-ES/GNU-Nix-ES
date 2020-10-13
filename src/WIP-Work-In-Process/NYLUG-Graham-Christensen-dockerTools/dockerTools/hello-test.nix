@@ -2,8 +2,8 @@
 
 with pkgs;
   pkgs.dockerTools.buildImage {
-  name = "hello";
-  tag = "latest";
+  name = "hello-test";
+  tag = "0.0.1";
   created = "now";
   contents = pkgs.hello;
 
