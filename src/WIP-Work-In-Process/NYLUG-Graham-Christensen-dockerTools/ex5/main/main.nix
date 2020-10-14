@@ -54,4 +54,7 @@ pkgs.dockerTools.buildLayeredImage {
         xz
         zsh
     ];
+    config.Env = [
+    "SSL_CERT_FILE=${pkgs.cacert}/etc/ssl/certs/ca-bunle.crt"
+  ];
 }
