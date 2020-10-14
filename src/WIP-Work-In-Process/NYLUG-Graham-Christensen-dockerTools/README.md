@@ -1,16 +1,5 @@
 
 
-```
-nix-build ./uname-container.nix \
-&& docker load < ./result \
-&& docker run uname-test:0.0.1
-```
-
-`docker images | rg uname`
-
-
-
-
 [How to build a docker container with nix?](https://stackoverflow.com/questions/43375880/how-to-build-a-docker-container-with-nix)
 
 
