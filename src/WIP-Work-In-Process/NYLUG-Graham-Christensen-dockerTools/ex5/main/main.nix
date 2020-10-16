@@ -36,6 +36,7 @@ pkgs.dockerTools.buildLayeredImage {
         coreutils (nonRootShadowSetup { uid = 999; user = "somebody"; })
         curl
         findutils
+        file
         git
         gnutar
         man
@@ -49,6 +50,7 @@ pkgs.dockerTools.buildLayeredImage {
         su
         sudo
         texlive.combined.scheme-basic
+        tree
         wget
         which
         xz
