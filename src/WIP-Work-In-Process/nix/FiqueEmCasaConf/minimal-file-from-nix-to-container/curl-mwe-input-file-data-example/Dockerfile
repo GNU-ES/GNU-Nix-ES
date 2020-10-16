@@ -4,11 +4,11 @@ RUN nix-env --file '<nixpkgs>' --install --attr man
 
 WORKDIR /output/store
 
-#COPY mwe-input-file-data.nix mwe-input-file-data.nix
-#COPY my-input-data-file.txt my-input-data-file.txt
+COPY mwe-input-file-data.nix mwe-input-file-data.nix
+COPY my-input-data-file.txt my-input-data-file.txt
 
-RUN nix-env --profile /output/profile --install --attr nixpkgs.curl 
-#RUN nix-env --profile /output/profile --file mwe-input-file-data.nix --install
+RUN nix-env --profile /output/profile --install --attr nixpkgs.curl
+RUN nix-env --profile /output/profile --file mwe-input-file-data.nix --install
 
 #RUN cp -av $(nix-store -qR /output/profile) /output/store
 #RUN cp --archive --verbose $(nix-store -qR /output/profile) /output/store

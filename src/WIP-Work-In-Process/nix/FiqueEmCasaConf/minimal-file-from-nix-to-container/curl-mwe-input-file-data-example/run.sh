@@ -2,15 +2,15 @@
 
 nix-build mwe-input-file-data.nix
 
-ls 
-
-ls -l $(readlink result)
-
-cat result
-
-cat $(readlink result)
-
-nix-store --query --requisites $(readlink result)
+#ls
+#
+#ls -l $(readlink result)
+#
+#cat result
+#
+#cat $(readlink result)
+#
+#nix-store --query --requisites $(readlink result)
 
 docker build --tag pedroregispoar/mwe-nixos-to-docker-image .
 
@@ -19,6 +19,6 @@ docker run \
 --rm \
 --tty \
 pedroregispoar/mwe-nixos-to-docker-image \
-bash
+bash -c 'cat nix/store/*-minimal-derivation-example/my-input-data-file.txt'
 
 

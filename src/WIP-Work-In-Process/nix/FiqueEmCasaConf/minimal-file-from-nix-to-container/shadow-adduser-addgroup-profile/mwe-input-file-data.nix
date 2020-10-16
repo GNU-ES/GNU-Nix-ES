@@ -29,7 +29,8 @@ let
       )
     ];
 in pkgs.runCommand "minimal-derivation-example" { buildInputs = [ nonRootShadowSetup { uid = 999; user = "somebody"; } ]; }
-  ''  
-    cp -r (nonRootShadowSetup { uid = 999; user = "somebody"; }) $out
+  ''
+    mkdir $out
+    cp -r (nonRootShadowSetup { uid = 999; user = "somebody"; }) $out/minimal-derivation-example
   ''
 
