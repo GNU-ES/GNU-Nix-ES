@@ -5,6 +5,10 @@ RUN nix-env --file '<nixpkgs>' --install --attr man
 WORKDIR /output/store
 
 COPY . .
+# COPY __init__.py __init__.py
+# COPY default.nix default.nix
+# COPY poetry.lock poetry.lock
+# COPY pyproject.toml pyproject.toml
 
 #RUN nix-env --profile /output/profile --install --attr nixpkgs.python39Full nixpkgs.gcc-unwrapped 
 RUN nix-env --profile /output/profile --file default.nix --install
@@ -12,10 +16,12 @@ RUN nix-env --profile /output/profile --file default.nix --install
 #RUN cp -av $(nix-store -qR /output/profile) /output/store
 #RUN cp --archive --verbose $(nix-store -qR /output/profile) /output/store
 #RUN cp -dpR --verbose $(nix-store -qR /output/profile) /output/store
-#RUN cp --no-dereference --recursive --verbose $(nix-store --query --requisites /output/profile) /output/store
+RUN cp --no-dereference --recursive --verbose $(nix-store --query --requisites /output/profile) /output/store
 
 
-FROM debian:buster-slim as prod
+FROM scratch as prod
+
 COPY --from=0 /output/store /nix/store
 COPY --from=0 /output/profile/ /usr/local/
 
+CMD [ "./usr/local/bin/nixfriday" ]
