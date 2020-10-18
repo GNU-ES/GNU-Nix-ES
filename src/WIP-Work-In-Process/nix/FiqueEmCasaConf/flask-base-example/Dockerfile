@@ -4,14 +4,14 @@ RUN nix-env --file '<nixpkgs>' --install --attr man
 
 WORKDIR /output/store
 
-COPY . .
+COPY src/ /build/
 # COPY __init__.py __init__.py
 # COPY default.nix default.nix
 # COPY poetry.lock poetry.lock
 # COPY pyproject.toml pyproject.toml
 
 #RUN nix-env --profile /output/profile --install --attr nixpkgs.python39Full nixpkgs.gcc-unwrapped 
-RUN nix-env --profile /output/profile --file default.nix --install
+RUN nix-env --profile /output/profile --file /build/default.nix --install
 
 #RUN cp -av $(nix-store -qR /output/profile) /output/store
 #RUN cp --archive --verbose $(nix-store -qR /output/profile) /output/store
@@ -19,7 +19,7 @@ RUN nix-env --profile /output/profile --file default.nix --install
 RUN cp --no-dereference --recursive --verbose $(nix-store --query --requisites /output/profile) /output/store
 
 
-FROM scratch as prod
+FROM ubuntu:20.04 as prod
 
 COPY --from=0 /output/store /nix/store
 COPY --from=0 /output/profile/ /usr/local/
