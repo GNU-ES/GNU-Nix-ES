@@ -14,6 +14,7 @@ RUN cp --no-dereference --recursive --verbose $(nix-store --query --requisites /
 
 
 FROM scratch
-
+# TODO: what if is needed change ownership to some user that does not have sudo privileges
+# and still use scratch?
 COPY --from=0 /output/store /nix/store
 COPY --from=0 /output/profile/ /usr/local/
