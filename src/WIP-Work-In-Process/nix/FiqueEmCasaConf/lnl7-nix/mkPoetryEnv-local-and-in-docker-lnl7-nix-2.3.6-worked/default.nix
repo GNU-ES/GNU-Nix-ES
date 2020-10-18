@@ -9,5 +9,7 @@ let
 in
 runCommand "env-test"
 { } ''
+  mkdir $out
   cp ${env}/bin/python $out
+  ls -al $out
 ''
