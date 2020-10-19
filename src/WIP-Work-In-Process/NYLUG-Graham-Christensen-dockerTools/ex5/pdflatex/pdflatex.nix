@@ -31,17 +31,17 @@ in
 pkgs.dockerTools.buildLayeredImage {
     name = "pdflatex";
     tag = "0.0.1";
-    contents = [
-        pkgs.bashInteractive
-        pkgs.coreutils (nonRootShadowSetup { uid = 999; user = "somebody"; })
-        pkgs.findutils
-        pkgs.nano
-        pkgs.neovim
-        pkgs.texlive.combined.scheme-basic
-        pkgs.ripgrep
-        pkgs.shadow
-        pkgs.stdenv
-        pkgs.which
-        pkgs.zsh
-    ];
+    created = "now";
+
+    contents = with pkgs; [
+        bashInteractive
+        coreutils
+        findutils
+        nano
+        neovim
+        texlive.combined.scheme-full
+        ripgrep
+        which
+        zsh
+    ] ++ nonRootShadowSetup { uid = 999; user = "somebody"; };
 }

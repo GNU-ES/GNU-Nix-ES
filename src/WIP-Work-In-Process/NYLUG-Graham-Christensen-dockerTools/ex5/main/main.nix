@@ -31,9 +31,12 @@ in
 pkgs.dockerTools.buildLayeredImage {
     name = "main";
     tag = "0.0.1";
+
+    # created = "now";
+
     contents = with pkgs; [
         bashInteractive
-        coreutils (nonRootShadowSetup { uid = 999; user = "somebody"; })
+        coreutils
         curl
         findutils
         file
@@ -55,8 +58,9 @@ pkgs.dockerTools.buildLayeredImage {
         which
         xz
         zsh
-    ];
+    ] ++ nonRootShadowSetup { uid = 999; user = "somebody"; };
+
     config.Env = [
-    "SSL_CERT_FILE=${pkgs.cacert}/etc/ssl/certs/ca-bunle.crt"
+        "SSL_CERT_FILE=${pkgs.cacert}/etc/ssl/certs/ca-bunle.crt"
   ];
 }
