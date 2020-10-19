@@ -21,6 +21,13 @@ docker build \
 # Usefull for debug:
 # echo -e " "'"$ENV->"'"$ENV\n" '"$NIX_PATH"->'"$NIX_PATH\n" '"$PATH"->'"$PATH\n" '"$USER"->' "$USER\n"
 
+docker run \
+--interactive \
+--tty \
+--user app_user \
+--volume "$(pwd)":/code \
+--workdir /code \
+"$IMAGE_VERSION" sh -c "python -c 'import requests'"
 
 #docker run \
 #--interactive \
