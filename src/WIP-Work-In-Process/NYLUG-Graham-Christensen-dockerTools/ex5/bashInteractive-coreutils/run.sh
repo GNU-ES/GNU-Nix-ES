@@ -29,3 +29,5 @@ nix-build ./bashInteractive-coreutils.nix
 docker load < ./result
 
 docker run -it bash-interactive-coreutils:0.0.1 -c 'echo 'Testign' && cd .'
+
+#docker run -it bash-interactive-coreutils:0.0.1 -c 'readlink $(which chown)'
