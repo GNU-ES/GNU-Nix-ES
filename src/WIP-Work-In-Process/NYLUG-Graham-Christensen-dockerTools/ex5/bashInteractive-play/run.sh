@@ -24,8 +24,8 @@ IMAGE_VERSION="$IMAGE":"$VERSION"
 #sh
 
 
-nix-build ./bashInteractive.nix
+nix-build ./bashInteractive-play.nix
 
 docker load < ./result
 
-docker run -it bash-interactive:0.0.1 -c 'echo 'Testign' && cd .'
+docker run -it bash-interactive-play:0.0.1 -c 'echo 'Testign' && cd .'
