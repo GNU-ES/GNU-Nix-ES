@@ -3,36 +3,19 @@ let
 
 
     entrypoint = pkgs.writeScript "entrypoint.sh" ''
-        #!${pkgs.stdenv.shell}
-        ${pkgs.dockerTools.shadowSetup}
+    #!${pkgs.stdenv.shell}
+    ${pkgs.dockerTools.shadowSetup}
 
-
-#        set -e
-#        ls -al
-
-        #if [ "$(${pkgs.coreutils}/bin/id  --user)" = "0" ]; then
-        #echo "Running the fix-perms script."
-        #fix-perms -r -u app_user -g app_group /app
-
-#        ${pkgs.findutils}/bin/find --version
-#        groupadd --gid 5000 app_group
-#        useradd --no-log-init --uid 5000 --gid app_group app_user
-#        opt_u='app_user'
-#        OLD_UID=$(getent passwd app_user | cut -f3 -d:)
-#        NEW_UID=$(stat -c "%u" /code)
-#
-#        if [ "$OLD_UID" != "$NEW_UID" ]; then
-#            echo "Changing UID of $opt_u from $OLD_UID to $NEW_UID"
-#            usermod -u "$NEW_UID" -o "$opt_u"
-#            ${pkgs.findutils}/bin/find / -xdev -user "$OLD_UID" -exec chown --no-dereference "$opt_u" {} \;
-#        fi
-
-        #echo "Running: gosu app_user "$@""
-        #exec ${pkgs.gosu.bin}/bin/gosu app_user "$@"
-        #fi
-#        exec "$@"
+    set -e
+    # allow the container to be started with `--user`
+    if [ "$(${pkgs.coreutils}/bin/id -u)" = "0" ]; then
+        #${pkgs.coreutils}/bin/chown -R redis .
+        groupadd --gid 5000 app_group
+        useradd --no-log-init --uid 5000 --gid app_group app_user
+        exec ${pkgs.gosu.bin}/bin/gosu app_user "$BASH_SOURCE" "$@"
+    fi
+    exec "$@"
     '';
-
 in
 
 pkgs.dockerTools.buildImage {
@@ -57,10 +40,10 @@ pkgs.dockerTools.buildImage {
 
     config = {
 
-        #Cmd = [ "${pkgs.bashInteractive}/bin/bash" ];
+        Cmd = [ "${pkgs.bashInteractive}/bin/bash" ];
 
-   #     Entrypoint = [ entrypoint ];
-        Entrypoint = [ "${pkgs.bashInteractive}/bin/bash" ];
+        Entrypoint = [ entrypoint ];
+#        Entrypoint = [ "${pkgs.bashInteractive}/bin/bash" ];
 
 
         WorkingDir = "/code";
