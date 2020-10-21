@@ -38,4 +38,8 @@ fix-permissions-luca-bruno-docker-tools:0.0.1 \
 bash -c 'id'
 
 
-#
+# Create some tests, use maybe stat or some thing like to be sure it works!
+# Inside the runing container?
+# touch some_file.txt
+# Outside of it run a non sudo rm in this file?
+
