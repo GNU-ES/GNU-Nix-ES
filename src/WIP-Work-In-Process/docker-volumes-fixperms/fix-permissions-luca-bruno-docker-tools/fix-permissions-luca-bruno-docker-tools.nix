@@ -17,6 +17,18 @@ let
         OLD_UID=$( ${pkgs.getent}/bin/getent passwd "$opt_u" | cut --field=3 --delimiter=:)
         echo 'OLD_UID='$OLD_UID
 
+        NEW_UID=$(stat --format="%u" /code)
+        echo 'NEW_UID='$NEW_UID
+        if [ "$OLD_UID" != "$NEW_UID" ]; then
+            echo "Changing UID of $opt_u from $OLD_UID to $NEW_UID"
+            usermod -u "$NEW_UID" -o "$opt_u"
+            if [ -n "$opt_r" ]; then
+                ${pkgs.coreutils}/bin/find / -xdev -user "$OLD_UID" -exec chown -h "$opt_u" {} \;
+            fi
+        fi
+
+
+        
         exec ${pkgs.gosu.bin}/bin/gosu app_user "$BASH_SOURCE" "$@"
     fi
     exec "$@"
