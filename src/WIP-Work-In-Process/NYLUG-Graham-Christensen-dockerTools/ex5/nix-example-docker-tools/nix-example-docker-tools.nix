@@ -1,7 +1,7 @@
 let
    pkgs = import <nixpkgs> {};
 in pkgs.dockerTools.buildImageWithNixDb {
-    name = "nix";
+    name = "nix-example-docker-tools";
     tag = "0.0.1";
     created = "now";
 
@@ -12,7 +12,7 @@ in pkgs.dockerTools.buildImageWithNixDb {
       file
       findutils
       gnutar
-      #nix
+      nix
       which
       ripgrep
       xz
@@ -25,12 +25,6 @@ in pkgs.dockerTools.buildImageWithNixDb {
     runAsRoot = ''
     #!${pkgs.stdenv.shell}
     ${pkgs.dockerTools.shadowSetup}
-    echo hosts: dns files > /etc/nsswitch.conf
-    #mkdir /download-nix
-
-    NIX_VERSION=2.3.6
-    "${pkgs.wget}/bin/wget" --directory-prefix=/download-nix --no-check-certificate https://nixos.org/releases/nix/nix-$NIX_VERSION/nix-$NIX_VERSION-x86_64-linux.tar.xz
-#    tar xf /download-nix/nix-$NIX_VERSION-x86_64-linux.tar.xz --directory=/download-nix/
 
     groupadd --system nixbld
     for n in $(seq 1 10); do
@@ -45,16 +39,13 @@ in pkgs.dockerTools.buildImageWithNixDb {
         --system \
         nixbld$n; done
 
-    #echo 'sandbox = false' > /etc/nix/nix.conf
     mkdir --mode=1777 /tmp
-    #mkdir -m 0755 /nix
-    #USER=root sh /download-nix/nix-$NIX_VERSION-x86_64-linux/install
     '';
 
     #extraCommands = ''
     #USER=root sh /download-nix/nix-$NIX_VERSION-x86_64-linux/install
     #'';
-
+    config.Entrypoint = [ "${pkgs.bashInteractive}/bin/bash" ];
     config = {
       Env = [
         "NIX_PAGER=cat"
