@@ -7,11 +7,16 @@ let
     ${pkgs.dockerTools.shadowSetup}
 
     set -e
+
     # allow the container to be started with `--user`
     if [ "$(${pkgs.coreutils}/bin/id -u)" = "0" ]; then
         #${pkgs.coreutils}/bin/chown -R redis .
         groupadd --gid 5000 app_group
         useradd --no-log-init --uid 5000 --gid app_group app_user
+
+        OLD_UID=$( ${pkgs.getent}/bin/getent passwd app_user)
+        echo 'OLD_UID= '$OLD_UID
+
         exec ${pkgs.gosu.bin}/bin/gosu app_user "$BASH_SOURCE" "$@"
     fi
     exec "$@"
