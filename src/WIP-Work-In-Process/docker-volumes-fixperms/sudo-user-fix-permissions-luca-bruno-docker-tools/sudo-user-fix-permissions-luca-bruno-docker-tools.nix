@@ -75,6 +75,9 @@ pkgs.dockerTools.buildImage {
         # Here the sudoers file is edited
         # https://stackoverflow.com/a/27355109
         ${pkgs.gnused}/bin/sed -i '/wheel/s/^#//g' /etc/sudoers
+
+        echo '#Admins' >> /etc/sudoers
+        echo 'app_user    ALL=(ALL) ALL' >> /etc/sudoers
     '';
 
     contents = with pkgs; [
@@ -85,6 +88,7 @@ pkgs.dockerTools.buildImage {
         ripgrep
         su
         sudo
+        tree
        ];
 
     config = {
