@@ -7,12 +7,6 @@ RUN chmod 777 /shs/*
 RUN cd /shs \
  && ./install.sh
 
-# RUN apk add --no-cache shadow sudo
-
-# RUN apk add --no-cache shadow sudo \
-#  && addgroup app_group_image -g 5000 \
-#  && adduser app_user_image -u 5000 -D -G app_group_image
-
 
 
 FROM alpine:3.12.0 as prod
@@ -20,6 +14,11 @@ FROM alpine:3.12.0 as prod
 
 RUN apk add --no-cache --clean-protected sudo
 
-COPY --from=builder /etc /etc
-# USER pedroregispoar
+COPY --from=builder /etc/group /etc/group
+COPY --from=builder /etc/passwd /etc/passwd
+COPY --from=builder /etc/shadow /etc/shadow
+COPY --from=builder /etc/sudoers /etc/sudoers
+
+# RUN apk add --no-cache --clean-protected git sudo
+# COPY --from=builder /etc /etc2
 
