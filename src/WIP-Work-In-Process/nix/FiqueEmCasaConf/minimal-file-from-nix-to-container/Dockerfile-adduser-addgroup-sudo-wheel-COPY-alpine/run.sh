@@ -33,11 +33,14 @@ docker run \
 --workdir /code \
 --volume "$(pwd)":/code \
 --user=pedroregispoar \
-"$IMAGE_VERSION_TARGET_0" sh -c 'sudo ls -la'
+"$IMAGE_VERSION_TARGET_0" sh -c 'sudo echo Passed!'
 
-#docker run \
-#--interactive \
-#--tty \
-#--rm \
-#--user app_user_image \
-#"$IMAGE_VERSION"
+
+docker run \
+--interactive \
+--tty \
+--rm \
+--workdir /code \
+--volume "$(pwd)":/code \
+--user=pedroregispoar \
+"$IMAGE_VERSION_TARGET_1" sh -c 'sudo echo Passed!'
