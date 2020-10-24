@@ -50,6 +50,26 @@ docker run \
 --workdir /code \
 --volume "$(pwd)":/code \
 --user=pedroregispoar \
+"$IMAGE_VERSION_TARGET_1" sh -c 'ls -al $(which sudo)'
+
+
+docker run \
+--interactive \
+--tty \
+--rm \
+--workdir /code \
+--volume "$(pwd)":/code \
+--user=pedroregispoar \
+"$IMAGE_VERSION_TARGET_1" sh -c 'stat --format='%a' $(which sudo)'
+
+
+docker run \
+--interactive \
+--tty \
+--rm \
+--workdir /code \
+--volume "$(pwd)":/code \
+--user=pedroregispoar \
 "$IMAGE_VERSION_TARGET_1" sh -c 'sudo echo Passed!'
 
 
