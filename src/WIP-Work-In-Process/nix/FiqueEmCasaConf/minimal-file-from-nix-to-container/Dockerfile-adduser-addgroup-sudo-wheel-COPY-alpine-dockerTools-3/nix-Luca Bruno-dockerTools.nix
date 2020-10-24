@@ -3,8 +3,9 @@ let
 
 
     entrypoint = pkgs.writeScript "entrypoint.sh" ''
-    #!${pkgs.stdenv.shell}
+        #!${pkgs.stdenv.shell}
         ${pkgs.dockerTools.shadowSetup}
+
         exec "$@"
     '';
 
@@ -29,11 +30,14 @@ pkgs.dockerTools.buildImage {
         #!${pkgs.stdenv}
         export PATH=/bin:/usr/bin:/sbin:/usr/sbin:$PATH
         ${pkgs.dockerTools.shadowSetup}
-        groupadd --gid 5000 pedroregispoar_group
-        useradd --no-log-init --uid 5000 --gid pedroregispoar_group pedroregispoar
+        #groupadd --gid 5000 wheel
+ #       useradd --no-log-init -s /bin/sh /home/pedroregispoar --password=123 --system --uid 5000 --gid wheel pedroregispoar
 
-        # Here the sudoers file is edited
-        # https://stackoverflow.com/a/27355109
+        echo '#Admins' >> /etc/sudoers
+        echo 'pedroregispoar    ALL=(ALL) ALL' >> /etc/sudoers
+
+#        # Here the sudoers file is edited
+#        # https://stackoverflow.com/a/27355109
 #        ${pkgs.gnused}/bin/sed -i '/wheel/s/^#//g' /etc/sudoers
 
 #        chown root:root /bin/sudo
