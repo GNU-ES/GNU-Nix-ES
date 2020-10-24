@@ -1,4 +1,4 @@
-FROM alpine-gnu-nix-es:3.12.0 as builder
+FROM alpine:3.12.0 as builder
 
 
 COPY ./*.sh /shs/

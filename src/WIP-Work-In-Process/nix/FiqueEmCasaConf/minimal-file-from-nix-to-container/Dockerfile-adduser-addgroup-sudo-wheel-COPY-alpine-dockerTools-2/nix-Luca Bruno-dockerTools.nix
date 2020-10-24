@@ -53,8 +53,8 @@ let
     imageName = "alpine:3.12.0";
     imageDigest = "sha256:a24bb4013296f61e89ba57005a7b3e52274d8edd3ae2077d04395f806b63d83e";
     sha256 = "07q9y9r7fsd18sy95ybrvclpkhlal12d30ybnf089hq7v1hgxbi7";
-    #finalImageTag = "2.2.1";
-    #finalImageName = "nix";
+    finalImageTag = "2.2.1";
+    finalImageName = "nix";
   };
 
 in
@@ -70,8 +70,8 @@ pkgs.dockerTools.buildImage {
         #!${pkgs.stdenv}
         export PATH=/bin:/usr/bin:/sbin:/usr/sbin:$PATH
         ${pkgs.dockerTools.shadowSetup}
-        groupadd --gid 5000 app_group
-        useradd --no-log-init --uid 5000 --gid app_group pedroregispoar
+#        groupadd --gid 5000 app_group
+#        useradd --no-log-init --uid 5000 --gid app_group pedroregispoar
 
 
 #        chown root:root /bin/sudo
