@@ -31,6 +31,14 @@ pkgs.dockerTools.buildImage {
         ${pkgs.dockerTools.shadowSetup}
 
         useradd --no-log-init -s /bin/sh --home-dir /home/pedroregispoar --system --uid 5000 --gid wheel pedroregispoar
+
+#        echo '#Admins' >> /etc/sudoers
+#        echo 'pedroregispoar    ALL=(ALL) ALL' >> /etc/sudoers
+
+        # Here the sudoers file is edited
+        # https://stackoverflow.com/a/27355109
+#        ${pkgs.gnused}/bin/sed -i '/wheel/s/^#//g' /etc/sudoers
+
     '';
 
     #extraCommands = ''
