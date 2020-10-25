@@ -31,6 +31,22 @@ pkgs.dockerTools.buildImage {
         ${pkgs.dockerTools.shadowSetup}
 
         useradd --no-log-init -s /bin/sh --home-dir /home/pedroregispoar --system --uid 5000 --gid wheel pedroregispoar
+
+        echo 'root ALL=(ALL) ALL' >> /etc/sudoers
+        echo ' %wheel ALL=(ALL) ALL' >> /etc/sudoers
+        echo ' %wheel ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers
+
+        #mkdir -m 0755 /nix
+        #chown --recursive pedroregispoar /nix
+        #chown -R pedroregispoar /nix
+
+#        echo '#Admins' >> /etc/sudoers
+#        echo 'pedroregispoar    ALL=(ALL) ALL' >> /etc/sudoers
+
+        # Here the sudoers file is edited
+        # https://stackoverflow.com/a/27355109
+#        ${pkgs.gnused}/bin/sed -i '/wheel/s/^#//g' /etc/sudoers
+
     '';
 
     #extraCommands = ''
@@ -41,10 +57,11 @@ pkgs.dockerTools.buildImage {
         bashInteractive
         coreutils
         which
-        xz
+        man
         gnutar
-        openssl
+        xz
         curl
+        #openssl
        ];
 
     config = {
@@ -54,13 +71,13 @@ pkgs.dockerTools.buildImage {
         Entrypoint = [ entrypoint ];
 
         Env = [
-            "NIX_PAGER=cat"
+            #"NIX_PAGER=cat"
             # A user is required by nix
             # https://github.com/NixOS/nix/blob/9348f9291e5d9e4ba3c4347ea1b235640f54fd79/src/libutil/util.cc#L478
-            "USER=root"
+            "USER=pedroregispoar"
             "ENV=/etc/profile"
             "PATH=/nix/var/nix/profiles/default/bin:/nix/var/nix/profiles/default/sbin:/bin:/sbin:/usr/bin:/usr/sbin"
-            "NIX_PATH=/nix/var/nix/profiles/per-user/root/channels"
+            "NIX_PATH=/nix/var/nix/profiles/per-user/pedroregispoar/channels"
             "SSL_CERT_FILE=${pkgs.cacert}/etc/ssl/certs/ca-bunle.crt"
             "GIT_SSL_CAINFO=${pkgs.cacert}/etc/ssl/certs/ca-bunle.crt"
             #"NIX_VERSION=2.3.7"

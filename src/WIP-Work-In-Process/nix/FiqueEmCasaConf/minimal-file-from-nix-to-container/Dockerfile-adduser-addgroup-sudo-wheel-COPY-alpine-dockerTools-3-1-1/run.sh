@@ -34,3 +34,40 @@ docker run \
 --volume "$(pwd)":/code \
 --user=pedroregispoar \
 "$IMAGE_VERSION_TARGET_1" sh -c 'stat --format="%a" $(which sudo)'
+
+docker run \
+--interactive \
+--tty \
+--rm \
+--workdir /code \
+--volume "$(pwd)":/code \
+--user=pedroregispoar \
+"$IMAGE_VERSION_TARGET_1" sh -c 'sudo ls -al'
+
+docker run \
+--interactive \
+--tty \
+--rm \
+--workdir /code \
+--volume "$(pwd)":/code \
+"$IMAGE_VERSION_TARGET_1" sh -c 'cat /etc/sudoers'
+
+docker run \
+--interactive \
+--tty \
+--rm \
+--workdir /code \
+--volume "$(pwd)":/code \
+--user=pedroregispoar \
+"$IMAGE_VERSION_TARGET_1" sh -c 'curl -L https://nixos.org/nix/install | sh; nix --version'
+
+
+#echo $SSL_CERT_FILE
+#
+#ls /nix/store/fna8lggi520pgvdwi8p1xyzcj9706j04-nss-cacert-3.40.1/etc/ssl/certs/ca-bundle.crt
+#
+#SSL_CERT_FILE=/nix/store/fna8lggi520pgvdwi8p1xyzcj9706j04-nss-cacert-3.40.1/etc/ssl/certs/ca-bundle.crt
+#
+#
+
+#SSL_CERT_FILE=/nix/store/fna8lggi520pgvdwi8p1xyzcj9706j04-nss-cacert-3.40.1/etc/ssl/certs/ca-bundle.crt && echo $SSL_CERT_FILE && sudo mkdir /home/$USER && curl -L https://nixos.org/nix/install | sh && sudo su
