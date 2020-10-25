@@ -59,7 +59,7 @@ docker run \
 --workdir /code \
 --volume "$(pwd)":/code \
 --user=pedroregispoar \
-"$IMAGE_VERSION_TARGET_1" sh -c 'curl -L https://nixos.org/nix/install | sh; nix --version'
+"$IMAGE_VERSION_TARGET_1" bash -c 'nix --version'
 
 
 #echo $SSL_CERT_FILE
