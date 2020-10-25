@@ -28,23 +28,9 @@ pkgs.dockerTools.buildImage {
 
     runAsRoot = ''
         #!${pkgs.stdenv}
-        export PATH=/bin:/usr/bin:/sbin:/usr/sbin:$PATH
         ${pkgs.dockerTools.shadowSetup}
-        #groupadd --gid 5000 wheel
+
         useradd --no-log-init -s /bin/sh --home-dir /home/pedroregispoar --system --uid 5000 --gid wheel pedroregispoar
-
-#        echo 'root ALL=(ALL) ALL ' >> /etc/sudoers
-        echo '#Admins' >> /etc/sudoers
-        echo 'pedroregispoar    ALL=(ALL) ALL' >> /etc/sudoers
-
-#        # Here the sudoers file is edited
-#        # https://stackoverflow.com/a/27355109
-#        ${pkgs.gnused}/bin/sed -i '/wheel/s/^#//g' /etc/sudoers
-
-#        chown root:root /bin/sudo
-#        chmod 777 /bin/sudo
-#        chmod g+s /bin/sudo
-
     '';
 
     #extraCommands = ''
