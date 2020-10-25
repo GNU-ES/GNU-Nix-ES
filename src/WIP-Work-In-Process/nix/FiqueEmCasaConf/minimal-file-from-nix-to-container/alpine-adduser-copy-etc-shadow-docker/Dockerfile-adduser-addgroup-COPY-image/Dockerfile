@@ -29,7 +29,8 @@ USER pedroregispoar
 
 RUN sudo mkdir -m 0755 /nix \
  && sudo chown pedroregispoar /nix \
- && sudo curl -L https://nixos.org/nix/install | sh
+ && sudo curl -L https://nixos.org/nix/install | sh \
+ && echo '. /home/pedroregispoar/.nix-profile/etc/profile.d/nix.sh' >> /home/pedroregispoar/.bashrc
 
 ONBUILD ENV \
     ENV=/etc/profile \

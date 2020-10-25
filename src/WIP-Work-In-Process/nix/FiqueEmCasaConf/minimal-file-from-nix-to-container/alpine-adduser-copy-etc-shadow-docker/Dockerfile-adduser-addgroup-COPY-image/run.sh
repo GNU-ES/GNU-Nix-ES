@@ -22,4 +22,4 @@ docker run \
 --tty \
 --rm \
 --user pedroregispoar \
-"$IMAGE_VERSION" sh -c '. /home/pedroregispoar/.nix-profile/etc/profile.d/nix.sh && nix-env --install --attr nixpkgs.git'
+"$IMAGE_VERSION" sh -c 'nix-env --install --attr nixpkgs.git'
