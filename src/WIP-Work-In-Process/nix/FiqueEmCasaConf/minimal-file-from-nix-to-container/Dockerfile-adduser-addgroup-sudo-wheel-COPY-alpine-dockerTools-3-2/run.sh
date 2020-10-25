@@ -36,14 +36,24 @@ docker run \
 "$IMAGE_VERSION_TARGET_1" sh -c 'stat --format="%a" $(which sudo)'
 
 
-docker run \
---interactive \
---tty \
---rm \
---workdir /code \
---volume "$(pwd)":/code \
---user=pedroregispoar \
-"$IMAGE_VERSION_TARGET_1" sh -c 'git --version'
+#docker run \
+#--interactive \
+#--tty \
+#--rm \
+#--workdir /code \
+#--volume "$(pwd)":/code \
+#--user=pedroregispoar \
+#"$IMAGE_VERSION_TARGET_1" sh -c 'git --version'
+#
+#docker run \
+#--interactive \
+#--tty \
+#--rm \
+#--workdir /code \
+#--volume "$(pwd)":/code \
+#--user=pedroregispoar \
+#"$IMAGE_VERSION_TARGET_1" sh -c 'nix --version'
+
 
 docker run \
 --interactive \
@@ -52,4 +62,4 @@ docker run \
 --workdir /code \
 --volume "$(pwd)":/code \
 --user=pedroregispoar \
-"$IMAGE_VERSION_TARGET_1" sh -c 'nix --version'
+"$IMAGE_VERSION_TARGET_1" sh -c 'stat --format="%a" /nix/var/nix/db/big-lock && nix-env --install --attr nixpkgs.curl'

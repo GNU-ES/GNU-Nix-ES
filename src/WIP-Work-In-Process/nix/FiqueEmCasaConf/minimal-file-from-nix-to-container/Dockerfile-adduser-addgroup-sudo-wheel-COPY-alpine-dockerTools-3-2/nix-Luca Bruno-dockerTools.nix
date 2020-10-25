@@ -31,6 +31,8 @@ pkgs.dockerTools.buildImage {
         ${pkgs.dockerTools.shadowSetup}
 
         useradd --no-log-init -s /bin/sh --home-dir /home/pedroregispoar --system --uid 5000 --gid wheel pedroregispoar
+
+        chmod 600 /nix/var/nix/db/big-lock
     '';
 
     #extraCommands = ''
