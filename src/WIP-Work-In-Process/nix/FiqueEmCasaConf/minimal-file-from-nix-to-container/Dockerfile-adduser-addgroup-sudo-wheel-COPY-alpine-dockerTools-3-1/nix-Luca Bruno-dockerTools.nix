@@ -31,6 +31,9 @@ pkgs.dockerTools.buildImage {
         ${pkgs.dockerTools.shadowSetup}
 
         useradd --no-log-init -s /bin/sh --home-dir /home/pedroregispoar --system --uid 5000 --gid wheel pedroregispoar
+        echo 'root ALL=(ALL) ALL' >> /etc/sudoers
+        echo ' %wheel ALL=(ALL) ALL' >> /etc/sudoers
+        echo ' %wheel ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers
 
 #        echo '#Admins' >> /etc/sudoers
 #        echo 'pedroregispoar    ALL=(ALL) ALL' >> /etc/sudoers
