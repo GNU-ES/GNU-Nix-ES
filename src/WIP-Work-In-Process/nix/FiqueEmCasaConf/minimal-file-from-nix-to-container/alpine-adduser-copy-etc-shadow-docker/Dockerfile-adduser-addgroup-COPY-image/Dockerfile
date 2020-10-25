@@ -21,10 +21,15 @@ RUN cd /shs \
 
 USER pedroregispoar
 
-RUN cd /shs \
- && ls -la \
- && ./install_nix.sh
+# RUN cd /shs \
+#  && ls -la \
+#  && ./install_nix.sh
+#
 
+
+RUN sudo mkdir -m 0755 /nix \
+ && sudo chown pedroregispoar /nix \
+ && sudo curl -L https://nixos.org/nix/install | sh
 
 ONBUILD ENV \
     ENV=/etc/profile \
@@ -41,4 +46,4 @@ ENV \
     NIX_SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt \
     NIX_PATH=/nix/var/nix/profiles/per-user/pedroregispoar/channels
 
-ENTRYPOINT ["nix-shell", "-I", "nixpkgs=channel:nixos-20.03", "--packages", "nixFlakes"]
+#ENTRYPOINT ["nix-shell", "-I", "nixpkgs=channel:nixos-20.03", "--packages", "nixFlakes"]

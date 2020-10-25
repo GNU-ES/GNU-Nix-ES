@@ -108,6 +108,8 @@ sudo curl -L https://nixos.org/nix/install | sh
 
 /home/pedroregispoar/.nix-profile/etc/bin/nix --version
 
+nix-env --install --attr nixpkgs.git
+
 /home/pedroregispoar/.nix-profile/etc/bin/nix-shell -I nixpkgs=channel:nixos-20.03 --packages nixFlakes
 
 #su "$INPUTED_USER_OR_DEFAULT" -c 'nix-shell -I nixpkgs=channel:nixos-20.03 --packages nixFlakes'

@@ -27,4 +27,4 @@
 #    fi
 #done
 
-./apt_get_install.sh 'curl' 'openssl' 'sudo' 'coreutils' 'xz' 'ca-certificates'
+./apk_install.sh 'curl' 'openssl' 'sudo' 'coreutils' 'xz' 'ca-certificates'

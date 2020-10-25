@@ -15,17 +15,11 @@ docker build \
 --tag \
 "$IMAGE_VERSION" .
 
+
+
 docker run \
 --interactive \
 --tty \
 --rm \
---workdir /code \
---volume "$(pwd)":/code \
-"$IMAGE_VERSION"
-
-#docker run \
-#--interactive \
-#--tty \
-#--rm \
-#--user app_user_image \
-#"$IMAGE_VERSION"
+--user pedroregispoar \
+"$IMAGE_VERSION" sh -c '. /home/pedroregispoar/.nix-profile/etc/profile.d/nix.sh && nix-env --install --attr nixpkgs.git'

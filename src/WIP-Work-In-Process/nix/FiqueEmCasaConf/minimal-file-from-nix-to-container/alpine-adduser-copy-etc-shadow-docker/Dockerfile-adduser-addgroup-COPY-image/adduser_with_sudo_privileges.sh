@@ -18,7 +18,7 @@ INPUTED_PASSWORD_OR_DEFAULT=${2:-'123'}
 
 if ! command -v sudo &> /dev/null
 then
-    ./apt_get_install.sh 'sudo'
+    ./apk_install.sh 'sudo'
 fi
 
 if command -v sudo &> /dev/null
