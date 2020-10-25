@@ -17,9 +17,17 @@ docker build \
 
 
 
+#docker run \
+#--interactive \
+#--tty \
+#--rm \
+#--user pedroregispoar \
+#"$IMAGE_VERSION" sh -c 'nix-env --install --attr nixpkgs.git'
+
+
 docker run \
 --interactive \
 --tty \
 --rm \
 --user pedroregispoar \
-"$IMAGE_VERSION" sh -c 'nix-env --install --attr nixpkgs.git'
+"$IMAGE_VERSION" sh -c 'ls -al home/pedroregispoar/ && echo && env'
