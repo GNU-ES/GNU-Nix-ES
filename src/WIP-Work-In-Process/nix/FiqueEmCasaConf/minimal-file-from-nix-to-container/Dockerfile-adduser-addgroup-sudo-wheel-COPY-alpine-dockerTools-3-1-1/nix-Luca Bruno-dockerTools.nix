@@ -56,8 +56,10 @@ pkgs.dockerTools.buildImage {
     contents = with pkgs; [
         bashInteractive
         coreutils
+        gcc
         which
         man
+        neovim
         nix
        ];
 
@@ -75,7 +77,7 @@ pkgs.dockerTools.buildImage {
             "ENV=/etc/profile"
             "HOME=/home/pedroregispoar"
             "PATH=/nix/var/nix/profiles/default/bin:/nix/var/nix/profiles/default/sbin:/bin:/sbin:/usr/bin:/usr/sbin"
-            "NIX_PATH=/nix/var/nix/profiles/per-user/pedroregispoar/channels"
+            "NIX_PATH=/nix/var/nix/profiles/per-user/root/channels"
             "SSL_CERT_FILE=${pkgs.cacert}/etc/ssl/certs/ca-bunle.crt"
             "GIT_SSL_CAINFO=${pkgs.cacert}/etc/ssl/certs/ca-bunle.crt"
             #"NIX_VERSION=2.3.7"
