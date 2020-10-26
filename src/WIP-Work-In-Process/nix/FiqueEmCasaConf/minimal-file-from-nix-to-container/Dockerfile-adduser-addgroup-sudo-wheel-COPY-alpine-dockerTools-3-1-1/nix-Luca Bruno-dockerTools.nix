@@ -58,10 +58,7 @@ pkgs.dockerTools.buildImage {
         coreutils
         which
         man
-        gnutar
-        xz
-        curl
-        #openssl
+        nix
        ];
 
     config = {
@@ -76,6 +73,7 @@ pkgs.dockerTools.buildImage {
             # https://github.com/NixOS/nix/blob/9348f9291e5d9e4ba3c4347ea1b235640f54fd79/src/libutil/util.cc#L478
             "USER=pedroregispoar"
             "ENV=/etc/profile"
+            "HOME=/home/pedroregispoar"
             "PATH=/nix/var/nix/profiles/default/bin:/nix/var/nix/profiles/default/sbin:/bin:/sbin:/usr/bin:/usr/sbin"
             "NIX_PATH=/nix/var/nix/profiles/per-user/pedroregispoar/channels"
             "SSL_CERT_FILE=${pkgs.cacert}/etc/ssl/certs/ca-bunle.crt"
