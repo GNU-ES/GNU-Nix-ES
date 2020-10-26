@@ -40,6 +40,15 @@ docker run \
 --rm \
 --workdir /code \
 --volume "$(pwd)":/code \
+"$IMAGE_VERSION_TARGET_1" bash -c 'nix-env --install --attr nixpkgs.commonsCompress'
+
+
+docker run \
+--interactive \
+--tty \
+--rm \
+--workdir /code \
+--volume "$(pwd)":/code \
 "$IMAGE_VERSION_TARGET_1" bash
 
 

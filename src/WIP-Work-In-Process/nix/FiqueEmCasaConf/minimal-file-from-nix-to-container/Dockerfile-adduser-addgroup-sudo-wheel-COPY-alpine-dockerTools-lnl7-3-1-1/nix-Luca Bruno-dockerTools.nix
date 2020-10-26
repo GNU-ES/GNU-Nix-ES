@@ -61,11 +61,14 @@ let
                 find / -xdev -group "$OLD_GID" -exec chgrp --no-dereference "$opt_g" {} \;
             fi
         fi
-        exec ${pkgs.gosu.bin}/bin/gosu "$opt_u" "$BASH_SOURCE" "$@"
+        #exec ${pkgs.gosu.bin}/bin/gosu "$opt_u" "$BASH_SOURCE" "$@"
+        exec "$@"
     fi
     exec "$@"
     '';
 
+   # TODO:
+   # https://github.com/LnL7/nix-docker/issues/3#issuecomment-388548509
   ubuntuBase = pkgs.dockerTools.pullImage {
    imageName = "lnl7/nix";
    finalImageTag = "2.0";
@@ -87,6 +90,9 @@ pkgs.dockerTools.buildImage {
 #        ${pkgs.dockerTools.shadowSetup}
 #        groupadd --gid 5000 pedroregispoar_group
 #        useradd --no-log-init -s /bin/sh --home-dir /home/pedroregispoar --system --uid 5000 --gid pedroregispoar_group pedroregispoar
+
+#        mkdir --mode=0755 /nix
+#        chown pedroregispoar /nix
 
 #        echo 'root ALL=(ALL) ALL' >> /etc/sudoers
 #        echo ' %wheel ALL=(ALL) ALL' >> /etc/sudoers
