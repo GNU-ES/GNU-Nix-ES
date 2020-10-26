@@ -36,10 +36,12 @@ bash -c "apt-get update \
 && apt-get install -y git \
 && git clone https://github.com/GNU-ES/GNU-Nix-ES.git \
 && cd GNU-Nix-ES \
-&& git checkout 7d544bc4c931f49ef0a2ae0e6aaeeb1532ee6e2d \
+&& git checkout d3a8d430e6c4de04e94398c2b795af0eab715e47 \
 && cd src/install \
 && ./run.sh"
 ```
+
+nix shell nixpkgs#cowsay --command cowsay 'Hi from nix shell nixpkgs#cowsay!'
 
 su GNU-Nix-ES
 sudo curl -L https://nixos.org/nix/install | sh
@@ -61,6 +63,9 @@ docker build \
 --workdir /code \
 ubuntu:20.04 \
 bash -c "./utils/install-using-apt.sh --testing=yes"
+
+
+
 
 # TODO
 
