@@ -8,10 +8,6 @@ RUN chmod 777 /shs/*
 RUN cd /shs \
  && ./install.sh
 
-RUN apk add --no-cache --clean-protected shadow \
-&& addgroup --gid 5000 app_group
-
-
 
 FROM alpine-gnu-nix-es:3.12.0 as prod
 
