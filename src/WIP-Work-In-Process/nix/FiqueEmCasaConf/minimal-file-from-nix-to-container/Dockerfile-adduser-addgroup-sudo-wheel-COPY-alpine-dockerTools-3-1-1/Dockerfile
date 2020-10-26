@@ -28,6 +28,11 @@ RUN apk update \
 #
 # # RUN USER=pedroregispoar curl -L https://nixos.org/nix/install | sh
 #
+# https://stackoverflow.com/questions/30952053/nix-and-haskell-ng-install-error-attribute-nixpkgs-in-selection-path-nixpkg
+# https://github.com/NixOS/nix/issues/1865#issuecomment-530343841
+# https://discourse.nixos.org/t/nix-search-duplicate-results-in-brand-new-nixos-install-how-to-fix/5373/35
+# https://github.com/NixOS/nixpkgs/issues/78529
+# https://discourse.nixos.org/t/how-is-nix-path-managed-regarding-nix-channel/6079/3
 # RUN sudo mkdir /home/pedroregispoar/.nix-defexpr \
 # && sudo chmod 777 /home/pedroregispoar/.nix-defexpr/ \
 # && nix-channel --update \
