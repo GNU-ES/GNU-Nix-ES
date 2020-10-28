@@ -138,7 +138,7 @@ https://stackoverflow.com/a/43978990
 sudo adduser --quiet --disabled-password --shell /bin/bash --home /home/pedro --gecos "User" pedro \
 && echo "pedro:123" | sudo chpasswd \
 && sudo usermod -a -G sudo "$USER" \
-&& sudo mkdir -m 0755 /nix \
+&& sudo mkdir --mode=0755 /nix \
 && sudo chown "$USER" /nix \
 && echo "123" | sudo -S curl -L https://nixos.org/nix/install | sh \
 && echo '. /home/pedro/.nix-profile/etc/profile.d/nix.sh' >> ~/.bashrc \
@@ -150,6 +150,19 @@ sudo adduser --quiet --disabled-password --shell /bin/bash --home /home/pedro --
 && cd test \
 && poetry add flask \
 && python -c 'import flask'
+```
+
+```
+sudo mkdir --mode=0755 /nix \
+&& sudo chown "$USER" /nix \
+&& sudo curl -L https://nixos.org/nix/install | sh \
+&& echo '. /home/pedro/.nix-profile/etc/profile.d/nix.sh' >> ~/.bashrc \
+&& . /home/ubuntu/.nix-profile/etc/profile.d/nix.sh \
+&& nix-env --install --attr nixpkgs.docker \
+&& sudo groupadd docker \
+&& sudo usermod --append --groups docker "$USER" \
+&& docker --version \
+&& sudo reboot
 ```
 
 The solution should be to make a nix `shell.nix` with `python` and `poetry` like in [Nix Friday - poetry2nix part 1](https://youtu.be/XfqJulSAPBQ?t=1128)
