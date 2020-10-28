@@ -19,3 +19,5 @@ docker run \
 --rm \
 lnl7/nix:2.3.7 nix-shell --pure --packages pandoc --run 'pandoc --version'
 
+
+https://github.com/jgm/pandoc/issues/5298#issuecomment-477583115
