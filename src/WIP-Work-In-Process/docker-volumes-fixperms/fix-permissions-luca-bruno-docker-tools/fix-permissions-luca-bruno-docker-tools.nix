@@ -9,19 +9,14 @@ let
     set -e
 
     # allow the container to be started with `--user`
-    if [ "$(${pkgs.coreutils}/bin/id -u)" = "0" ]; then
-        #${pkgs.coreutils}/bin/chown -R redis .
-
-        # What are the differences in doing it here or in the runAsRoot?
-        #groupadd --gid 5000 app_group
-        #useradd --no-log-init --uid 5000 --gid app_group app_user
+    if [ "$(${pkgs.coreutils}/bin/id --user)" = "0" ]; then
 
         opt_u='app_user'
         opt_g='app_group'
         VOLUME_AND_WORKDIR='/code'
 
         OLD_UID=$( ${pkgs.getent}/bin/getent passwd "$opt_u" | cut --field=3 --delimiter=:)
-        NEW_UID=$(stat --format="%u" $VOLUME_AND_WORKDIR)
+        NEW_UID=$(stat --format="%u" "$VOLUME_AND_WORKDIR")
 
         if [ "$OLD_UID" != "$NEW_UID" ]; then
             echo "Changing UID of $opt_u from $OLD_UID to $NEW_UID"
@@ -55,7 +50,6 @@ pkgs.dockerTools.buildImage {
 
     runAsRoot = ''
         #!${pkgs.stdenv}
-        export PATH=/bin:/usr/bin:/sbin:/usr/sbin:$PATH
         ${pkgs.dockerTools.shadowSetup}
         groupadd --gid 5000 app_group
         useradd --no-log-init --uid 5000 --gid app_group app_user
