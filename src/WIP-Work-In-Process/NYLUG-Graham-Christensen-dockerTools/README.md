@@ -26,3 +26,6 @@ http://sandervanderburg.blogspot.com/2020/07/on-using-nix-and-docker-as-deployme
 
 
 [dockerTools.buildImage and user-writable /tmp](https://discourse.nixos.org/t/dockertools-buildimage-and-user-writable-tmp/5397/8)
+
+
+[ NixOS nixpkgs nixpkgs pkgs build-support docker examples.nix ](https://github.com/NixOS/nixpkgs/blob/a5931fa6e38da31f119cf08127c1aa8f178a22af/pkgs/build-support/docker/examples.nix)
