@@ -11,30 +11,30 @@ let
     # allow the container to be started with `--user`
     if [ "$(${pkgs.coreutils}/bin/id --user)" = "0" ]; then
 
-        opt_u='app_user'
-        opt_g='app_group'
+        NEW_USER_NAME='app_user'
+        NEW_GROUP_NAME='app_group'
         VOLUME_AND_WORKDIR='/code'
 
-        OLD_UID=$( ${pkgs.getent}/bin/getent passwd "$opt_u" | cut --field=3 --delimiter=:)
+        OLD_UID=$( ${pkgs.getent}/bin/getent passwd "$NEW_USER_NAME" | cut --field=3 --delimiter=:)
         NEW_UID=$(stat --format="%u" "$VOLUME_AND_WORKDIR")
 
         if [ "$OLD_UID" != "$NEW_UID" ]; then
-            echo "Changing UID of $opt_u from $OLD_UID to $NEW_UID"
-            usermod --uid "$NEW_UID" --non-unique "$opt_u"
+            echo "Changing UID of "$NEW_USER_NAME" from $OLD_UID to $NEW_UID"
+            usermod --uid "$NEW_UID" --non-unique "$NEW_USER_NAME"
 
-            ${pkgs.findutils}/bin/find / -xdev -user "$OLD_UID" -exec chown --no-dereference "$opt_u" {} \;
+            ${pkgs.findutils}/bin/find / -xdev -user "$OLD_UID" -exec chown --no-dereference "$NEW_USER_NAME" {} \;
         fi
 
-        OLD_GID=$(${pkgs.getent}/bin/getent group "$opt_g" | cut --field=3 --delimiter=:)
+        OLD_GID=$(${pkgs.getent}/bin/getent group "$NEW_GROUP_NAME" | cut --field=3 --delimiter=:)
         NEW_GID=$(stat --format="%g" $VOLUME_AND_WORKDIR)
 
         if [ "$OLD_GID" != "$NEW_GID" ]; then
-            echo "Changing GID of $opt_g from $OLD_GID to $NEW_GID"
-            groupmod --gid "$NEW_GID" --non-unique "$opt_g"
+            echo "Changing GID of "$NEW_GROUP_NAME" from $OLD_GID to $NEW_GID"
+            groupmod --gid "$NEW_GID" --non-unique "$NEW_GROUP_NAME"
 
-            ${pkgs.findutils}/bin/find  / -xdev -group "$OLD_GID" -exec chgrp --no-dereference "$opt_g" {} \;
+            ${pkgs.findutils}/bin/find  / -xdev -group "$OLD_GID" -exec chgrp --no-dereference "$NEW_GROUP_NAME" {} \;
         fi
-        exec ${pkgs.gosu.bin}/bin/gosu app_user "$BASH_SOURCE" "$@"
+        exec ${pkgs.gosu.bin}/bin/gosu "$NEW_USER_NAME" "$BASH_SOURCE" "$@"
     fi
     exec "$@"
     '';
