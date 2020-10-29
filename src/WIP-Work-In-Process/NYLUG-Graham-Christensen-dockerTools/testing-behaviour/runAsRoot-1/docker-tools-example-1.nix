@@ -1,31 +1,25 @@
 let
     pkgs = import <nixpkgs> {};
 
-    nonRootShadowSetup = { user, uid, gid ? uid }: with pkgs; [
+    nonRootShadowSetup = with pkgs; [
           (
           writeTextDir "etc/shadow" ''
             root:!x:::::::
-            ${user}:!:::::::
           ''
           )
           (
           writeTextDir "etc/passwd" ''
             root:x:0:0::/root:${runtimeShell}
-            ${user}:x:${toString uid}:${toString gid}::/home/${user}:
           ''
           )
           (
           writeTextDir "etc/group" ''
             root:x:0:
-            ${user}:x:${toString gid}:
-            sudo:x:27:
           ''
           )
           (
           writeTextDir "etc/gshadow" ''
             root:x::
-            ${user}:x::
-            sudo:x::
           ''
           )
         ];
@@ -58,7 +52,7 @@ pkgs.dockerTools.buildImage {
         file
         sudo
         pam
-    ] ++ nonRootShadowSetup { uid = 999; user = "somebody"; };
+    ] ++ nonRootShadowSetup;
 
     config = {
         Cmd = [ "${pkgs.bashInteractive}/bin/bash" ];
