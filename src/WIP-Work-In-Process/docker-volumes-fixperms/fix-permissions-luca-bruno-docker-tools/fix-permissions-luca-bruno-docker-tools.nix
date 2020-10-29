@@ -2,41 +2,41 @@ let
     pkgs = import <nixpkgs> {};
 
 
-    entrypoint = pkgs.writeScript "entrypoint.sh" ''
-    #!${pkgs.stdenv.shell}
-    ${pkgs.dockerTools.shadowSetup}
+    entrypoint = pkgs.writeScript "entrypoin-file.sh" ''
+        #!${pkgs.stdenv.shell}
+        ${pkgs.dockerTools.shadowSetup}
 
-    set -e
+        set -e
 
-    # allow the container to be started with `--user`
-    if [ "$(${pkgs.coreutils}/bin/id --user)" = "0" ]; then
+        # allow the container to be started with `--user`
+        if [ "$(${pkgs.coreutils}/bin/id --user)" = "0" ]; then
 
-        NEW_USER_NAME='app_user'
-        NEW_GROUP_NAME='app_group'
-        VOLUME_AND_WORKDIR='/code'
+            NEW_USER_NAME='app_user'
+            NEW_GROUP_NAME='app_group'
+            VOLUME_AND_WORKDIR='/code'
 
-        OLD_UID=$( ${pkgs.getent}/bin/getent passwd "$NEW_USER_NAME" | cut --field=3 --delimiter=:)
-        NEW_UID=$(stat --format="%u" "$VOLUME_AND_WORKDIR")
+            OLD_USER_ID=$( ${pkgs.getent}/bin/getent passwd "$NEW_USER_NAME" | cut --field=3 --delimiter=:)
+            NEW_USER_ID=$(stat --format="%u" "$VOLUME_AND_WORKDIR")
 
-        if [ "$OLD_UID" != "$NEW_UID" ]; then
-            echo "Changing UID of "$NEW_USER_NAME" from $OLD_UID to $NEW_UID"
-            usermod --uid "$NEW_UID" --non-unique "$NEW_USER_NAME"
+            if [ "$OLD_USER_ID" != "$NEW_USER_ID" ]; then
+                echo "Changing uid of "$NEW_USER_NAME" from $OLD_USER_ID to $NEW_USER_ID".
+                usermod --uid "$NEW_USER_ID" --non-unique "$NEW_USER_NAME"
 
-            ${pkgs.findutils}/bin/find / -xdev -user "$OLD_UID" -exec chown --no-dereference "$NEW_USER_NAME" {} \;
+                ${pkgs.findutils}/bin/find / -xdev -user "$OLD_USER_ID" -exec chown --no-dereference "$NEW_USER_NAME" {} \;
+            fi
+
+            OLD_GROUP_ID=$(${pkgs.getent}/bin/getent group "$NEW_GROUP_NAME" | cut --field=3 --delimiter=:)
+            NEW_GROUP_ID=$(stat --format="%g" $VOLUME_AND_WORKDIR)
+
+            if [ "$OLD_GROUP_ID" != "$NEW_GROUP_ID" ]; then
+                echo "Changing gid of "$NEW_GROUP_NAME" from $OLD_GROUP_ID to $NEW_GROUP_ID".
+                groupmod --gid "$NEW_GROUP_ID" --non-unique "$NEW_GROUP_NAME"
+
+                ${pkgs.findutils}/bin/find  / -xdev -group "$OLD_GROUP_ID" -exec chgrp --no-dereference "$NEW_GROUP_NAME" {} \;
+            fi
+            exec ${pkgs.gosu.bin}/bin/gosu "$NEW_USER_NAME" "$BASH_SOURCE" "$@"
         fi
-
-        OLD_GID=$(${pkgs.getent}/bin/getent group "$NEW_GROUP_NAME" | cut --field=3 --delimiter=:)
-        NEW_GID=$(stat --format="%g" $VOLUME_AND_WORKDIR)
-
-        if [ "$OLD_GID" != "$NEW_GID" ]; then
-            echo "Changing GID of "$NEW_GROUP_NAME" from $OLD_GID to $NEW_GID"
-            groupmod --gid "$NEW_GID" --non-unique "$NEW_GROUP_NAME"
-
-            ${pkgs.findutils}/bin/find  / -xdev -group "$OLD_GID" -exec chgrp --no-dereference "$NEW_GROUP_NAME" {} \;
-        fi
-        exec ${pkgs.gosu.bin}/bin/gosu "$NEW_USER_NAME" "$BASH_SOURCE" "$@"
-    fi
-    exec "$@"
+        exec "$@"
     '';
 in
 
