@@ -28,4 +28,4 @@ nix-build './redis-Yann Hodique-dockerTools.nix'
 
 docker load < ./result
 
-docker run -it 'redis-yann-hodique-docker-tools':0.0.1
+docker run -it 'redis-yann-hodique-docker-tools':0.0.1 redis-server
