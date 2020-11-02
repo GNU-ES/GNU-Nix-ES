@@ -2,7 +2,7 @@
 
 let
   inherit (pkgs) dockerTools stdenv buildEnv writeText;
-  inherit (pkgs) bashInteractive coreutils cacert nix;
+  inherit (pkgs) bashInteractive coreutils cacert nix findutils;
 
   inherit (native.lib) concatStringsSep genList;
 
@@ -15,7 +15,7 @@ let
 
   path = buildEnv {
     name = "system-path";
-    paths = [ bashInteractive coreutils nix shadow ];
+    paths = [ findutils bashInteractive coreutils nix shadow ];
   };
 
   nixconf = ''
@@ -37,33 +37,56 @@ let
 
   contents = stdenv.mkDerivation {
     name = "user-environment";
-    phases = [ "installPhase" "fixupPhase" ];
+    phases = [ "installPhase" "fixupPhase" "checkPhase"];
 
     exportReferencesGraph =
       map (drv: [("closure-" + baseNameOf drv) drv]) [ path cacert unstable ];
 
+    checkPhase = ''
+        set -o pipefail
+        mkdir $out/xablau
+        nix --version
+    '';
+
     installPhase = ''
-      mkdir -p $out/run/current-system $out/var
-      ln -s /run $out/var/run
-      ln -s ${path} $out/run/current-system/sw
+      mkdir --parent $out/run/current-system
+      mkdir --parent $out/var
 
-      mkdir -p $out/bin $out/usr/bin $out/sbin
-      ln -s ${stdenv.shell} $out/bin/sh
-      ln -s ${coreutils}/bin/env $out/usr/bin/env
+      ln --symbolic /run $out/var/run
+      ln --symbolic ${path} $out/run/current-system/sw
 
-      mkdir -p $out/etc/nix
+      mkdir --parent $out/bin
+      mkdir --parent $out/usr/bin
+      mkdir --parent $out/sbin
+
+      ln --symbolic ${stdenv.shell} $out/bin/sh
+      ln --symbolic ${coreutils}/bin/env $out/usr/bin/env
+
+      mkdir --parent $out/etc/nix
       echo '${nixconf}' > $out/etc/nix/nix.conf
       echo '${passwd}' > $out/etc/passwd
       echo '${group}' > $out/etc/group
 
       printRegistration=1 ${pkgs.perl}/bin/perl ${pkgs.pathsFromGraph} closure-* > $out/.reginfo
 
-      mkdir --mode=1777 --parent $out/tmp
-      #mkdir --parent $out/nix/var/nix/gcroots $out/nix/var/nix/profiles/per-user/root $out/root/.nix-defexpr $out/var/empty
-      #ln -s ${path} $out/nix/var/nix/gcroots/booted-system
-      #ln -s $out/nix/var/nix/profiles/per-user/root/profile $out/root/.nix-profile
-      #ln -s ${unstable} $out/root/.nix-defexpr/nixos
-      #ln -s ${unstable} $out/root/.nix-defexpr/nixpkgs
+      find --version
+        #mkdir --mode=0755 --parent $out/nix/var
+        #${pkgs.nix}/bin/nix-store --init
+        #nix-store --load-db < .reginfo
+
+        mkdir --mode=1777 --parent $out/tmp
+
+        mkdir --mode=1777 --parent $out/jkldsfkldfhkjs
+
+        #mkdir --parent $out/nix/var/nix/gcroots
+        #mkdir --parent $out/nix/var/nix/profiles/per-user/root
+        #mkdir --parent $out/root/.nix-defexpr
+        #mkdir --parent $out/var/empty
+
+        #ln --symbolic ${path} $out/nix/var/nix/gcroots/booted-system
+        #ln --symbolic $out/nix/var/nix/profiles/per-user/root/profile $out/root/.nix-profile
+        #ln --symbolic ${unstable} $out/root/.nix-defexpr/nixos
+        #ln --symbolic ${unstable} $out/root/.nix-defexpr/nixpkgs
     '';
   };
 
@@ -94,6 +117,22 @@ let
         echo "Set disable_coredump false" >> etc/sudo.conf
     '';
 
+
+    extraCommands = ''
+        #chown pedroregispoar ${pkgs.sudo}/bin/]
+
+        #mkdir xablau
+        mkdir --parent $out/nix/var/nix/gcroots
+        mkdir --parent $out/nix/var/nix/profiles/per-user/root
+        mkdir --parent $out/root/.nix-defexpr
+        mkdir --parent $out/var/empty
+
+        ln --symbolic ${path} $out/nix/var/nix/gcroots/booted-system
+        ln --symbolic $out/nix/var/nix/profiles/per-user/root/profile $out/root/.nix-profile
+        ln --symbolic ${unstable} $out/root/.nix-defexpr/nixos
+        ln --symbolic ${unstable} $out/root/.nix-defexpr/nixpkgs
+
+    '';
 
 
     config.Cmd = [ "${bashInteractive}/bin/bash" ];

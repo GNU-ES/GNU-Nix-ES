@@ -78,3 +78,30 @@ nix-base:0.0.1
 # nix-store --init && nix-store --load-db < .reginfo
 # nix-env --install --attr nixpkgs.git
 # nix-env -f '<nixpkgs>' --install --attr nixpkgs.git
+
+#ls -al /nix/var/nix/gcroots
+#ls -al /nix/var/nix/profiles/per-user/root
+#ls -al /root/.nix-defexpr
+#ls -al /var/empty
+
+#ln --symbolic ${path} $out/nix/var/nix/gcroots/booted-system
+#ln --symbolic $out/nix/var/nix/profiles/per-user/root/profile $out/root/.nix-profile
+#ln --symbolic ${unstable} $out/root/.nix-defexpr/nixos
+#ln --symbolic ${unstable} $out/root/.nix-defexpr/nixpkgs
+
+
+#ls -al /nix/var/nix/gcroots
+#ls -al /nix/var/nix/profiles/per-user/root
+#ls -al /root/.nix-defexpr
+#ls -al /var/empty
+#
+#
+#ls -al /nix/var/nix/gcroots
+#ls -al /nix/var/nix/profiles/per-user/root
+#ls -al /"$HOME"/.nix-defexpr
+#ls -al /var/empty
+#
+#ln --symbolic ${path} $out/nix/var/nix/gcroots/booted-system
+#ln --symbolic $out/nix/var/nix/profiles/per-user/root/profile $out/root/.nix-profile
+#ln --symbolic ${unstable} $out/root/.nix-defexpr/nixos
+#ln --symbolic ${unstable} $out/root/.nix-defexpr/nixpkgs
