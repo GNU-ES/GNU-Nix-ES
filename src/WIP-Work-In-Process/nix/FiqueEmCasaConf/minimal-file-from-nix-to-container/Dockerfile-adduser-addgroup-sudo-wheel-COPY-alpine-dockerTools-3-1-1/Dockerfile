@@ -1,12 +1,12 @@
 FROM alpine:3.12.0 as builder
 
 
-COPY ./*.sh /shs/
-
-RUN chmod 777 /shs/*
-
-RUN cd /shs \
- && ./install.sh
+# COPY ./*.sh /shs/
+#
+# RUN chmod 777 /shs/*
+#
+# RUN cd /shs \
+#  && ./install.sh
 
 
 
@@ -49,17 +49,24 @@ RUN apk update \
 # && sudo chown $USER /home/pedroregispoar/.local/ \
 # && sudo mkdir /home/pedroregispoar/.cache/ \
 # && sudo chown $USER /home/pedroregispoar/.cache/ \
-# && sudo touch /home/pedroregispoar/.nix-channels/ \
-# && sudo chown $USER /home/pedroregispoar/.nix-channels/ \
+# && sudo su -c 'echo >> /home/pedroregispoar/.nix-channels' \
+# && sudo chown $USER /home/pedroregispoar/.nix-channels \
 # && nix-channel --add https://nixos.org/channels/nixos-20.09 \
 # && nix-channel --list \
 # && nix repl --version
+
+
+
+
+
 
 #NIX_PATH=/nix/var/nix/profiles/per-user/root/channels nix build -f '<nixpkgs>' hello
 
 # NIX_PATH=nixpkgs=$NIX_PATH/nixpkgs nix run nixpkgs.curl
 
 # nix-env --install --attr nixpkgs.hello
+# nix-env -f '<nixpkgs>' --install --attr hello
+# /nix/store/5hdmx9yk7gr71b98j4vh9271k0zg5jis-nix-2.2.1/bin/nix-env -f '<nixpkgs>' --install --attr hello
 
 # NIX_PATH/nix/var/nix/profiles/per-user/root/channels/nixpkgs nix-env --install --attr nixpkgs.hello
 #

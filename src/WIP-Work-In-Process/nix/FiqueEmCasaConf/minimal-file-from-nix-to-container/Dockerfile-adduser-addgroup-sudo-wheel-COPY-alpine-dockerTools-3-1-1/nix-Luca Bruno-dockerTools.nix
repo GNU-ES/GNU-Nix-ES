@@ -60,6 +60,7 @@ pkgs.dockerTools.buildImage {
         which
         man
         neovim
+        hello
         nix
        ];
 
