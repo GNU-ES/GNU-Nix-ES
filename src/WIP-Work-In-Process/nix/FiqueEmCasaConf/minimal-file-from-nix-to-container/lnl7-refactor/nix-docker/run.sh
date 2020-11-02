@@ -24,7 +24,7 @@ docker run \
 --rm \
 --workdir /code \
 --volume "$(pwd)":/code \
-nix-base:0.0.1
+nix-base:0.0.1 bash -c 'ls -al /'
 
 #bash -c 'stat --format="%a" /sbin/sudo'
 #--user=pedroregispoar \
