@@ -77,7 +77,7 @@ let
     entrypoint = pkgs.writeScript "entrypoin-file.sh" ''
         #!${pkgs.stdenv.shell}
 
-        echo '@@@@@@@@@@@@@@@@'
+        echo 'Runnung the config.Entrypoint script!'
 
         mkdir --parent /nix/var/nix/gcroots
         mkdir --parent /nix/var/nix/profiles/per-user/root
