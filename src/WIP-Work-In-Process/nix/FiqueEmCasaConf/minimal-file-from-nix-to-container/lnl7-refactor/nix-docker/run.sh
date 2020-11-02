@@ -74,3 +74,7 @@ nix-base:0.0.1
 #    which \
 #    xz \
 # && nix-store --gc
+
+# nix-store --init && nix-store --load-db < .reginfo
+# nix-env --install --attr nixpkgs.git
+# nix-env -f '<nixpkgs>' --install --attr nixpkgs.git
