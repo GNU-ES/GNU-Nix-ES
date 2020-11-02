@@ -1,4 +1,4 @@
-{ src ? ./srcs/2020-09-11.nix, nixpkgs ? <nixpkgs>, system ? builtins.currentSystem }:
+{ src ? ./src/2020-09-11.nix, nixpkgs ? <nixpkgs>, system ? builtins.currentSystem }:
 
 let
   inherit (pkgs) dockerTools stdenv buildEnv writeText;
