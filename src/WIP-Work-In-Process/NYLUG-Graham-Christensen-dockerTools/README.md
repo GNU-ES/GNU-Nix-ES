@@ -33,3 +33,6 @@ http://sandervanderburg.blogspot.com/2020/07/on-using-nix-and-docker-as-deployme
 TODO:
 https://grahamc.com/blog/nix-and-layered-docker-images
 https://github.com/NixOS/nixpkgs/pull/47411
+
+extraCommands
+https://github.com/NixOS/nixpkgs/pull/91084#issuecomment-669792793
