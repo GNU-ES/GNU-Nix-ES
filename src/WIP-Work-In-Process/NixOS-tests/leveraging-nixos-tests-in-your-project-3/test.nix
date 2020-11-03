@@ -3,32 +3,33 @@
     #nodes.server = ./server.nix;
 
     nodes = {
-    docker =
-      { pkgs, ... }:
+        docker =
+        { pkgs, ... }:
         {
-          virtualisation.docker.enable = true;
-          virtualisation.docker.package = pkgs.docker;
+            virtualisation.docker.enable = true;
+            virtualisation.docker.package = pkgs.docker;
 
-          users.users = {
-            noprivs = {
-              isNormalUser = true;
-              description = "Can't access the docker daemon";
-              password = "foobar";
-            };
+            users.users = {
+                noprivs = {
+                    isNormalUser = true;
+                    description = "Can't access the docker daemon";
+                    password = "foobar";
+                };
 
-            hasprivs = {
-              isNormalUser = true;
-              description = "Can access the docker daemon";
-              password = "foobar";
-              extraGroups = [ "docker" ];
+                hasprivs = {
+                    isNormalUser = true;
+                    description = "Can access the docker daemon";
+                    password = "foobar";
+                    extraGroups = [ "docker" ];
+                };
             };
-          };
         };
     };
 
     testScript = with pkgs.dockerTools; ''
         unix_time_second1 = "1970-01-01T00:00:01Z"
         docker.wait_for_unit("sockets.target")
+
         with subtest("Ensure Docker images use a stable date by default"):
             docker.succeed(
                 "docker load --input='${examples.bash}'"

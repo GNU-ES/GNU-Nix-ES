@@ -18,3 +18,9 @@ nixos/nix:latest nix-env --install --attr nixpkgs.git \
 && cd src/WIP-Work-In-Process/NixOS-tests/leveraging-nixos-tests-in-your-project-3 \
 && ./run.sh
 ```
+
+
+https://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.454.1861&rep=rep1&type=pdf
+
+TODO: write a test for this!
+https://discourse.nixos.org/t/dockertools-buildimage-and-user-writable-tmp/5397/8
