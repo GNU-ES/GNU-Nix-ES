@@ -29,3 +29,7 @@ http://sandervanderburg.blogspot.com/2020/07/on-using-nix-and-docker-as-deployme
 
 
 [NixOS nixpkgs nixpkgs pkgs build-support docker examples.nix](https://github.com/NixOS/nixpkgs/blob/a5931fa6e38da31f119cf08127c1aa8f178a22af/pkgs/build-support/docker/examples.nix)
+
+TODO:
+https://grahamc.com/blog/nix-and-layered-docker-images
+https://github.com/NixOS/nixpkgs/pull/47411
