@@ -6,6 +6,9 @@
 _For my point of view_ you must start using flakes
 
 
+[Everything I know: Nikita Voloboev](https://wiki.nikitavoloboev.xyz/package-managers/nix)
+
+
 TODO:
 [Jon Ringer](https://www.youtube.com/user/elitespartan117j27/videos)
 
