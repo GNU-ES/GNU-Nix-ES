@@ -26,6 +26,9 @@ docker run \
 --volume "$(pwd)":/code \
 nix-base:0.0.1 bash -c 'nix-env --install --attr nixpkgs.git'
 
+#--volume '/nix:/nix:ro' \
+#--user 'pedroregispoar' \
+
 #bash -c 'stat --format="%a" /sbin/sudo'
 #--user=pedroregispoar \
 
