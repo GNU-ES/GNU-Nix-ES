@@ -142,7 +142,7 @@ let
         config.Cmd = [ "${bashInteractive}/bin/bash" ];
 
         config.Env = [ "PATH=/root/.nix-profile/bin:/pedroregispoar/.nix-profile/bin:/run/current-system/sw/bin"
-            "MANPATH=/root/.nix-profile/share/man:/pedroregispoar/.nix-profile/bin:/run/current-system/sw/share/man"
+            "MANPATH=/root/.nix-profile/share/man:/pedroregispoar/.nix-profile/share/man:/run/current-system/sw/share/man"
             "NIX_PAGER=cat"
             "USER=pedroregispoar"
             "HOME=/home/pedroregispoar"
