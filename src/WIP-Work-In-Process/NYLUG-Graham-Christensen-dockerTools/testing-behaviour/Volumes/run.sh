@@ -17,4 +17,4 @@ docker run \
 --rm \
 --tty \
 --rm \
-volumes-bash-interactive:0.0.1
+volumes-bash-interactive:0.0.1 -c 'ls -al /data'
