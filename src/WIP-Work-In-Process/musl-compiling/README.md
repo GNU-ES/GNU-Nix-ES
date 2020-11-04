@@ -19,7 +19,7 @@ How to build a simple static Rust binary using musl?
 https://www.reddit.com/r/NixOS/comments/f0yi3b/how_to_build_a_simple_static_rust_binary_using/
 
 
-TODO: join with what is is python3Minimal
+TODO: join with what is in python3Minimal
 du -sch (nix-store -qR (nix-build '<nixpkgs>' --no-out-link -A python3Minimal)) | sort -h
 
 https://github.com/NixOS/nixpkgs/pull/66762#
