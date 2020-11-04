@@ -25,3 +25,8 @@ du -sch (nix-store -qR (nix-build '<nixpkgs>' --no-out-link -A python3Minimal)) 
 https://github.com/NixOS/nixpkgs/pull/66762#
 https://github.com/NixOS/nixpkgs/pull/66762#issuecomment-522362845
 https://discourse.nixos.org/t/cross-compiling-libx11-with-musl/4763/3
+
+
+TODO: reproduce this!
+nix-env --set-flag priority 4 python3-minimal-3.7.6
+nix-env --install --attr nixos.python38Full
