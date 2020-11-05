@@ -11,7 +11,7 @@ Linux Torvalds in a short video (I pinned the start and the and of the relevante
 
 **Note:** many, if not all, tutorials does not use `flake` to be complitely reprodutible. It, in my opinion, 
 is not ideal. In my point of view as a comunity we should show, even for beginers, all power of the `Nix` as a 
-build system. Put in another way: every exemple must be done using `flake` (I know that it is a experiemntal feature, 
+build system. Put in another way: every exemple must be done using `flake` (I know that it is a experimental feature, 
 but it reaches or goes around the perfection in terms of reprodutibility if it is used, so, why not?!).  
 
 ### Videos
