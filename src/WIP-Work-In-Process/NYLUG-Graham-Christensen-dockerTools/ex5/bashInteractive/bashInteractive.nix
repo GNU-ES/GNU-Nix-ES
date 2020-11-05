@@ -1,15 +1,14 @@
 let
     pkgs = import <nixpkgs> {};
 in
-pkgs.dockerTools.buildLayeredImage {
+    pkgs.dockerTools.buildLayeredImage {
+        name = "bash-interactive";
+        tag = "0.0.1";
+        created = "now";
 
-    name = "bash-interactive";
-    tag = "0.0.1";
-    created = "now";
+        contents = with pkgs; [
+            bashInteractive
+           ];
 
-    contents = with pkgs; [
-        bashInteractive
-       ];
-
-    config.Entrypoint = [ "${pkgs.bashInteractive}/bin/bash" ];
-}
+        config.Entrypoint = [ "${pkgs.bashInteractive}/bin/bash" ];
+    }
