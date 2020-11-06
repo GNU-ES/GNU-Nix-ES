@@ -19,7 +19,7 @@ let
             NEW_USER_ID=$(stat --format="%u" "$VOLUME_AND_WORKDIR")
 
             if [ "$OLD_USER_ID" != "$NEW_USER_ID" ]; then
-                echo "Changing uid of "$NEW_USER_NAME" from $OLD_USER_ID to $NEW_USER_ID".
+                echo "Changing uid (user identifier) of "$NEW_USER_NAME" from $OLD_USER_ID to $NEW_USER_ID"
                 usermod --uid "$NEW_USER_ID" --non-unique "$NEW_USER_NAME"
 
                 ${pkgs.findutils}/bin/find / -xdev -user "$OLD_USER_ID" -exec chown --no-dereference "$NEW_USER_NAME" {} \;
@@ -29,10 +29,10 @@ let
             NEW_GROUP_ID=$(stat --format="%g" $VOLUME_AND_WORKDIR)
 
             if [ "$OLD_GROUP_ID" != "$NEW_GROUP_ID" ]; then
-                echo "Changing gid of "$NEW_GROUP_NAME" from $OLD_GROUP_ID to $NEW_GROUP_ID".
+                echo "Changing gid (group identifier) of "$NEW_GROUP_NAME" from $OLD_GROUP_ID to $NEW_GROUP_ID"
                 groupmod --gid "$NEW_GROUP_ID" --non-unique "$NEW_GROUP_NAME"
 
-                ${pkgs.findutils}/bin/find  / -xdev -group "$OLD_GROUP_ID" -exec chgrp --no-dereference "$NEW_GROUP_NAME" {} \;
+                ${pkgs.findutils}/bin/find / -xdev -group "$OLD_GROUP_ID" -exec chgrp --no-dereference "$NEW_GROUP_NAME" {} \;
             fi
             exec ${pkgs.gosu.bin}/bin/gosu "$NEW_USER_NAME" "$BASH_SOURCE" "$@"
         fi
@@ -49,8 +49,8 @@ pkgs.dockerTools.buildImage {
     runAsRoot = ''
         #!${pkgs.stdenv}
         ${pkgs.dockerTools.shadowSetup}
-        groupadd --gid 5678 app_group
-        useradd --no-log-init --uid 5678 --gid app_group app_user
+        groupadd --gid 56789 app_group
+        useradd --no-log-init --uid 12345 --gid app_group app_user
     '';
 
     contents = with pkgs; [

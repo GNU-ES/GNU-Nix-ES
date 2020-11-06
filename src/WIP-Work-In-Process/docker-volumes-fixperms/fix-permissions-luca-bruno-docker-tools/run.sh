@@ -32,11 +32,36 @@ docker run \
 --interactive \
 --tty \
 --rm \
---workdir /code \
---volume "$(pwd)":/code \
 fix-permissions-luca-bruno-docker-tools:0.0.1 \
 bash -c 'id'
 
+
+#docker run \
+#--interactive \
+#--tty \
+#--rm \
+#--user app_user \
+#fix-permissions-luca-bruno-docker-tools:0.0.1 \
+#bash -c 'id'
+
+
+#echo 'The result of id in the current machine:'
+#id
+#
+#docker run \
+#--interactive \
+#--tty \
+#--rm \
+#--workdir /code \
+#--volume "$(pwd)":/code \
+#fix-permissions-luca-bruno-docker-tools:0.0.1 \
+#bash -c 'touch some_file.txt && echo && stat some_file.txt'
+#
+#echo
+#
+#stat some_file.txt
+#
+#rm some_file.txt
 
 # Create some tests, use maybe stat or some thing like to be sure it works!
 # Inside the runing container?
