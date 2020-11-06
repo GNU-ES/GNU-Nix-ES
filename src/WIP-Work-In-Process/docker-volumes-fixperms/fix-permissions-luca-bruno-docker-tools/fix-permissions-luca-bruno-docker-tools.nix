@@ -60,15 +60,7 @@ pkgs.dockerTools.buildImage {
        ];
 
     config = {
-
         Cmd = [ "${pkgs.bashInteractive}/bin/bash" ];
-
         Entrypoint = [ entrypoint ];
-
-#        WorkingDir = "/code";
-
-#        Volumes = {
-#          "/code" = {};
-#        };
     };
 }

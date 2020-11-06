@@ -14,3 +14,9 @@ useradd --no-log-init --uid 5000 --gid app_group app_user
 
 --workdir /code \
 --volume "$(pwd)":/code \
+
+WorkingDir = "/code";
+
+Volumes = {
+  "/code" = {};
+};
