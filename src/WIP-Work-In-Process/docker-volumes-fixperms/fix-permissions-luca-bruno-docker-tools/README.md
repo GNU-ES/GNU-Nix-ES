@@ -10,3 +10,7 @@
 What are the differences in doing it in the entrypoint or in the runAsRoot?
 groupadd --gid 5000 app_group
 useradd --no-log-init --uid 5000 --gid app_group app_user
+
+
+--workdir /code \
+--volume "$(pwd)":/code \

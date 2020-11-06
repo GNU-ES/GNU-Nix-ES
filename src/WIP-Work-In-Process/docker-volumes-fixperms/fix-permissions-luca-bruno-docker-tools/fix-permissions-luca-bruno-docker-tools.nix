@@ -65,7 +65,7 @@ pkgs.dockerTools.buildImage {
 
         Entrypoint = [ entrypoint ];
 
-        WorkingDir = "/code";
+#        WorkingDir = "/code";
 
 #        Volumes = {
 #          "/code" = {};
