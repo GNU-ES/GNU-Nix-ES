@@ -32,6 +32,8 @@ docker run \
 --interactive \
 --tty \
 --rm \
+--workdir /code \
+--volume "$(pwd)":/code \
 fix-permissions-luca-bruno-docker-tools:0.0.1 \
 bash -c 'id'
 

@@ -67,8 +67,8 @@ pkgs.dockerTools.buildImage {
 
         WorkingDir = "/code";
 
-        Volumes = {
-          "/code" = {};
-        };
+#        Volumes = {
+#          "/code" = {};
+#        };
     };
 }
