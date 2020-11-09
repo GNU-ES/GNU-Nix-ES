@@ -4,3 +4,6 @@
 set -euxo pipefail
 
 nix-shell main.nix --run 'python --version'
+
+# If it is a constant string, the NIX_PATH, why not use single quote and make it more readble?!
+NIX_PATH='nixpkgs=channel:nixos-unstable' nix-shell main.nix --run 'python --version'
