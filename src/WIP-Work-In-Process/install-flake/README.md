@@ -1,6 +1,6 @@
 
 
-Ideia: use `ONBUILD RUn` for entrypoint.
+Ideia: use `ONBUILD RUN` for entrypoint.
 
 [Nix Installation Guide](https://nixos.wiki/wiki/Nix_Installation_Guide)
 
