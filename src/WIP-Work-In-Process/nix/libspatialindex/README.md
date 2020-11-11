@@ -29,3 +29,10 @@ pedroregispoar/nixos/libspatialindex
 ...
 9eb502216d3b:/code# ls
 ```
+
+
+app = pkgs.poetry2nix.mkPoetryApplication {
+  projectDir = ./.;
+  propagatedBuildInputs = externalDeps;
+};
+https://github.com/abcdw/tgytdl/blob/0f88206389a2d6392e728ed59e55bbded532ec21/flake.nix#L13
