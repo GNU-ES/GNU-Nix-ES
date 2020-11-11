@@ -28,3 +28,46 @@ the workaround I have seen is to (simplified):
 ## On Alpine
 
 
+# On NixOS
+
+
+nix --version
+
+sudo nix-channel --list
+
+sudo nixos-rebuild switch --show-trace
+
+sudo nixos-rebuild switch --no-write-lock-file
+
+nixos-rebuild --flake .#mymachine switch
+
+
+sudo nix-channel --list
+sudo nix-channel --add https://nixos.org/channels/nixos-20.09
+sudo nix-channel --list
+
+sudo nix-channel --add https://nixos.org/channels/nixos-20.03
+
+nix-instantiate --eval --expr '(import <nixpkgs> {}).lib.version'
+
+sudo nix-channel --remove nixos-20.09
+
+NIX_PATH=nixos-config=/etc/nixos/configuration.nix:nixpkgs=channel:nixos-20.03 sudo nixos-rebuild switch
+
+
+
+Works:
+
+nix --version
+nix (Nix) 2.3.6
+
+sudo nix-channel --list
+nixos https://nixos.org/channels/nixos-20.03
+nixos-20.03 https://nixos.org/channels/nixos-20.03
+nixpkgs https://nixos.org/channels/nixpkgs-unstable
+
+nix-instantiate --eval --expr '(import <nixpkgs> {}).lib.version'
+"20.03.3236.2257e6cf4d7"
+
+
+
