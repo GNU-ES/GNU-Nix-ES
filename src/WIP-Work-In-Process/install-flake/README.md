@@ -70,4 +70,48 @@ nix-instantiate --eval --expr '(import <nixpkgs> {}).lib.version'
 "20.03.3236.2257e6cf4d7"
 
 
+## Trying to make flake work 
+
+git log --pretty=oneline
+
+sudo git checkout f0a3924b1d88ea569555944ba2df22afe575c9f7
+
+cd /etc/nixos
+nix flake update
+
+git switch -
+
+sudo git checkout d0c6577d81dd976b28b3b117ffe60eb32e8f0c47
+
+nix flake update
+
+sudo nix-channel --list
+sudo nix-channel --add https://nixos.org/channels/nixos-20.09
+sudo nix-channel --list
+
+----
+
+sudo nix-channel --list
+nixos https://nixos.org/channels/nixos-unstable
+nixos-20.03 https://nixos.org/channels/nixos-20.03
+nixos-20.09 https://nixos.org/channels/nixos-20.09
+nixpkgs https://nixos.org/channels/nixpkgs-unstable
+
+
+After first step commit:
+`sudo nixos-rebuild switch`
+
+sudo mv _flake.nix flake.nix
+sudo git add .
+sudo git commit -m 'Add flake.nix'
+
+nix --version
+
+nix flake update
+
+
+nix flake info nixpkgs
+
+sudo nixos-rebuild switch --flake '.#' --no-write-lock-file
+
 
