@@ -77,3 +77,7 @@ https://www.reddit.com/r/NixOS/comments/a3w67x/install_a_package_from_a_specific
 https://discourse.nixos.org/t/building-nixos-system-with-nix-build-and-a-channel-specifier/4747/2
 https://www.tweag.io/blog/2020-08-12-poetry2nix/
 https://www.youtube.com/watch?v=TbIHRHy7_JM
+
+
+Is NixOS Reproducible?
+https://github.com/grahamc/r13y.com
