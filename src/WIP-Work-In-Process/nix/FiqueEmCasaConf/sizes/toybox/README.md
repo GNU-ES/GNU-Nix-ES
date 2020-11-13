@@ -1,6 +1,5 @@
 
-It may take a really long time!!
-
 `./run.sh`
 
 
+https://github.com/tianon/dockerfiles/blob/master/toybox/Dockerfile

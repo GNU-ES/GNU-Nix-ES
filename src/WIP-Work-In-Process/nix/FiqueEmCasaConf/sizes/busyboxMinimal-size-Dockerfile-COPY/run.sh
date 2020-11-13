@@ -14,6 +14,7 @@ docker build --tag "$IMAGE_VERSION" .
 
 docker images | grep "$SEARCH_NAME"
 
+
 docker run \
 --interactive \
 --tty \
