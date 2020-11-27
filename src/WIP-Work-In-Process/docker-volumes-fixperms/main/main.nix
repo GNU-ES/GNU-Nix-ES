@@ -41,6 +41,7 @@ pkgs.dockerTools.buildLayeredImage {
         file
         man
         neovim
+        texlive.combined.scheme-basic
         ripgrep
         shadow
         stdenv
