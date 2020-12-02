@@ -3,11 +3,6 @@
     users = {
         extraUsers.root.initialHashedPassword = "";
         mutableUsers = false;
-
-         extraUsers.pedro= {
-            shell = pkgs.zsh;
-            extraGroups = [ "wheel" ];
-            };
     };
 
     nix = {
