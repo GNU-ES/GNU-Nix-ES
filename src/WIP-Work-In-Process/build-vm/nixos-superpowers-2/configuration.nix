@@ -6,7 +6,7 @@
 
          extraUsers.pedro= {
             shell = pkgs.zsh;
-            extraGroups = [ "root" ];
+            extraGroups = [ "wheel" ];
             };
     };
 
@@ -19,6 +19,4 @@
 
     # Allow unfree packages :[
     nixpkgs.config.allowUnfree = true;
-
-    #environment.systemPackages = with pkgs; []
 }

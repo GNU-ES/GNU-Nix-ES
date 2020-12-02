@@ -4,7 +4,7 @@
 set -eux pipefail
 
 
-export NIX_PATH=nixos-config=$PWD/configuration.nix:nixpkgs=channel:nixos-20.09
+export NIX_PATH=nixos-config="$(pwd)"/configuration.nix:nixpkgs=channel:nixos-20.09
 
 nixos-rebuild build-vm
 
