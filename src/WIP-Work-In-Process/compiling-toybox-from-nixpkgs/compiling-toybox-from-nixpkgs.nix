@@ -13,6 +13,11 @@ let
     sha256 = "0cb1n0skanwwkwgzlswwhvfb4iji1bw9iqskmczlhakpw3j1yaqa";
     };
 
+    # https://github.com/NixOS/nixpkgs/blob/a371c1071161104d329f6a85d922fd92b7cbab63/pkgs/top-level/static.nix#L130
+    enableStatic = true;
+
+    # https://github.com/NixOS/nixpkgs/blob/39769df9dfa63263850e9c4f6f771873b89198b5/pkgs/os-specific/linux/busybox/sandbox-shell.nix#L6
+    enableMinimal = true;
     buildInputs = lib.optionals enableStatic [ stdenv.cc.libc stdenv.cc.libc.static ];
 
     postPatch = "patchShebangs .";
