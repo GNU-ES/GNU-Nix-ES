@@ -1,9 +1,14 @@
 
 
 
-https://youtu.be/DK_iLg2Ekwk?t=852
+[Fearless Tinkering: How NixOS Works (NixCon 2019) t=852](https://youtu.be/DK_iLg2Ekwk?t=852)
 
 https://github.com/grahamc/talks/tree/master/talks-nixcon-2019/nixos-superpowers
+
+
+What is the difference in change the channel number? If the channel specified is different of
+the host the build is bigger?
+
 
 https://discourse.nixos.org/t/nixflk-template-repo-for-nixos-configurations-using-flakes/5325
 https://github.com/nrdxp/nixflk
