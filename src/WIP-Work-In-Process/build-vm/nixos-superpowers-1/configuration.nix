@@ -6,7 +6,7 @@
 
          extraUsers.pedro= {
             shell = pkgs.zsh;
-            extraGroups = [ "root" ];
+            extraGroups = [ "wheel" ];
             };
     };
 
