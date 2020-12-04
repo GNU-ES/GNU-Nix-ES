@@ -43,7 +43,7 @@ let
             fi
         fi
         
-        #exec ${pkgs.gosu.bin}/bin/gosu app_user "$BASH_SOURCE" "$@"
+        #exec ${pkgs.gosu}/bin/gosu app_user "$BASH_SOURCE" "$@"
         exec "$@"
     fi
     exec "$@"
