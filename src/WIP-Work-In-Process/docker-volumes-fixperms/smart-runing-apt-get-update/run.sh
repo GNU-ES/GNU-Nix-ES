@@ -21,4 +21,4 @@ docker run \
 --rm \
 --workdir /code \
 --volume "$(pwd)":/code \
-"$IMAGE_VERSION"
+"$IMAGE_VERSION" bash -c './adduser_with_sudo_privileges.sh'
