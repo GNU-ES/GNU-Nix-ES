@@ -42,7 +42,7 @@ let
 
                 ${pkgs.findutils}/bin/find / -xdev -group "$OLD_GROUP_ID" -exec chgrp --no-dereference "$NEW_GROUP_NAME" {} \;
             fi
-            exec ${pkgs.gosu.bin}/bin/gosu "$NEW_USER_NAME" "$BASH_SOURCE" "$@"
+            exec ${pkgs.gosu}/bin/gosu "$NEW_USER_NAME" "$BASH_SOURCE" "$@"
         fi
         exec "$@"
     '';
