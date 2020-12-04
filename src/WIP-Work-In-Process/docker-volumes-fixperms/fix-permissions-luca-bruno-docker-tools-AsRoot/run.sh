@@ -24,7 +24,7 @@ IMAGE_VERSION="$IMAGE":"$VERSION"
 #sh
 
 
-nix-build './fix-permissions-luca-bruno-docker-tools.nix'
+nix-build './fix-permissions-luca-bruno-docker-tools-AsRoot.nix'
 
 docker load < ./result
 
@@ -34,7 +34,7 @@ docker run \
 --rm \
 --workdir /code \
 --volume "$(pwd)":/code \
-fix-permissions-luca-bruno-docker-tools:0.0.1 \
+fix-permissions-luca-bruno-docker-tools-asroot:0.0.1 \
 bash -c 'id'
 
 docker run \
@@ -44,7 +44,7 @@ docker run \
 --workdir /code \
 --user 0 \
 --volume "$(pwd)":/code \
-fix-permissions-luca-bruno-docker-tools:0.0.1 \
+fix-permissions-luca-bruno-docker-tools-asroot:0.0.1 \
 bash -c 'id'
 
 docker run \
@@ -54,7 +54,7 @@ docker run \
 --workdir /code \
 --user root \
 --volume "$(pwd)":/code \
-fix-permissions-luca-bruno-docker-tools:0.0.1 \
+fix-permissions-luca-bruno-docker-tools-asroot:0.0.1 \
 bash -c 'id'
 
 
@@ -63,7 +63,7 @@ docker run \
 --tty \
 --rm \
 --user app_user \
-fix-permissions-luca-bruno-docker-tools:0.0.1 \
+fix-permissions-luca-bruno-docker-tools-asroot:0.0.1 \
 bash -c 'id'
 
 
@@ -76,7 +76,7 @@ docker run \
 --rm \
 --workdir /code \
 --volume "$(pwd)":/code \
-fix-permissions-luca-bruno-docker-tools:0.0.1 \
+fix-permissions-luca-bruno-docker-tools-asroot:0.0.1 \
 bash -c 'touch some_file.txt && echo && stat some_file.txt'
 
 echo
