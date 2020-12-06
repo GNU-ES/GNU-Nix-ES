@@ -52,8 +52,8 @@ pkgs.dockerTools.buildImage {
     runAsRoot = ''
         #!${pkgs.stdenv}
         ${pkgs.dockerTools.shadowSetup}
-        groupadd --gid 56789 app_group
-        useradd --no-log-init --uid 12345 --gid app_group app_user
+        groupadd --gid 56789 ${new_user_group}
+        useradd --no-log-init --uid 12345 --gid ${new_user_group} ${new_user_name}
     '';
 
     contents = with pkgs; [
