@@ -8,4 +8,4 @@ nix-build ./main.nix
 
 docker load < ./result
 
-docker run --interactive --rm --tty main:0.0.1 zsh -c 'pdflatex --version'
+docker run --interactive --rm --tty main:0.0.1 zsh -c 'id'
