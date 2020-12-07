@@ -2,7 +2,7 @@
 
 let
     inherit (pkgs) dockerTools stdenv buildEnv writeText;
-    inherit (pkgs) bashInteractive coreutils cacert nix findutils;
+    inherit (pkgs) bashInteractive coreutils cacert nix findutils su sudo;
 
     inherit (native.lib) concatStringsSep genList;
 
@@ -15,7 +15,7 @@ let
 
     path = buildEnv {
         name = "system-path";
-        paths = [ findutils bashInteractive coreutils nix shadow ];
+        paths = [ findutils bashInteractive coreutils nix shadow su sudo ];
     };
 
     nixconf = ''
@@ -25,12 +25,13 @@ let
 
     passwd = ''
         root:x:0:0::/root:/run/current-system/sw/bin/bash
-        pedroregispoar:x:12345:67890::/home/pedroregispoar:
+        pedroregispoar:x:12345:67890::/home/pedroregispoar:/run/current-system/sw/bin/bash
         ${concatStringsSep "\n" (genList (i: "nixbld${toString (i+1)}:x:${toString (i+30001)}:30000::/var/empty:/run/current-system/sw/bin/nologin") 32)}
     '';
 
     group = ''
         root:x:0:
+        wheel:x:100:pedroregispoar
         pedroregispoar:x:67890:
         nixbld:x:30000:${concatStringsSep "," (genList (i: "nixbld${toString (i+1)}") 32)}
     '';
@@ -53,8 +54,8 @@ let
             mkdir --parent $out/run/current-system
             mkdir --parent $out/var
 
-            ln --symbolic /run $out/var/run
-            ln --symbolic ${path} $out/run/current-system/sw
+           ln --symbolic /run $out/var/run
+           ln --symbolic ${path} $out/run/current-system/sw
 
             mkdir --parent $out/bin
             mkdir --parent $out/usr/bin
@@ -74,23 +75,39 @@ let
         '';
     };
 
+    new_user_name = "pedroregispoar";
+    new_user_group = "pedroregispoar";
+    volume_and_workdir = "/code";
+
     entrypoint = pkgs.writeScript "entrypoin-file.sh" ''
         #!${pkgs.stdenv.shell}
 
         echo 'Runnung the config.Entrypoint script!'
 
         mkdir --parent /nix/var/nix/gcroots
-        mkdir --parent /nix/var/nix/profiles/per-user/root
-        mkdir --parent /root/.nix-defexpr
         mkdir --parent /var/empty
 
+        mkdir --parent /nix/var/nix/profiles/per-user/root
+        mkdir --parent /root/.nix-defexpr
+
+        mkdir --parent /nix/var/nix/profiles/per-user/pedroregispoar
+        mkdir --parent /pedroregispoar/.nix-defexpr
+
+
         ln --symbolic ${path} /nix/var/nix/gcroots/booted-system
+
+        # For root
         ln --symbolic /nix/var/nix/profiles/per-user/root/profile /root/.nix-profile
         ln --symbolic ${unstable} /root/.nix-defexpr/nixos
         ln --symbolic ${unstable} /root/.nix-defexpr/nixpkgs
 
-        nix-store --init
-        nix-store --load-db < /.reginfo
+        #For pedroregispoar
+        ln --symbolic /nix/var/nix/profiles/per-user/pedroregispoar/profile /pedroregispoar/.nix-profile
+        ln --symbolic ${unstable} /pedroregispoar/.nix-defexpr/nixos
+        ln --symbolic ${unstable} /pedroregispoar/.nix-defexpr/nixpkgs
+
+        ${pkgs.nix}/bin/nix-store --init
+        ${pkgs.nix}/bin/nix-store --load-db < /.reginfo
 
         exec "$@"
     '';
@@ -102,12 +119,7 @@ let
 
         runAsRoot = ''
             #!${pkgs.stdenv}
-
             ${pkgs.dockerTools.shadowSetup}
-
-            #groupadd --gid 10 wheel
-
-            #useradd --no-log-init -s "${pkgs.bashInteractive}/bin/bash" --home-dir /home/pedroregispoar --system --uid 5000 --gid wheel pedroregispoar
 
             echo 'root ALL=(ALL) ALL' >> /etc/sudoers
             echo ' %wheel ALL=(ALL) ALL' >> /etc/sudoers
@@ -126,7 +138,6 @@ let
         extraCommands = ''
             #chown pedroregispoar ${pkgs.sudo}/bin/]
 
-            #mkdir xablau
             mkdir --parent $out/nix/var/nix/gcroots
             mkdir --parent $out/nix/var/nix/profiles/per-user/root
             mkdir --parent $out/root/.nix-defexpr
@@ -136,18 +147,18 @@ let
             ln --symbolic $out/nix/var/nix/profiles/per-user/root/profile $out/root/.nix-profile
             ln --symbolic ${unstable} $out/root/.nix-defexpr/nixos
             ln --symbolic ${unstable} $out/root/.nix-defexpr/nixpkgs
-
         '';
 
         config.Entrypoint = [ entrypoint ];
 
         config.Cmd = [ "${bashInteractive}/bin/bash" ];
 
-        config.Env = [ "PATH=/root/.nix-profile/bin:/run/current-system/sw/bin"
+        config.Env = [ "PATH=/root/.nix-profile/bin:/run/current-system/sw/bin:/nix/var/nix/profiles/default/bin:/nix/var/nix/profiles/default/sbin:/bin:/sbin:/usr/bin:/usr/sbin"
             "MANPATH=/root/.nix-profile/share/man:/run/current-system/sw/share/man"
             "NIX_PAGER=cat"
             "NIX_PATH=nixpkgs=${unstable}"
             "NIX_SSL_CERT_FILE=${cacert}/etc/ssl/certs/ca-bundle.crt"
+            "ENV=/etc/profile"
         ];
     };
 in

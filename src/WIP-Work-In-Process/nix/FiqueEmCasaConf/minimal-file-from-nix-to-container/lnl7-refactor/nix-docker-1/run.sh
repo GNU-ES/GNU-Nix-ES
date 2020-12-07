@@ -24,7 +24,24 @@ docker run \
 --rm \
 --workdir /code \
 --volume "$(pwd)":/code \
-nix-base:0.0.1 bash -c 'nix-env --install --attr nixpkgs.git'
+nix-base:0.0.1 bash -c 'nix-env --install --attr nixpkgs.hello'
+
+docker run \
+--interactive \
+--tty \
+--rm \
+--workdir /code \
+--volume "$(pwd)":/code \
+nix-base:0.0.1 bash -c 'nix-env --install --attr nixpkgs.su && /nix/store/m0xb0h0qrqa6hrlmw4sxv1as0spax1z3-shadow-4.8-su/bin/su pedroregispoar -c 'id' && su pedroregispoar -c 'id''
+
+
+#nix-env --install --attr nixpkgs.su \
+#  nixpkgs.sudo \
+#  nixpkgs.which \
+#  nixpkgs.readlink \
+#&& nix --version \
+#
+
 
 #--volume '/nix:/nix:ro' \
 #--user 'pedroregispoar' \
