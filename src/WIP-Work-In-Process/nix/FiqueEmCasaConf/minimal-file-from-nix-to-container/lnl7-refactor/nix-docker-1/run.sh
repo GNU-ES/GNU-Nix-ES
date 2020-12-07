@@ -32,7 +32,23 @@ docker run \
 --rm \
 --workdir /code \
 --volume "$(pwd)":/code \
-nix-base:0.0.1 bash -c 'nix-env --install --attr nixpkgs.su && /nix/store/m0xb0h0qrqa6hrlmw4sxv1as0spax1z3-shadow-4.8-su/bin/su pedroregispoar -c 'id' && su pedroregispoar -c 'id''
+nix-base:0.0.1 bash -c 'su pedroregispoar -c 'id''
+
+docker run \
+--interactive \
+--tty \
+--rm \
+--workdir /code \
+--volume "$(pwd)":/code \
+nix-base:0.0.1 bash -c "su pedroregispoar -c 'sudo ls -al && id'"
+
+#stat $(readlink /run/current-system/sw/bin/sudo)
+#su pedroregispoar -c 'sudo ls -al'
+#
+#chmod 4755 $(readlink /run/current-system/sw/bin/sudo)
+#
+#stat $(readlink /run/current-system/sw/bin/sudo)
+#su pedroregispoar -c 'sudo ls -al'
 
 
 #nix-env --install --attr nixpkgs.su \

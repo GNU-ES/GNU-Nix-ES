@@ -2,7 +2,7 @@
 
 let
     inherit (pkgs) dockerTools stdenv buildEnv writeText;
-    inherit (pkgs) bashInteractive coreutils cacert nix findutils su sudo;
+    inherit (pkgs) bashInteractive coreutils cacert nix findutils su;
 
     inherit (native.lib) concatStringsSep genList;
 
@@ -12,6 +12,8 @@ let
     unstable = native.callPackage src { stdenv = native.stdenvNoCC; };
 
     shadow = pkgs.shadow.override { pam = null; };
+
+    sudo = pkgs.sudo.override { pam = null; };
 
     path = buildEnv {
         name = "system-path";
@@ -109,6 +111,8 @@ let
         ${pkgs.nix}/bin/nix-store --init
         ${pkgs.nix}/bin/nix-store --load-db < /.reginfo
 
+        chmod 4755 $(readlink /run/current-system/sw/bin/sudo)
+
         exec "$@"
     '';
 
@@ -136,7 +140,7 @@ let
 
 
         extraCommands = ''
-            #chown pedroregispoar ${pkgs.sudo}/bin/]
+            #chown pedroregispoar ${pkgs.sudo}/bin/
 
             mkdir --parent $out/nix/var/nix/gcroots
             mkdir --parent $out/nix/var/nix/profiles/per-user/root
