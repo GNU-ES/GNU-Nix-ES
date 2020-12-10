@@ -1,7 +1,5 @@
 { pkgs, ... }: {
 
-    machine = { pkgs, ... }: {
-        environment.systemPackages = [ pkgs.coreutils ];
-    };
+  machine = { pkgs, ... }: { environment.systemPackages = [ pkgs.coreutils ]; };
 
 }
