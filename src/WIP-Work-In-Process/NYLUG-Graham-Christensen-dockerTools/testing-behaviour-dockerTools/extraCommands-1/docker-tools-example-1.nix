@@ -9,7 +9,7 @@ pkgs.dockerTools.buildImage {
     created = "now";
 
     extraCommands = ''
-        echo 'Some mensage from extraCommands echo.'
+        echo 'Some message from extraCommands echo.'
     '';
 
     contents = with pkgs; [
