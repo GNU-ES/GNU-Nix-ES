@@ -10,6 +10,12 @@ docker load < ./result
 
 docker run --interactive --rm --tty bash-layered-with-user-with-sudo:0.0.1 bash -c 'ls -la'
 
+docker run --interactive --rm --tty bash-layered-with-user-with-sudo:0.0.1 bash -c 'stat /sbin/su'
+
+docker run --interactive --rm --tty bash-layered-with-user-with-sudo:0.0.1 bash -c 'su somebody'
+
+# stat $(readlink $(which su))
+
 
 #    adduser \
 #    --disabled-password \

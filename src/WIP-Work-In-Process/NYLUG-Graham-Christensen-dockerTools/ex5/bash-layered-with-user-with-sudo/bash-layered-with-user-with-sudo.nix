@@ -11,7 +11,7 @@ nonRootShadowSetup = { user, uid, gid ? uid }: with pkgs; [
       (
       writeTextDir "etc/passwd" ''
         root:x:0:0::/root:${runtimeShell}
-        ${user}:x:${toString uid}:${toString gid}::/home/${user}:
+        ${user}:x:${toString uid}:${toString gid}::/home/${user}:${runtimeShell}
       ''
       )
       (
@@ -32,11 +32,12 @@ nonRootShadowSetup = { user, uid, gid ? uid }: with pkgs; [
     runAsRoot = ''
         #!${pkgs.stdenv.shell}
         ${pkgs.dockerTools.shadowSetup}
-        usermod -aG sudo somebody
-        chown root:root /sbin/sudo
-        chmod 4755 /sbin/sudo
+        # usermod -aG sudo somebody
+        # chown root:root $(readlink $(which su))
+        # chmod 1755 $(readlink $(which su))
     '';
 
+shadowOverrided = pkgs.shadow.override { pam = null; };
 
 in
 pkgs.dockerTools.buildLayeredImage {
@@ -53,10 +54,11 @@ pkgs.dockerTools.buildLayeredImage {
     man
     neovim
     ripgrep
-    shadow
+    shadowOverrided
     stdenv
     su
     sudo
+    pam
     wget
     which
     ] ++ nonRootShadowSetup { uid = 999; user = "somebody"; };
