@@ -25,7 +25,7 @@ let
 
     passwd = ''
         root:x:0:0::/root:/run/current-system/sw/bin/bash
-        pedroregispoar:x:12345:67890::/home/pedroregispoar:
+        pedroregispoar:x:12345:67890::/home/pedroregispoar:/run/current-system/sw/bin/bash
         ${concatStringsSep "\n" (genList (i: "nixbld${toString (i+1)}:x:${toString (i+30001)}:30000::/var/empty:/run/current-system/sw/bin/nologin") 32)}
     '';
 
@@ -44,9 +44,14 @@ let
 
         checkPhase = ''
             set -o pipefail
-            mkdir $out/xablau
+
             nix --version
             find --version
+
+            mkdir --parent $out/nix/var/nix/gcroots
+            mkdir --parent $out/nix/var/nix/profiles/per-user/root
+            mkdir --parent $out/root/.nix-defexpr
+            mkdir --parent $out/var/empty
         '';
 
         installPhase = ''
@@ -71,6 +76,9 @@ let
             printRegistration=1 ${pkgs.perl}/bin/perl ${pkgs.pathsFromGraph} closure-* > $out/.reginfo
 
             mkdir --mode=1777 --parent $out/tmp
+
+            mkdir $out/xablau
+
         '';
     };
 
@@ -79,11 +87,6 @@ let
 
         echo 'Runnung the config.Entrypoint script!'
 
-        mkdir --parent /nix/var/nix/gcroots
-        mkdir --parent /nix/var/nix/profiles/per-user/root
-        mkdir --parent /root/.nix-defexpr
-        mkdir --parent /var/empty
-
         ln --symbolic ${path} /nix/var/nix/gcroots/booted-system
         ln --symbolic /nix/var/nix/profiles/per-user/root/profile /root/.nix-profile
         ln --symbolic ${unstable} /root/.nix-defexpr/nixos
@@ -91,7 +94,6 @@ let
 
         nix-store --init
         nix-store --load-db < /.reginfo
-
         exec "$@"
     '';
 
@@ -120,6 +122,17 @@ let
         #        mkdir --mode=755 --parents /nix/var/nix/profiles/per-user/pedroregispoar
 
             echo "Set disable_coredump false" >> etc/sudo.conf
+            
+            mkdir --parent /nix/var/nix/gcroots
+            mkdir --parent /nix/var/nix/profiles/per-user/root
+            mkdir --parent /root/.nix-defexpr
+            mkdir --parent /var/empty
+
+            #ln --symbolic ${path} /nix/var/nix/gcroots/booted-system
+            #ln --symbolic /nix/var/nix/profiles/per-user/root/profile /root/.nix-profile
+            #ln --symbolic ${unstable} /root/.nix-defexpr/nixos
+            #ln --symbolic ${unstable} /root/.nix-defexpr/nixpkgs
+            
         '';
 
 
