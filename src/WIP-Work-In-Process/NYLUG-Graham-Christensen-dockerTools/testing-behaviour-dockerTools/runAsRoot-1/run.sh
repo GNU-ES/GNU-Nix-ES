@@ -7,7 +7,7 @@ set -euxo pipefail
 
 #TODO: inject $(git rev-parse --short HEAD) in the name
 
-nix-build './docker-tools-example-1.nix'
+nix-build './docker-tools-example-runAsRoot-1.nix'
 
 docker load < ./result
 
@@ -16,5 +16,5 @@ docker run \
 --rm \
 --tty \
 --rm \
-docker-tools-example-1:0.0.1 \
+docker-tools-example-runasroot-1:0.0.1 \
 bash -c 'sudo --version'
