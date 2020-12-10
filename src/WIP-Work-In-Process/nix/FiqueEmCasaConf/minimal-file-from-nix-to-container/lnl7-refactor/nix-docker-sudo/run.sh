@@ -42,17 +42,44 @@ docker run \
 --rm \
 --workdir /code \
 --volume "$(pwd)":/code \
-nix-base:0.0.1 bash
+nix-base:0.0.1 bash -c 'cat /etc/passwd && echo && cat /etc/group'
 
 
-#docker run \
-#--interactive \
-#--tty \
-#--rm \
-#--workdir /code \
-#--volume "$(pwd)":/code \
-#nix-base:0.0.1 bash -c 'nix-env --install --attr nixpkgs.git'
+docker run \
+--interactive \
+--tty \
+--rm \
+--workdir /code \
+--volume "$(pwd)":/code \
+nix-base:0.0.1 bash -c 'stat --format="%a" /bin/sudo && echo && stat --format="%a" /sbin/sudo'
 
+
+docker run \
+--interactive \
+--tty \
+--rm \
+--workdir /code \
+--volume "$(pwd)":/code \
+nix-base:0.0.1 bash -c "nix-env --file '<nixpkgs>' --install --attr hello"
+#nix-base:0.0.1 bash -c "nix-env --file '<nixpkgs>' --install --attr hello && hello"
+
+
+docker run \
+--interactive \
+--tty \
+--rm \
+--workdir /code \
+--volume "$(pwd)":/code \
+nix-base:0.0.1 bash -c "cd / && nix-store --init && nix-store --load-db < .reginfo && nix-env --file '<nixpkgs>' --install --attr hello && hello"
+
+
+docker run \
+--interactive \
+--tty \
+--rm \
+--workdir /code \
+--volume "$(pwd)":/code \
+nix-base:0.0.1 bash -c 'nix-env --install --attr nixpkgs.git'
 
 
 #--volume '/nix:/nix:ro' \
@@ -109,7 +136,7 @@ nix-base:0.0.1 bash
 
 # nix-store --init && nix-store --load-db < .reginfo
 # nix-env --install --attr nixpkgs.git
-# nix-env -f '<nixpkgs>' --install --attr nixpkgs.git
+# nix-env --file '<nixpkgs>' --install --attr git
 
 #ls -al /nix/var/nix/gcroots
 #ls -al /nix/var/nix/profiles/per-user/root
