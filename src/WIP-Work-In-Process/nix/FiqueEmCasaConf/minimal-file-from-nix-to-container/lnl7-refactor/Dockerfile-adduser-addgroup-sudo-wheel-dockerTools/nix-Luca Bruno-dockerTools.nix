@@ -1,4 +1,4 @@
-{ src ? ./srcs/2020-09-11.nix, nixpkgs ? <nixpkgs>, system ? builtins.currentSystem }:
+{ src ? ./src/2020-09-11.nix, nixpkgs ? <nixpkgs>, system ? builtins.currentSystem }:
 
 let
     #pkgs = import <nixpkgs> {};
@@ -14,12 +14,12 @@ let
         #!${pkgs.stdenv.shell}
         ${pkgs.dockerTools.shadowSetup}
 
-        exec "$@"
+        exec "$BASH_SOURCE" "$@"
     '';
 
 
   native = import nixpkgs { inherit system; };
-  #unstable = native.callPackage src { stdenv = native.stdenvNoCC; };
+  unstable = native.callPackage src { stdenv = native.stdenvNoCC; };
 
   shadow = pkgs.shadow.override { pam = null; };
 
