@@ -24,7 +24,7 @@ docker run \
 --rm \
 --workdir /code \
 --volume "$(pwd)":/code \
-nix-base:0.0.1 bash -c 'nix-env --install --attr nixpkgs.hello'
+nix-base:0.0.1 bash -c "sudo ls -al && id"
 
 docker run \
 --interactive \
@@ -32,15 +32,22 @@ docker run \
 --rm \
 --workdir /code \
 --volume "$(pwd)":/code \
-nix-base:0.0.1 bash -c 'su pedroregispoar -c 'id''
+nix-base:0.0.1 bash -c 'sudo nix-store --init && sudo nix-store --load-db < /.reginfo && nix-env --install --attr nixpkgs.hello'
 
-docker run \
---interactive \
---tty \
---rm \
---workdir /code \
---volume "$(pwd)":/code \
-nix-base:0.0.1 bash -c "su pedroregispoar -c 'sudo ls -al && id'"
+#sudo nix-store --init \
+#&& sudo nix-store --load-db < /.reginfo \
+#&& sudo chown pedroregispoar /nix/var/nix/profiles/per-user \
+#&& sudo chown pedroregispoar /nix/var/nix/gcroots/per-user \
+#&& sudo chown pedroregispoar /nix/var/nix/profiles/per-user/pedroregispoar \
+#&& sudo chown pedroregispoar /nix/var/nix/db/big-lock \
+#&& sudo chown pedroregispoar /nix/var/nix/db \
+#&& sudo touch /nix/var/nix/gc.lock \
+#&& sudo chown pedroregispoar /nix/var/nix/gc.lock \
+#&& sudo chown pedroregispoar /nix/var/nix/temproots \
+#&& sudo chmod 0775 /nix/var/nix/temproots \
+#&& nix-env --file '<nixpkgs>' --install --attr hello --show-trace \
+#&& nix-env --install --attr nixpkgs.hello
+
 
 #stat $(readlink /run/current-system/sw/bin/sudo)
 #su pedroregispoar -c 'sudo ls -al'
@@ -113,7 +120,7 @@ nix-base:0.0.1 bash -c "su pedroregispoar -c 'sudo ls -al && id'"
 
 # nix-store --init && nix-store --load-db < .reginfo
 # nix-env --install --attr nixpkgs.git
-# nix-env -f '<nixpkgs>' --install --attr nixpkgs.git
+# nix-env --file '<nixpkgs>' --install --attr nixpkgs.hello
 
 #ls -al /nix/var/nix/gcroots
 #ls -al /nix/var/nix/profiles/per-user/root
