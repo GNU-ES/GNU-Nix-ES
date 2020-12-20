@@ -4,7 +4,7 @@
 let
   inherit (pkgs) dockerTools stdenv buildEnv writeText;
   inherit (pkgs)
-    bashInteractive coreutils cacert nix findutils file which su sudo shadow;
+    bashInteractive coreutils cacert nix findutils file which su sudo;
 
   inherit (native.lib) concatStringsSep genList;
 
@@ -13,7 +13,7 @@ let
   native = import nixpkgs { inherit system; };
   unstable = native.callPackage src { stdenv = native.stdenvNoCC; };
 
-  #    shadow = pkgs.shadow.override { pam = null; };
+  shadow = pkgs.shadow.override { pam = null; };
 
   path = buildEnv {
     name = "system-path";
@@ -76,6 +76,8 @@ let
       printRegistration=1 ${pkgs.perl}/bin/perl ${pkgs.pathsFromGraph} closure-* > $out/.reginfo
 
       mkdir --mode=1777 --parent $out/tmp
+
+      mkdir --parent $out/home/pedroregispoar
     '';
   };
 
@@ -93,24 +95,27 @@ let
     mkdir --parent /nix/var/nix/profiles/per-user/pedroregispoar
     mkdir --parent /pedroregispoar/.nix-defexpr
 
+    mkdir --parent /root/.nix-profile/bin
 
     ln --symbolic ${path} /nix/var/nix/gcroots/booted-system
 
     # For root
     ln --symbolic /nix/var/nix/profiles/per-user/root/profile /root/.nix-profile
+    ln --symbolic /nix/var/nix/profiles/per-user/root/profile/bin /root/.nix-profile/bin
     ln --symbolic ${unstable} /root/.nix-defexpr/nixos
     ln --symbolic ${unstable} /root/.nix-defexpr/nixpkgs
 
     #For pedroregispoar
     ln --symbolic /nix/var/nix/profiles/per-user/pedroregispoar/profile /pedroregispoar/.nix-profile
-    ln --symbolic ${unstable} /pedroregispoar/.nix-defexpr/nixos
-    ln --symbolic ${unstable} /pedroregispoar/.nix-defexpr/nixpkgs
+    ln --symbolic ${unstable} /home/pedroregispoar/.nix-defexpr/nixos
+    ln --symbolic ${unstable} /home/pedroregispoar/.nix-defexpr/nixpkgs
 
+    cd /
     nix-store --init
     nix-store --load-db < /.reginfo
 
-    #chmod 4511 /sbin/sudo
-    #chmod 4511 /bin/sudo
+    chmod 4511 /sbin/sudo
+    chmod 4511 /bin/sudo
 
     exec "$@"
   '';
@@ -148,7 +153,7 @@ let
     config.Cmd = [ "${bashInteractive}/bin/bash" ];
 
     config.Env = [
-      "PATH=/root/.nix-profile/bin:/pedroregispoar/.nix-profile/bin:/run/current-system/sw/bin:/nix/var/nix/profiles/default/sbin:/bin:/sbin:/usr/bin:/usr/sbin"
+      "PATH=/root/.nix-profile/bin:/home/pedroregispoar/.nix-profile/bin:/run/current-system/sw/bin:/nix/var/nix/profiles/default/sbin:/bin:/sbin:/usr/bin:/usr/sbin"
       "MANPATH=/root/.nix-profile/share/man:/pedroregispoar/.nix-profile/share/man:/run/current-system/sw/share/man"
       "NIX_PAGER=cat"
       "USER=pedroregispoar"
