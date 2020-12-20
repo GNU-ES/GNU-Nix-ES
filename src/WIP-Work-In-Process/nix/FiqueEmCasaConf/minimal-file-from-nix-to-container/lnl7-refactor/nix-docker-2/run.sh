@@ -7,6 +7,8 @@
 IMAGE="gnu-nix-es/$(git rev-parse --short HEAD)"
 VERSION=0.0.1
 
+IMAGE_VERSION="$IMAGE":"$VERSION"
+
 TARGET_0='builder'
 TARGET_1='prod'
 
@@ -26,125 +28,108 @@ docker run \
 --volume "$(pwd)":/code \
 nix-base:0.0.1 bash -c "sudo ls -al && id"
 
+
 docker run \
 --interactive \
 --tty \
 --rm \
 --workdir /code \
 --volume "$(pwd)":/code \
-nix-base:0.0.1 bash -c 'sudo nix-store --init && sudo nix-store --load-db < /.reginfo && nix-env --install --attr nixpkgs.hello'
-
-#sudo nix-store --init \
-#&& sudo nix-store --load-db < /.reginfo \
-#&& sudo chown pedroregispoar /nix/var/nix/profiles/per-user \
-#&& sudo chown pedroregispoar /nix/var/nix/gcroots/per-user \
-#&& sudo chown pedroregispoar /nix/var/nix/profiles/per-user/pedroregispoar \
-#&& sudo chown pedroregispoar /nix/var/nix/db/big-lock \
-#&& sudo chown pedroregispoar /nix/var/nix/db \
-#&& sudo touch /nix/var/nix/gc.lock \
-#&& sudo chown pedroregispoar /nix/var/nix/gc.lock \
-#&& sudo chown pedroregispoar /nix/var/nix/temproots \
-#&& sudo chmod 0775 /nix/var/nix/temproots \
-#&& nix-env --file '<nixpkgs>' --install --attr hello --show-trace \
-#&& nix-env --install --attr nixpkgs.hello
+nix-base:0.0.1 bash -c 'sudo su -c 'env''
 
 
-#stat $(readlink /run/current-system/sw/bin/sudo)
-#su pedroregispoar -c 'sudo ls -al'
-#
-#chmod 4755 $(readlink /run/current-system/sw/bin/sudo)
-#
-#stat $(readlink /run/current-system/sw/bin/sudo)
-#su pedroregispoar -c 'sudo ls -al'
+docker run \
+--interactive \
+--tty \
+--rm \
+--workdir /code \
+--volume "$(pwd)":/code \
+nix-base:0.0.1 bash -c 'sudo --preserve-env su -c 'env''
 
 
-#nix-env --install --attr nixpkgs.su \
-#  nixpkgs.sudo \
-#  nixpkgs.which \
-#  nixpkgs.readlink \
-#&& nix --version \
-#
+docker build --tag "$IMAGE_VERSION" .
 
 
-#--volume '/nix:/nix:ro' \
-#--user 'pedroregispoar' \
+docker run \
+--interactive \
+--tty \
+--rm \
+--workdir /code \
+--volume "$(pwd)":/code \
+"$IMAGE_VERSION" bash -c 'sudo ls -al'
 
-#bash -c 'stat --format="%a" /sbin/sudo'
-#--user=pedroregispoar \
+
+
+docker run \
+--interactive \
+--tty \
+--rm \
+--workdir /code \
+--volume "$(pwd)":/code \
+"$IMAGE_VERSION" bash -c 'sudo --preserve-env nix-env --file "<nixpkgs>" --install --attr hello --show-trace && hello'
+
+
+docker run \
+--interactive \
+--privileged \
+--tty \
+--rm \
+--workdir /code \
+--volume "$(pwd)":/code \
+"$IMAGE_VERSION" bash -c 'sudo --preserve-env nix-build --attr image && stat result && sudo chown --recursive --verbose pedroregispoar:pedroregispoar result && stat result && cp --no-dereference --recursive --verbose $(nix-store --query --requisites result) result2'
+
+
+docker load < ./result2
+
+docker build --tag "$IMAGE_VERSION" .
+
+
+docker run \
+--interactive \
+--tty \
+--rm \
+--workdir /code \
+--volume "$(pwd)":/code \
+"$IMAGE_VERSION" bash -c 'sudo ls -al'
+
+
+
+docker run \
+--interactive \
+--tty \
+--rm \
+--workdir /code \
+--volume "$(pwd)":/code \
+"$IMAGE_VERSION" bash -c './test_nixos.iso_minimal.x86_64-linux.sh'
+
+
+docker run \
+--interactive \
+--privileged \
+--tty \
+--rm \
+--workdir /code \
+--volume "$(pwd)":/code \
+"$IMAGE_VERSION" bash -c './test_flake.sh'
+
 
 #docker run \
 #--interactive \
+#--privileged \
 #--tty \
 #--rm \
 #--workdir /code \
 #--volume "$(pwd)":/code \
-#gnu-nix-es:0.0.1 bash -c 'su pedroregispoar -c 'id''
+#"$IMAGE_VERSION" bash -c 'NIXOS_CONFIG="$(pwd)"/configuration.nix sudo --preserve-env nix-build "<nixpkgs/nixos>" --attr vm --verbose --show-trace'
+##"$IMAGE_VERSION" bash -c 'sudo --preserve-env nix-build "<nixpkgs/nixos>" --attr vm --arg configuration ./configuration.nix --show-trace'
 
 
 #docker run \
 #--interactive \
+#--privileged \
 #--tty \
 #--rm \
 #--workdir /code \
-#--user='root' \
 #--volume "$(pwd)":/code \
-#gnu-nix-es:0.0.1 bash -c 'stat --format="%a" /nix/store/.links'
-#
-#
-#docker run \
-#--interactive \
-#--tty \
-#--rm \
-#--workdir /code \
-#--user='pedroregispoar' \
-#--volume "$(pwd)":/code \
-#gnu-nix-es:0.0.1 bash -c ' /nix/store/jbryisjscy1mrkfnk8zqgcqynxbvrhci-nix-2.3.6/bin/nix-env --install --attr nixpkgs.git'
-
-
-# TODO: investigate about the nix-store --gc
-#RUN nix-env -f '<nixpkgs>' -iA \
-#    curl \
-#    findutils \
-#    git \
-#    glibc \
-#    gnugrep \
-#    gnused \
-#    gnutar \
-#    gzip \
-#    jq \
-#    procps \
-#    vim \
-#    which \
-#    xz \
-# && nix-store --gc
-
-# nix-store --init && nix-store --load-db < .reginfo
-# nix-env --install --attr nixpkgs.git
-# nix-env --file '<nixpkgs>' --install --attr nixpkgs.hello
-
-#ls -al /nix/var/nix/gcroots
-#ls -al /nix/var/nix/profiles/per-user/root
-#ls -al /root/.nix-defexpr
-#ls -al /var/empty
-
-#ln --symbolic ${path} $out/nix/var/nix/gcroots/booted-system
-#ln --symbolic $out/nix/var/nix/profiles/per-user/root/profile $out/root/.nix-profile
-#ln --symbolic ${unstable} $out/root/.nix-defexpr/nixos
-#ln --symbolic ${unstable} $out/root/.nix-defexpr/nixpkgs
-
-
-#ls -al /nix/var/nix/gcroots
-#ls -al /nix/var/nix/profiles/per-user/root
-#ls -al /root/.nix-defexpr
-#ls -al /var/empty
-#
-#
-#ls -al /nix/var/nix/gcroots
-#ls -al /nix/var/nix/profiles/per-user/root
-#ls -al /"$HOME"/.nix-defexpr
-#ls -al /var/empty
-#
-#ln --symbolic ${path} $out/nix/var/nix/gcroots/booted-system
-#ln --symbolic $out/nix/var/nix/profiles/per-user/root/profile $out/root/.nix-profile
-#ln --symbolic ${unstable} $out/root/.nix-defexpr/nixos
-#ln --symbolic ${unstable} $out/root/.nix-defexpr/nixpkgs
+#--volume '/nix/store':'/nix/store' \
+#nix-base:0.0.1 bash

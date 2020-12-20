@@ -2,7 +2,7 @@
 
 let
     inherit (pkgs) dockerTools stdenv buildEnv writeText;
-    inherit (pkgs) bashInteractive coreutils cacert nix findutils su;
+    inherit (pkgs) bashInteractive coreutils cacert nix findutils su which;
 
     inherit (native.lib) concatStringsSep genList;
 
@@ -17,7 +17,7 @@ let
 
     path = buildEnv {
         name = "system-path";
-        paths = [ findutils bashInteractive coreutils nix shadow su sudo ];
+        paths = [ findutils bashInteractive cacert coreutils nix shadow su sudo which ];
     };
 
     nixconf = ''
@@ -43,7 +43,7 @@ let
         phases = [ "installPhase" "fixupPhase" "checkPhase"];
 
         exportReferencesGraph =
-            map (drv: [("closure-" + baseNameOf drv) drv]) [ path cacert unstable ];
+            map (drv: [("closure-" + baseNameOf drv) drv]) [ path unstable ];
 
         checkPhase = ''
             set -o pipefail
@@ -101,34 +101,18 @@ let
         #!${pkgs.stdenv.shell}
         ${pkgs.dockerTools.shadowSetup}
 
+        stat $(readlink /run/current-system/sw/bin/sudo)
+        echo
+        stat --dereference $(readlink $(which sudo))
+        echo
+        chmod 4755 --verbose $(readlink /run/current-system/sw/bin/sudo)
+        echo
+        stat $(readlink /run/current-system/sw/bin/sudo)
+        echo
+        stat --dereference $(readlink $(which sudo))
+        echo
+
         echo 'Runnung the config.Entrypoint script!'
-
-        mkdir --parent /nix/var/nix/gcroots
-        mkdir --parent /var/empty
-
-        mkdir --parent /nix/var/nix/profiles/per-user/root
-        #mkdir --parent /root/.nix-defexpr
-
-        mkdir --parent /nix/var/nix/profiles/per-user/pedroregispoar
-        mkdir --parent /pedroregispoar/.nix-defexpr
-
-        #ln --symbolic ${path} /nix/var/nix/gcroots/booted-system
-
-        # For root
-        #ln --symbolic /nix/var/nix/profiles/per-user/root/profile /root/.nix-profile
-        #ln --symbolic ${unstable} /root/.nix-defexpr/nixos
-        #ln --symbolic ${unstable} /root/.nix-defexpr/nixpkgs
-
-        #For pedroregispoar
-        #ln --symbolic /nix/var/nix/profiles/per-user/pedroregispoar/profile /pedroregispoar/.nix-profile
-        #ln --symbolic ${unstable} /pedroregispoar/.nix-defexpr/nixos
-        #ln --symbolic ${unstable} /pedroregispoar/.nix-defexpr/nixpkgs
-
-        #echo '@@@@@@@'
-        #nix-store --init
-        #nix-store --load-db < /.reginfo
-
-        chmod 4755 $(readlink /run/current-system/sw/bin/sudo)
 
         set -e
 
