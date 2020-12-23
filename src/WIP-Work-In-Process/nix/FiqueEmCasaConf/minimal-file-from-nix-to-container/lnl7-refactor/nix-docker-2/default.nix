@@ -52,7 +52,11 @@ let
             find --version
             #nix-store --init
             #nix-store --load-db < /.reginfo
-
+            chown pedroregispoar /nix/var/nix/profiles/per-user
+            chown pedroregispoar /nix/var/nix/gcroots/per-user
+            chown pedroregispoar /nix/var/nix/profiles/per-user/pedroregispoar
+            chown pedroregispoar /nix/var/nix/db/big-lock
+            chown pedroregispoar /nix/var/nix/db
         '';
 
         installPhase = ''

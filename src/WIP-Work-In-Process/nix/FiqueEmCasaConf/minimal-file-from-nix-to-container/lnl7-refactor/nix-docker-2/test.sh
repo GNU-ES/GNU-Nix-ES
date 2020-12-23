@@ -25,11 +25,6 @@ stat /home/pedroregispoar/.nix-profile.lock
 cd / \
 && sudo nix-store --init \
 && sudo nix-store --load-db < /.reginfo \
-&& sudo chown pedroregispoar /nix/var/nix/profiles/per-user \
-&& sudo chown pedroregispoar /nix/var/nix/gcroots/per-user \
-&& sudo chown pedroregispoar /nix/var/nix/profiles/per-user/pedroregispoar \
-&& sudo chown pedroregispoar /nix/var/nix/db/big-lock \
-&& sudo chown pedroregispoar /nix/var/nix/db \
 && sudo touch /nix/var/nix/gc.lock \
 && sudo chown pedroregispoar /nix/var/nix/gc.lock \
 && sudo chown pedroregispoar /nix/var/nix/temproots \
