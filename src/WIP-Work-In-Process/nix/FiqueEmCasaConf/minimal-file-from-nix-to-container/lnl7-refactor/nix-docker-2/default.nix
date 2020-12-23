@@ -101,17 +101,6 @@ let
         #!${pkgs.stdenv.shell}
         ${pkgs.dockerTools.shadowSetup}
 
-        stat $(readlink /run/current-system/sw/bin/sudo)
-        echo
-        stat --dereference $(readlink $(which sudo))
-        echo
-        chmod 4755 --verbose $(readlink /run/current-system/sw/bin/sudo)
-        echo
-        stat $(readlink /run/current-system/sw/bin/sudo)
-        echo
-        stat --dereference $(readlink $(which sudo))
-        echo
-
         echo 'Runnung the config.Entrypoint script!'
 
         set -e
