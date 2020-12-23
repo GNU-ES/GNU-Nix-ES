@@ -37,6 +37,16 @@ docker run \
 nix-base:0.0.1 bash -c 'sudo --preserve-env nix-env --file "<nixpkgs>" --install --attr hello --show-trace && hello'
 
 
+#podman load < ./result
+#
+#podman run \
+#--interactive \
+#--tty \
+#--rm \
+#--workdir /code \
+#--volume "$(pwd)":/code \
+#nix-base:0.0.1 bash
+
 #docker build --tag "$IMAGE_VERSION" .
 #
 #
