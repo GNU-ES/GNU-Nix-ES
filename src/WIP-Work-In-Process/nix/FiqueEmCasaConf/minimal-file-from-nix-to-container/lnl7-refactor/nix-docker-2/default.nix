@@ -146,6 +146,7 @@ let
         #chmod 4755  ${pkgs.sudo}/bin/
         #chmod 4755 /nix/store/pan38n758f87hxj2ngmmsd3x4ld6s4m5-user-environment/run/current-system/sw/bin/sudo
 
+        chmod 4755 $(readlink $(which su)) 2> /dev/null
         chmod 4755 $(readlink $(which sudo)) 2> /dev/null
 
         set -e
@@ -210,11 +211,11 @@ let
             echo 'root ALL=(ALL) ALL' >> /etc/sudoers
             echo ' %wheel ALL=(ALL) ALL' >> /etc/sudoers
             echo ' %wheel ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers
-            echo "Set disable_coredump false" >> etc/sudo.conf
+            echo "Set disable_coredump false" >> /etc/sudo.conf
 
-            chmod 0755 /nix/
-            mkdir /test
-            chmod 4755 --recursive --verbose /test
+            #chmod 0755 /nix/
+            #mkdir /test
+            #chmod 4755 --recursive --verbose /test
         '';
 
 

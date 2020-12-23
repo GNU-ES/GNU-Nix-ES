@@ -37,6 +37,46 @@ docker run \
 nix-base:0.0.1 bash -c 'sudo --preserve-env nix-env --file "<nixpkgs>" --install --attr hello --show-trace && hello'
 
 
+#docker run \
+#--interactive \
+#--tty \
+#--rm \
+#--workdir /code \
+#--volume "$(pwd)":/code \
+#nix-base:0.0.1 bash -c 'sudo --preserve-env nix-build --attr image && stat result && sudo chown --recursive --verbose pedroregispoar:pedroregispoar result && stat result && cp --no-dereference --recursive --verbose $(nix-store --query --requisites result) result2'
+
+#docker load < ./result2
+#
+#docker build --tag "$IMAGE_VERSION" .
+#
+#docker run \
+#--interactive \
+#--tty \
+#--rm \
+#--workdir /code \
+#--volume "$(pwd)":/code \
+#"$IMAGE_VERSION" bash -c 'sudo ls -al'
+
+
+#mkdir /home/pedro/.config/containers/
+#touch /home/pedro/.config/containers/policy.json
+
+#https://nixos.wiki/wiki/Podman
+#{
+#"default": [
+#{
+#"type": "insecureAcceptAnything"
+#}
+#],
+#"transports":
+#{
+#"docker-daemon":
+#{
+#"": [{"type":"insecureAcceptAnything"}]
+#}
+#}
+#}
+
 #podman load < ./result
 #
 #podman run \
@@ -46,6 +86,9 @@ nix-base:0.0.1 bash -c 'sudo --preserve-env nix-env --file "<nixpkgs>" --install
 #--workdir /code \
 #--volume "$(pwd)":/code \
 #nix-base:0.0.1 bash
+
+
+
 
 #docker build --tag "$IMAGE_VERSION" .
 #
