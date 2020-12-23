@@ -28,23 +28,32 @@ docker run \
 --volume "$(pwd)":/code \
 nix-base:0.0.1 bash -c "sudo --preserve-env ls -al && id"
 
-docker build --tag "$IMAGE_VERSION" .
-
-
 docker run \
 --interactive \
 --tty \
 --rm \
 --workdir /code \
 --volume "$(pwd)":/code \
-"$IMAGE_VERSION" bash -c 'sudo --preserve-env ls -al'
+nix-base:0.0.1 bash -c 'sudo --preserve-env nix-env --file "<nixpkgs>" --install --attr hello --show-trace && hello'
 
 
-
-docker run \
---interactive \
---tty \
---rm \
---workdir /code \
---volume "$(pwd)":/code \
-"$IMAGE_VERSION" bash -c 'sudo --preserve-env nix-env --file "<nixpkgs>" --install --attr hello --show-trace && hello'
+#docker build --tag "$IMAGE_VERSION" .
+#
+#
+#docker run \
+#--interactive \
+#--tty \
+#--rm \
+#--workdir /code \
+#--volume "$(pwd)":/code \
+#"$IMAGE_VERSION" bash -c 'sudo --preserve-env ls -al  && id'
+#
+#
+#
+#docker run \
+#--interactive \
+#--tty \
+#--rm \
+#--workdir /code \
+#--volume "$(pwd)":/code \
+#"$IMAGE_VERSION" bash -c 'sudo --preserve-env nix-env --file "<nixpkgs>" --install --attr hello --show-trace && hello'

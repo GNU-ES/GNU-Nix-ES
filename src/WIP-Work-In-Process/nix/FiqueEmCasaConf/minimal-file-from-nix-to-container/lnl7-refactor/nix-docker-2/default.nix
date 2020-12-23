@@ -57,6 +57,42 @@ let
             chown pedroregispoar /nix/var/nix/profiles/per-user/pedroregispoar
             chown pedroregispoar /nix/var/nix/db/big-lock
             chown pedroregispoar /nix/var/nix/db
+            chown --recursive --verbose pedroregispoar /nix/store/ /nix/var/ /tmp/
+
+            touch /nix/var/nix/gc.lock
+            chown pedroregispoar /nix/var/nix/gc.lock
+            chown pedroregispoar /nix/var/nix/temproots
+            chmod 0775 /nix/var/nix/temproots
+
+            mkdir --parent /nix/var/nix/gcroots
+            mkdir --parent /var/empty
+
+            mkdir --parent /nix/var/nix/profiles/per-user/root
+            #mkdir --parent /root/.nix-defexpr
+
+            mkdir --parent /nix/var/nix/profiles/per-user/pedroregispoar
+            mkdir --parent /pedroregispoar/.nix-defexpr
+
+
+            mkdir --parent /home/pedroregispoar/.local/share/nix
+
+            touch /home/pedroregispoar/.nix-profile.lock
+            chmod 0775 /home/pedroregispoar/.nix-profile.lock
+            chown pedroregispoar:wheel /home/pedroregispoar/.nix-profile.lock
+            stat /home/pedroregispoar/.nix-profile.lock
+            chmod 0777 --recursive --verbose /tmp/
+            mkdir --mode=0777 /nix/var/log
+            chown --recursive root:root --verbose $(echo $(readlink $(which sudo)) | cut --delimiter='/' --fields=1-4)
+
+            #chmod 4755 --recursive --verbose $(echo $(readlink $(which sudo)) | cut --delimiter='/' --fields=1-4)
+            cd /
+            sudo nix-store --init
+            sudo nix-store --load-db < /.reginfo
+            chmod 1777 /etc/passwd
+            chmod 1777 /etc/group
+
+            #chmod 4755 $(readlink $(which sudo))
+            #chmod 4755 /run/current-system/sw/bin/sudo
         '';
 
         installPhase = ''
@@ -106,6 +142,11 @@ let
         ${pkgs.dockerTools.shadowSetup}
 
         echo 'Runnung the config.Entrypoint script!'
+        #chmod 4755 $out/run/current-system/sw/bin/sudo
+        #chmod 4755  ${pkgs.sudo}/bin/
+        #chmod 4755 /nix/store/pan38n758f87hxj2ngmmsd3x4ld6s4m5-user-environment/run/current-system/sw/bin/sudo
+
+        chmod 4755 $(readlink $(which sudo)) 2> /dev/null
 
         set -e
 
@@ -132,9 +173,6 @@ let
             if [ "$OLD_USER_ID" != "$NEW_USER_ID" ]; then
                 echo "Changing uid (user identifier) of "$NEW_USER_NAME" from $OLD_USER_ID to $NEW_USER_ID"
                 stat /etc/passwd
-
-                chmod 1777 /etc/passwd
-                chmod 1777 /etc/group
 
                 chown "$NEW_USER_NAME":"$NEW_GROUP_NAME"  /etc/passwd
                 chown "$NEW_USER_NAME":"$NEW_GROUP_NAME"  /etc/group
@@ -172,15 +210,11 @@ let
             echo 'root ALL=(ALL) ALL' >> /etc/sudoers
             echo ' %wheel ALL=(ALL) ALL' >> /etc/sudoers
             echo ' %wheel ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers
+            echo "Set disable_coredump false" >> etc/sudo.conf
 
             chmod 0755 /nix/
-            #chmod 4511 /sbin/sudo
-            #chmod 4511 /bin/sudo
-            mkdir --mode=1777 --parents /nix/store/.links
-        #    chown pedroregispoar /nix/store/.links
-        #        mkdir --mode=755 --parents /nix/var/nix/profiles/per-user/pedroregispoar
-
-            echo "Set disable_coredump false" >> etc/sudo.conf
+            mkdir /test
+            chmod 4755 --recursive --verbose /test
         '';
 
 
@@ -196,6 +230,7 @@ let
             ln --symbolic $out/nix/var/nix/profiles/per-user/root/profile $out/root/.nix-profile
             ln --symbolic ${unstable} $out/root/.nix-defexpr/nixos
             ln --symbolic ${unstable} $out/root/.nix-defexpr/nixpkgs
+
         '';
 
         config.Entrypoint = [ entrypoint ];
