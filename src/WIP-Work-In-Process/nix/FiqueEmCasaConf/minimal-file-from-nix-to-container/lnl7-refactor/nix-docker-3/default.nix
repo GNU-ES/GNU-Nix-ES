@@ -27,17 +27,16 @@ let
 
     passwd = ''
         root:x:0:0::/root:${run_time_bash}
-        ${new_user_name}:x:${new_user_name_id}:${new_user_group_id}::/home/${new_user_name}:${run_time_bash}
         ${concatStringsSep "\n" (genList (i: "nixbld${toString (i+1)}:x:${toString (i+30001)}:30000::/var/empty:/run/current-system/sw/bin/nologin") 32)}
     '';
+#        ${user_name}:x:${user_id}:${user_group_id}::/home/${user_name}:${run_time_bash}
 
     group = ''
         root:x:0:
-        wheel:x:1:${new_user_name}
-        ${new_user_name}:x:100:
+        wheel:x:1:${user_name}
         nixbld:x:30000:${concatStringsSep "," (genList (i: "nixbld${toString (i+1)}") 32)}
     '';
-
+#${user_group}:x:${user_group_id}:${user_name}
     sudoconf = ''
         Set disable_coredump false
     '';
@@ -83,15 +82,15 @@ let
 
             mkdir --mode=0755 --parent $out/nix/store/.links
             mkdir --mode=0755 --parent $out/nix/var/nix/temproots
-            mkdir --mode=0755 --parent $out/home/${new_user_name}/.nix-defexpr
+            mkdir --mode=0755 --parent $out/home/${user_name}/.nix-defexpr
         '';
     };
 
-    new_user_name = "pedroregispoar";
-    new_user_name_id = "1001";
+    user_name = "pedroregispoar";
+    user_id = "999";
 
-    new_user_group = "users";
-    new_user_group_id = "100";
+    user_group = "pedroregispoargroup";
+    user_group_id = "88";
 
     volume_and_workdir = "/code";
 
@@ -110,52 +109,42 @@ let
         #chmod 4755 $(readlink $(which su)) 2> /dev/null
         chmod 4755 $(readlink $(which sudo)) 2> /dev/null
 
+        #chown "$NEW_USER_NAME":"$NEW_GROUP_NAME" $(which usermod)
+        #chmod 4755 $(which usermod) 2> /dev/null
+
         set -e
 
         # allow the container to be started with `--user`
         if [ "$(${pkgs.coreutils}/bin/id --user)" = "0" ]; then
 
-            NEW_USER_NAME=${new_user_name}
-            NEW_GROUP_NAME=${new_user_group}
+            NEW_USER_NAME=${user_name}
+            NEW_GROUP_NAME=${user_group}
             VOLUME_AND_WORKDIR=${volume_and_workdir}
 
             echo "$NEW_USER_NAME"
             echo "$NEW_GROUP_NAME"
             echo "$VOLUME_AND_WORKDIR"
 
+            #OLD_USER_ID=$( ${pkgs.getent}/bin/getent passwd "$NEW_USER_NAME" | cut --field=3 --delimiter=:)
+            NEW_USER_ID=$(stat --format="%u" "$VOLUME_AND_WORKDIR")
+
+            echo "$NEW_USER_ID"
+            echo "$NEW_USER_NAME"
+
+            #OLD_GROUP_ID=$(${pkgs.getent}/bin/getent "$NEW_GROUP_NAME" | cut --field=3 --delimiter=:)
+            NEW_GROUP_ID=$(stat --format="%g" $VOLUME_AND_WORKDIR)
+
+            echo "$NEW_GROUP_NAME":x:"$NEW_USER_ID":"$NEW_USER_NAME" >> /etc/group
+            echo "$NEW_USER_NAME":x:"$NEW_USER_ID":"$NEW_GROUP_ID"::/home/"$NEW_USER_NAME":/run/current-system/sw/bin/bash >> /etc/passwd
+
             cat /etc/passwd
             cat /etc/group
 
-            OLD_USER_ID=$( ${pkgs.getent}/bin/getent passwd "$NEW_USER_NAME" | cut --field=3 --delimiter=:)
-            NEW_USER_ID=$(stat --format="%u" "$VOLUME_AND_WORKDIR")
+            #${pkgs.findutils}/bin/find / -xdev -user "NEW_USER_ID" -exec chown --no-dereference "$NEW_USER_NAME" {} \;
+            #${pkgs.findutils}/bin/find / -xdev -group "$NEW_GROUP_ID" -exec chgrp --no-dereference "$NEW_GROUP_NAME" {} \;
 
-            echo "$OLD_USER_ID"
-            echo "$NEW_USER_ID"
 
-            if [ "$OLD_USER_ID" != "$NEW_USER_ID" ]; then
-                echo "Changing uid (user identifier) of "$NEW_USER_NAME" from $OLD_USER_ID to $NEW_USER_ID"
-                stat /etc/passwd
-
-                chown "$NEW_USER_NAME":"$NEW_GROUP_NAME" /etc/passwd
-                chown "$NEW_USER_NAME":"$NEW_GROUP_NAME" /etc/group
-
-                stat /etc/passwd
-
-                usermod --uid "$NEW_USER_ID" --non-unique "$NEW_USER_NAME"
-
-                ${pkgs.findutils}/bin/find / -xdev -user "$OLD_USER_ID" -exec chown --no-dereference "$NEW_USER_NAME" {} \;
-            fi
-
-            OLD_GROUP_ID=$(${pkgs.getent}/bin/getent group ${new_user_group_id} | cut --field=3 --delimiter=:)
-            NEW_GROUP_ID=$(stat --format="%g" $VOLUME_AND_WORKDIR)
-
-            if [ "$OLD_GROUP_ID" != "$NEW_GROUP_ID" ]; then
-                echo "Changing gid (group identifier) of "$NEW_GROUP_NAME" from $OLD_GROUP_ID to $NEW_GROUP_ID"
-                groupmod --gid "$NEW_GROUP_ID" --non-unique "$NEW_GROUP_NAME"
-
-                ${pkgs.findutils}/bin/find / -xdev -group "$OLD_GROUP_ID" -exec chgrp --no-dereference "$NEW_GROUP_NAME" {} \;
-            fi
-            exec ${pkgs.gosu}/bin/gosu "$NEW_USER_NAME" "$BASH_SOURCE" "$@"
+            exec ${pkgs.gosu}/bin/gosu "$NEW_USER_NAME":"$NEW_GROUP_NAME" "$BASH_SOURCE" "$@"
         fi
         exec "$@"
     '';
