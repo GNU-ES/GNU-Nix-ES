@@ -36,6 +36,13 @@ docker run \
 --volume "$(pwd)":/code \
 nix-base:0.0.1 bash -c 'sudo --preserve-env nix-env --file "<nixpkgs>" --install --attr hello --show-trace && hello'
 
+docker run \
+--interactive \
+--tty \
+--rm \
+--workdir /code \
+--volume "$(pwd)":/code \
+nix-base:0.0.1 bash -c "sudo --preserve-env nix-env --file '<nixpkgs>' --install --attr gnugrep --show-trace && sudo --preserve-env nix show-derivation nixpkgs.sudo | grep '04755'"
 
 #docker run \
 #--interactive \
