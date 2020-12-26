@@ -38,6 +38,17 @@ let
         nixbld:x:30000:${concatStringsSep "," (genList (i: "nixbld${toString (i+1)}") 32)}
     '';
 
+    sudoconf = ''
+        Set disable_coredump false
+    '';
+
+    #etcsudoers = ''
+    #        "root ALL=(ALL) ALL"
+    #        " %wheel ALL=(ALL) ALL"
+    #        " %wheel ALL=(ALL) NOPASSWD: ALL"
+    #   '';
+    #echo '${etcsudoers}' > $out/etc/sudoers
+
     contents = stdenv.mkDerivation {
         name = "user-environment";
         phases = [ "installPhase" "fixupPhase" "checkPhase"];
@@ -113,6 +124,11 @@ let
             echo '${nixconf}' > $out/etc/nix/nix.conf
             echo '${passwd}' > $out/etc/passwd
             echo '${group}' > $out/etc/group
+            echo '${sudoconf}' > $out/etc/sudo.conf
+
+            echo 'root ALL=(ALL) ALL' >> $out/etc/sudoers
+            echo ' %wheel ALL=(ALL) ALL' >> $out/etc/sudoers
+            echo ' %wheel ALL=(ALL) NOPASSWD: ALL' >> $out/etc/sudoers
 
             printRegistration=1 ${pkgs.perl}/bin/perl ${pkgs.pathsFromGraph} closure-* > $out/.reginfo
 
@@ -205,17 +221,6 @@ let
         inherit contents;
 
         runAsRoot = ''
-            #!${pkgs.stdenv}
-            ${pkgs.dockerTools.shadowSetup}
-
-            echo 'root ALL=(ALL) ALL' >> /etc/sudoers
-            echo ' %wheel ALL=(ALL) ALL' >> /etc/sudoers
-            echo ' %wheel ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers
-            echo "Set disable_coredump false" >> /etc/sudo.conf
-
-            #chmod 0755 /nix/
-            #mkdir /test
-            #chmod 4755 --recursive --verbose /test
         '';
 
 
