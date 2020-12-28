@@ -18,4 +18,4 @@ sudo --preserve-env mkdir --parent ~/.config/nix/nix \
 && sudo --preserve-env chown pedroregispoar:wheel /home/pedroregispoar/.config/nix/nix.conf \
 && echo 'experimental-features = nix-command flakes ca-references' >> ~/.config/nix/nix.conf
 
-sudo --preserve-env nix-shell -I nixpkgs=channel:nixos-20.03 --packages nixFlakes --run 'nix shell nixpkgs#cowsay --command cowsay "Hi from nix shell nixpkgs#cowsay!"'
+sudo --preserve-env nix-shell -I nixpkgs=channel:nixos-20.09 --packages nixFlakes --run 'nix shell nixpkgs#cowsay --command cowsay "Hi from nix shell nixpkgs#cowsay!"'

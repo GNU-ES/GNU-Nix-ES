@@ -20,6 +20,7 @@ nix-build --attr image
 
 docker load < ./result
 
+
 docker run \
 --interactive \
 --tty \
@@ -28,6 +29,7 @@ docker run \
 --volume "$(pwd)":/code \
 nix-base:0.0.1 bash -c "sudo --preserve-env ls -al && id"
 
+
 docker run \
 --interactive \
 --tty \
@@ -35,3 +37,12 @@ docker run \
 --workdir /code \
 --volume "$(pwd)":/code \
 nix-base:0.0.1 bash -c 'sudo --preserve-env nix-env --file "<nixpkgs>" --install --attr hello --show-trace && hello'
+
+
+docker run \
+--interactive \
+--tty \
+--rm \
+--workdir /code \
+--volume "$(pwd)":/code \
+nix-base:0.0.1 bash -c 'sudo --preserve-env nix-env --file "<nixpkgs>" --install --attr nixFlakes --show-trace'
