@@ -25,6 +25,7 @@ let
                 findutils
                 git
                 gnutar
+                gosu
                 lzma.bin
                 nix
                 nixFlakes
@@ -68,10 +69,8 @@ let
 
         exportReferencesGraph =
             map (drv: [("closure-" + baseNameOf drv) drv]) [ path unstable ];
-        checkPhase = ''
-            nix-shell -I nixpkgs=channel:nixos-20.03 --packages nixFlakes
-        '';
         installPhase = ''
+
             mkdir --parent $out/run/current-system
             mkdir --parent $out/var
 
@@ -115,7 +114,7 @@ let
     run_time_bash = "/run/current-system/sw/bin/bash";
 
 
-    entrypoint = pkgs.writeScript "entrypoin-file.sh" ''
+    entrypoint = pkgs.writeScript "entrypoint-file.sh" ''
         #!${pkgs.stdenv.shell}
         ${pkgs.dockerTools.shadowSetup}
 
@@ -141,8 +140,8 @@ let
             #OLD_USER_ID=$( ${pkgs.getent}/bin/getent passwd "$NEW_USER_NAME" | cut --field=3 --delimiter=:)
             NEW_USER_ID=$(stat --format="%u" "$VOLUME_AND_WORKDIR")
 
-            echo "$NEW_USER_ID"
-            echo "$NEW_USER_NAME"
+            #echo "$NEW_USER_ID"
+            #echo "$NEW_USER_NAME"
 
             #OLD_GROUP_ID=$(${pkgs.getent}/bin/getent "$NEW_GROUP_NAME" | cut --field=3 --delimiter=:)
             NEW_GROUP_ID=$(stat --format="%g" $VOLUME_AND_WORKDIR)
@@ -150,15 +149,21 @@ let
             echo "$NEW_GROUP_NAME":x:"$NEW_USER_ID":"$NEW_USER_NAME" >> /etc/group
             echo "$NEW_USER_NAME":x:"$NEW_USER_ID":"$NEW_GROUP_ID"::/home/"$NEW_USER_NAME":/run/current-system/sw/bin/bash >> /etc/passwd
 
-            cat /etc/passwd
-            cat /etc/group
+            #cat /etc/passwd
+            #cat /etc/group
 
             #${pkgs.findutils}/bin/find / -xdev -user "NEW_USER_ID" -exec chown --no-dereference "$NEW_USER_NAME" {} \;
             #${pkgs.findutils}/bin/find / -xdev -group "$NEW_GROUP_ID" -exec chgrp --no-dereference "$NEW_GROUP_NAME" {} \;
 
+            # nix-shell -I nixpkgs=channel:nixos-20.09 --packages nixFlakes --run
+            # nix-shell -I nixpkgs=channel:nixos-20.09 --packages nixFlakes --run ""
+            #${pkgs.gosu}/bin/gosu "$NEW_USER_NAME":"$NEW_GROUP_NAME" "$BASH_SOURCE" "$@"
+            #${pkgs.gosu}/bin/gosu "$NEW_USER_NAME":"$NEW_GROUP_NAME" "$BASH_SOURCE" "sudo --preserve-env nix-shell -I nixpkgs=channel:nixos-20.09 --packages nixFlakes"
 
-            exec ${pkgs.gosu}/bin/gosu "$NEW_USER_NAME":"$NEW_GROUP_NAME" "$BASH_SOURCE" "$@"
-            ${nix}/nix-shell -I nixpkgs=channel:nixos-20.03 --packages nixFlakes --run
+            nix-shell -I nixpkgs=channel:nixos-20.09 --packages nixFlakes --run "${pkgs.gosu}/bin/gosu "$NEW_USER_NAME":"$NEW_GROUP_NAME" "$BASH_SOURCE" "$@""
+
+            #nix-shell -I nixpkgs=channel:nixos-20.09 --packages nixFlakes --run "su "$NEW_USER_NAME""
+            #exec "$@"
         fi
         exec "$@"
     '';
