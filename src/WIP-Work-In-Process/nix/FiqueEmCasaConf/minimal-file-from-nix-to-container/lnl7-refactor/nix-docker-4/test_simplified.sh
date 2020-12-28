@@ -94,6 +94,8 @@ time docker run \
 #"$IMAGE_VERSION" bash -c 'sudo --preserve-env nix-shell -I nixpkgs=channel:nixos-20.03 --packages nixFlakes --run 'nix shell nixpkgs#cowsay --command cowsay "Hi from nix shell nixpkgs#cowsay!"''
 #
 #
+
+# https://stackoverflow.com/a/56334999
 ##mkdir --parent "$(pwd)"/containerFolder/subFolder
 #mkdir "$(pwd)"/hostFolder
 #docker run \

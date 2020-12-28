@@ -51,3 +51,11 @@
             #chmod 4755 $(readlink $(which sudo))
             #chmod 4755 /run/current-system/sw/bin/sudo
         '';
+        
+
+https://www.cyberciti.biz/faq/understanding-etcgroup-file/
+
+https://www.cyberciti.biz/faq/understanding-etcpasswd-file-format/
+
+
+
