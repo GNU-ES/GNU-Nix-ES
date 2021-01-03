@@ -102,7 +102,7 @@ let
         #!${pkgs.stdenv.shell}
         ${pkgs.dockerTools.shadowSetup}
 
-        echo 'Runnung the config.Entrypoint script!'
+        #echo 'Runnung the config.Entrypoint script!'
         #chmod 4755 $out/run/current-system/sw/bin/sudo
         #chmod 4755  ${pkgs.sudo}/bin/
         #chmod 4755 /nix/store/pan38n758f87hxj2ngmmsd3x4ld6s4m5-user-environment/run/current-system/sw/bin/sudo
@@ -121,15 +121,15 @@ let
             NEW_GROUP_NAME=${user_group}
             VOLUME_AND_WORKDIR=${volume_and_workdir}
 
-            echo "$NEW_USER_NAME"
-            echo "$NEW_GROUP_NAME"
-            echo "$VOLUME_AND_WORKDIR"
+            #echo "$NEW_USER_NAME"
+            #echo "$NEW_GROUP_NAME"
+            #echo "$VOLUME_AND_WORKDIR"
 
             #OLD_USER_ID=$( ${pkgs.getent}/bin/getent passwd "$NEW_USER_NAME" | cut --field=3 --delimiter=:)
             NEW_USER_ID=$(stat --format="%u" "$VOLUME_AND_WORKDIR")
 
-            echo "$NEW_USER_ID"
-            echo "$NEW_USER_NAME"
+            #echo "$NEW_USER_ID"
+            #echo "$NEW_USER_NAME"
 
             #OLD_GROUP_ID=$(${pkgs.getent}/bin/getent "$NEW_GROUP_NAME" | cut --field=3 --delimiter=:)
             NEW_GROUP_ID=$(stat --format="%g" $VOLUME_AND_WORKDIR)
@@ -137,8 +137,8 @@ let
             echo "$NEW_GROUP_NAME":x:"$NEW_USER_ID":"$NEW_USER_NAME" >> /etc/group
             echo "$NEW_USER_NAME":x:"$NEW_USER_ID":"$NEW_GROUP_ID"::/home/"$NEW_USER_NAME":/run/current-system/sw/bin/bash >> /etc/passwd
 
-            cat /etc/passwd
-            cat /etc/group
+            #cat /etc/passwd
+            #cat /etc/group
 
             #${pkgs.findutils}/bin/find / -xdev -user "NEW_USER_ID" -exec chown --no-dereference "$NEW_USER_NAME" {} \;
             #${pkgs.findutils}/bin/find / -xdev -group "$NEW_GROUP_ID" -exec chgrp --no-dereference "$NEW_GROUP_NAME" {} \;
