@@ -41,19 +41,23 @@ echo
 docker run \
 --interactive \
 --mount source="$NIX_CACHE_VOLUME",target=/nix \
---mount source="$NIX_CACHE_VOLUME",target=/home/pedroregispoar/.config/nix \
+--mount source="$NIX_CACHE_VOLUME",target=/home/pedroregispoar/.cache/ \
+--mount source="$NIX_CACHE_VOLUME",target=/home/pedroregispoar/.config/nix/ \
+--mount source="$NIX_CACHE_VOLUME",target=/home/pedroregispoar/.nix-defexpr/ \
 --tty \
 --rm \
 --workdir /code \
 --volume "$(pwd)":/code \
-"$NIX_BASE_IMAGE" bash -c "./flake_requirements.sh && sudo --preserve-env nix-shell -I nixpkgs=channel:nixos-20.03 --packages nixFlakes --run 'nix flake show github:GNU-ES/hello'"
+"$NIX_BASE_IMAGE" bash -c "./flake_requirements.sh && sudo --preserve-env nix-shell -I nixpkgs=channel:nixos-20.09 --packages nixFlakes --run 'nix flake show github:GNU-ES/hello'"
 
 docker run \
 --interactive \
 --mount source="$NIX_CACHE_VOLUME",target=/nix \
---mount source="$NIX_CACHE_VOLUME",target=/home/pedroregispoar/.config/nix \
+--mount source="$NIX_CACHE_VOLUME",target=/home/pedroregispoar/.cache/ \
+--mount source="$NIX_CACHE_VOLUME",target=/home/pedroregispoar/.config/nix/ \
+--mount source="$NIX_CACHE_VOLUME",target=/home/pedroregispoar/.nix-defexpr/ \
 --tty \
 --rm \
 --workdir /code \
 --volume "$(pwd)":/code \
-"$NIX_BASE_IMAGE" bash -c "sudo --preserve-env nix-shell -I nixpkgs=channel:nixos-20.03 --packages nixFlakes --run 'nix flake show github:GNU-ES/hello'"
+"$NIX_BASE_IMAGE" bash -c "sudo --preserve-env nix-shell -I nixpkgs=channel:nixos-20.09 --packages nixFlakes --run 'nix flake show github:GNU-ES/hello'"
