@@ -53,9 +53,92 @@
         '';
         
 
+### TODO: document this:
 https://www.cyberciti.biz/faq/understanding-etcgroup-file/
 
 https://www.cyberciti.biz/faq/understanding-etcpasswd-file-format/
 
 
+docker ps --all
 
+docker volume ls
+
+docker images
+
+docker create \
+--name=nix-volume-container \
+--volume=/nix-volume \
+docker-tools-empty-image-size:0.0.1 sh
+
+docker ps --all
+
+docker volume ls
+docker volume ls --quiet
+
+ls -al /nix-volume/ \
+&& touch /nix-volume/file.txt \
+&& stat /nix-volume/file.txt \
+&& chmod +x /nix-volume/file.txt \
+&& stat /nix-volume/file.txt
+
+
+docker run \
+--interactive \
+--tty \
+--rm \
+--volumes-from=nix-volume-container \
+bash-minimal:0.0.1 -c 'ls -la /nix-volume'
+
+docker run \
+--interactive \
+--tty \
+--rm \
+--volumes-from=nix-volume-container \
+--volume /nix:/nix-volume \
+nixos/nix sh -c 'nix-env --install --attr nixpkgs.hello'
+
+docker run \
+--interactive \
+--tty \
+--rm \
+--volumes-from=nix-volume-container \
+bash-minimal:0.0.1 -c 'ls -la /nix-volume'
+
+docker run -it --rm bash-minimal:0.0.1 -c 'ls -la'
+
+docker run \                                   
+--interactive \
+--tty \
+--rm \
+--volumes-from=nix-volume-container \
+--volume /nix-volume:/nix \
+nixos/nix sh -c 'nix-env --install --attr nixpkgs.hello'
+
+ls -al /nix-volume/store/
+
+docker run \
+--interactive \
+--tty \
+--rm \
+--volumes-from=nix-volume-container \
+alpine sh -c 'stat /nix/file.txt'
+
+docker create --name nix-volume-container --volume /nix-volume alpine sh
+
+ID=$(docker create --name nix-volume-container --volume /nix-volume alpine sh)
+
+docker volume inspect $ID
+docker volume ls 
+docker ps --all
+
+docker run \
+--interactive \
+--tty \
+--mount source=nix-volume,target=/nix \
+nixos/nix sh -c 'nix-env --install --attr nixpkgs.hello'
+
+docker run \
+--interactive \
+--tty \
+--mount source=nix-volume,target=/nix \
+nixos/nix sh -c 'hello'
