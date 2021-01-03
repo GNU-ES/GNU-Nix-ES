@@ -6,6 +6,6 @@ pkgs.dockerTools.buildImage {
 
     name = "docker-tools-empty-image-size";
     tag = "0.0.1";
-    created = "now";
+    #created = "now";
 
 }
