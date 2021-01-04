@@ -11,7 +11,7 @@
       #pkgs = inputs.unstable.legacyPackages.${system};
       unstable-pkgs = inputs.unstable.legacyPackages.${system};
       pkgs = inputs.stable.legacyPackages.${system};
-      runtimeDeps = with pkgs; [ youtube-dl ];
+      runtimeDeps = with pkgs; [ libspatialindex ];
       #env = pkgs.poetry2nix.mkPoetryEnv { projectDir = ./.; };
       config = {
         projectDir = ./.;
@@ -24,13 +24,13 @@
     in {
       devShell."${system}" = pkgs.mkShell {
         #buildInputs = with pkgs; [ poetry];
-        buildInputs = with pkgs; [  env
+        buildInputs = with pkgs; [ env
                                    direnv
                                    git
                                    gnumake
-				   kubectl
-				                   libspatialindex
+				                   kubectl
 				                   python38Packages.cython
+				                   libspatialindex
                                    lorri
                                    neovim
                                    poetry

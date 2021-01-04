@@ -9,3 +9,9 @@ IMAGE_VERSION="$IMAGE":"$VERSION"
 
 
 nix develop --command './test_.nix'
+
+nix develop --command python -c 'import rtree'
+
+sudo chown pedroregispoar:pedroregispoargroup --recursive /nix
+
+sudo --preserve-env --user=pedroregispoar --group=pedroregispoargroup ls
