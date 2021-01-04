@@ -17,7 +17,7 @@ let
 
     path = buildEnv {
         name = "system-path";
-        paths = [ findutils bashInteractive cacert coreutils nix shadow su sudo which ];
+        paths = [ bashInteractive cacert coreutils findutils nix shadow su sudo which ];
     };
 
     nixconf = ''
@@ -140,8 +140,10 @@ let
             #cat /etc/passwd
             #cat /etc/group
 
-            #${pkgs.findutils}/bin/find / -xdev -user "NEW_USER_ID" -exec chown --no-dereference "$NEW_USER_NAME" {} \;
+            #${pkgs.findutils}/bin/find / -xdev -user "$NEW_USER_ID" -exec chown --no-dereference "$NEW_USER_NAME" {} \;
+            #${pkgs.findutils}/bin/find / -xdev -user "$NEW_USER_ID" -not \( -path $(readlink $(which sudo)) -prune \) -exec chown --no-dereference "$NEW_USER_NAME" {} \;
             #${pkgs.findutils}/bin/find / -xdev -group "$NEW_GROUP_ID" -exec chgrp --no-dereference "$NEW_GROUP_NAME" {} \;
+            #${pkgs.findutils}/bin/find / -xdev -group "$NEW_GROUP_ID" -not \( -path $(readlink $(which sudo)) -prune \) -exec chgrp --no-dereference "$NEW_GROUP_NAME" {} \;
 
 
             exec ${pkgs.gosu}/bin/gosu "$NEW_USER_NAME":"$NEW_GROUP_NAME" "$BASH_SOURCE" "$@"

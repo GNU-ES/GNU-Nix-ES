@@ -18,20 +18,23 @@ docker load < ./result
 
 docker run \
 --cap-add SYS_ADMIN \
+--device=/dev/kvm \
 --interactive \
 --mount source="$NIX_CACHE_VOLUME",target=/nix \
 --mount source="$NIX_CACHE_VOLUME",target=/home/pedroregispoar/.cache/ \
 --mount source="$NIX_CACHE_VOLUME",target=/home/pedroregispoar/.config/nix/ \
 --mount source="$NIX_CACHE_VOLUME",target=/home/pedroregispoar/.nix-defexpr/ \
+--privileged=true \
 --tty \
 --rm \
 --workdir /code \
 --volume "$(pwd)":/code \
 --volume /sys/fs/cgroup/:/sys/fs/cgroup:ro \
-"$NIX_BASE_IMAGE" bash -c "sudo --preserve-env nix-shell -I nixpkgs=channel:nixos-20.09 --packages nixFlakes --run 'nix flake show github:GNU-ES/hello'"
+"$NIX_BASE_IMAGE" bash -c "./flake_requirements.sh && sudo --preserve-env nix-shell -I nixpkgs=channel:nixos-20.09 --packages nixFlakes --run 'nix flake show github:GNU-ES/hello'"
 
 docker run \
 --cap-add SYS_ADMIN \
+--device=/dev/kvm \
 --interactive \
 --mount source="$NIX_CACHE_VOLUME",target=/nix \
 --mount source="$NIX_CACHE_VOLUME",target=/home/pedroregispoar/.cache/ \
@@ -46,20 +49,21 @@ docker run \
 "$NIX_BASE_IMAGE" bash -c "sudo --preserve-env nix-shell -I nixpkgs=channel:nixos-20.09 --packages nixFlakes --run 'nix flake show github:GNU-ES/hello'"
 
 
-SHA_SYSTEMD_CONTAINER="$(docker run \
---cap-add SYS_ADMIN \
---detach=true \
---interactive \
---mount source="$NIX_CACHE_VOLUME",target=/nix \
---mount source="$NIX_CACHE_VOLUME",target=/home/pedroregispoar/.cache/ \
---mount source="$NIX_CACHE_VOLUME",target=/home/pedroregispoar/.config/nix/ \
---mount source="$NIX_CACHE_VOLUME",target=/home/pedroregispoar/.nix-defexpr/ \
---privileged=true \
---tty \
---workdir /code \
---volume "$(pwd)":/code \
---volume /sys/fs/cgroup/:/sys/fs/cgroup:ro \
-"$NIX_BASE_IMAGE" bash -c 'sudo --preserve-env /nix/var/nix/profiles/default/bin/init')"
+#SHA_SYSTEMD_CONTAINER="$(docker run \
+#--cap-add SYS_ADMIN \
+#--detach=true \
+#--device=/dev/kvm \
+#--interactive \
+#--mount source="$NIX_CACHE_VOLUME",target=/nix \
+#--mount source="$NIX_CACHE_VOLUME",target=/home/pedroregispoar/.cache/ \
+#--mount source="$NIX_CACHE_VOLUME",target=/home/pedroregispoar/.config/nix/ \
+#--mount source="$NIX_CACHE_VOLUME",target=/home/pedroregispoar/.nix-defexpr/ \
+#--privileged=true \
+#--tty \
+#--workdir /code \
+#--volume "$(pwd)":/code \
+#--volume /sys/fs/cgroup/:/sys/fs/cgroup:ro \
+#"$NIX_BASE_IMAGE" bash -c 'sudo --preserve-env /nix/var/nix/profiles/default/bin/init')"
 
 
 #docker run \
@@ -76,11 +80,11 @@ SHA_SYSTEMD_CONTAINER="$(docker run \
 #systemd_websrv \
 #bash -c 'systemctl status'
 
-docker exec \
---interactive \
---tty \
-"$SHA_SYSTEMD_CONTAINER" \
-bash -c 'systemctl status'
+#docker exec \
+#--interactive \
+#--tty \
+#"$SHA_SYSTEMD_CONTAINER" \
+#bash -c 'systemctl status'
 
 #nix-base:0.0.1 bash -c 'nix-env --install --attr nixpkgs.systemd && systemctl --version'
 
