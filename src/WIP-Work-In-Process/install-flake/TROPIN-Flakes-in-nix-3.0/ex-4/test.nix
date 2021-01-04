@@ -8,5 +8,5 @@ let
 in
 pkgs.stdenv.mkDerivation {
   name = "test-derivation";
-  buildInputs = [ myScript pkgs.python38];
+  buildInputs = [ myScript pkgs.python39];
 }
