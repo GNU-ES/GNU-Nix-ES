@@ -2,7 +2,7 @@
 
 let
     inherit (pkgs) dockerTools stdenv buildEnv writeText;
-    inherit (pkgs) bashInteractive coreutils cacert nix findutils su which;
+    inherit (pkgs) bashInteractive coreutils cacert findutils nix su which;
 
     inherit (native.lib) concatStringsSep genList;
 
