@@ -142,7 +142,10 @@ docker run \
 #nixpkgs#git \
 #nixpkgs#man \
 #nixpkgs#man-db \
-#nixpkgs#poetry
+#nixpkgs#poetry \
+#nixpkgs#lorri \
+#nixpkgs#direnv \
+#
 
 
 #nixpkgs#poetry2nix \
