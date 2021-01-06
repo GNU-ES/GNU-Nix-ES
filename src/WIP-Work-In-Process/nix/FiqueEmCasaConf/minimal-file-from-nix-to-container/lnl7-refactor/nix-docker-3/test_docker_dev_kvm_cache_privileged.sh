@@ -11,6 +11,10 @@ NIX_BASE_IMAGE='nix-base:0.0.1'
 
 NIX_CACHE_VOLUME='nix-cache-volume'
 
+# Burn cache, as it may make you waste a lot of time!
+docker ps --all --quiet | xargs --no-run-if-empty docker stop --time=0 \
+&& docker ps --all --quiet | xargs --no-run-if-empty docker rm --force \
+&& docker volume rm --force "$NIX_CACHE_VOLUME"
 
 nix-build --attr image
 

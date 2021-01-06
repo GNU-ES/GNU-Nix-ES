@@ -2,7 +2,7 @@
 
 let
     inherit (pkgs) dockerTools stdenv buildEnv writeText;
-    inherit (pkgs) bashInteractive coreutils cacert findutils nix su which;
+    inherit (pkgs) bashInteractive coreutils cacert findutils nix python38Full su which;
 
     inherit (native.lib) concatStringsSep genList;
 
@@ -17,7 +17,7 @@ let
 
     path = buildEnv {
         name = "system-path";
-        paths = [ bashInteractive cacert coreutils findutils nix shadow su sudo which ];
+        paths = [ bashInteractive cacert coreutils findutils nix python38Full shadow su sudo which ];
     };
 
     nixconf = ''
@@ -47,6 +47,11 @@ let
             ${toString " %wheel ALL=(ALL) NOPASSWD: ALL"}
        '';
 
+    # Sorry free software
+    nixconfig = ''
+             ${toString "{ allowUnfree = true; }"}
+        '';
+
     contents = stdenv.mkDerivation {
         name = "user-environment";
         phases = [ "installPhase" "fixupPhase" "checkPhase"];
@@ -75,6 +80,8 @@ let
             echo '${sudoconf}' > $out/etc/sudo.conf
             echo '${etcsudoers}' > $out/etc/sudoers
 
+            mkdir --parent $out/root/.config/nixpkgs
+            echo '${nixconfig}' > $out/root/.config/nixpkgs/config.nix
 
             printRegistration=1 ${pkgs.perl}/bin/perl ${pkgs.pathsFromGraph} closure-* > $out/.reginfo
 
@@ -124,6 +131,12 @@ let
             #echo "$NEW_USER_NAME"
             #echo "$NEW_GROUP_NAME"
             #echo "$VOLUME_AND_WORKDIR"
+
+            mkdir --parent /home/"$NEW_USER_NAME"/.config/nixpkgs
+            ln --symbolic /root/.config/nixpkgs/config.nix /home/"$NEW_USER_NAME"/.config/nixpkgs/config.nix
+
+            #mkdir --parent ~/.config/nixpkgs
+            #ln --symbolic /root/.config/nixpkgs/config.nix ~/.config/nixpkgs/config.nix
 
             #OLD_USER_ID=$( ${pkgs.getent}/bin/getent passwd "$NEW_USER_NAME" | cut --field=3 --delimiter=:)
             NEW_USER_ID=$(stat --format="%u" "$VOLUME_AND_WORKDIR")
