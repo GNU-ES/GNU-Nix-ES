@@ -15,6 +15,7 @@ let
       done
       unlink $out/include/python3.7
       ln -sf $out/include/python3.7m $out/include/python3.7
+      ln -sf $out/include/python3.7m $out/include/python
     '';
   };
 in newPackage
