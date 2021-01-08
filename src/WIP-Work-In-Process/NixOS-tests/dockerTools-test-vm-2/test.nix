@@ -1,6 +1,6 @@
 { pkgs, ... }: {
 
-  # helloDockerTools = import ./hello.nix;
+  #helloDockerTools = import ./hello.nix;
 
   nodes = {
     docker = { pkgs, ... }: {
@@ -18,33 +18,55 @@
     };
   };
 
+  testScript = { nodes, ... }:
+    let
+      helloDockerTools = pkgs.dockerTools.buildImage {
+        name = "bash";
+        tag = "latest";
+        contents = pkgs.bashInteractive;
+      };
+    in ''
+      docker.wait_for_unit("sockets.target")
+      with subtest("Runs the GNU hello from a docker image built with dockerTools"):
+          docker.succeed("docker load --input='${helloDockerTools}'")
+    '';
 
-  testScript = { nodes, ... }: let
-    helloDockerTools = (import ./hello.nix).myHello;
-  in ''
-    docker.wait_for_unit("sockets.target")
-    with subtest("Runs the GNU hello from a docker image built with dockerTools"):
-        docker.succeed("docker load --input='${helloDockerTools}'")
-  '';
+  #  testScript = with pkgs.dockerTools.examples; ''
+  #    docker.wait_for_unit("sockets.target")
+  #    with subtest("Runs the GNU hello from a docker image built with dockerTools"):
+  #        docker.succeed(
+  #            "docker load --input='${bash}'"
+  #        )
+  #  '';
 
-#  testScript = with pkgs.dockerTools.examples; ''
-#    docker.wait_for_unit("sockets.target")
-#    with subtest("Runs the GNU hello from a docker image built with dockerTools"):
-#        docker.succeed(
-#            "docker load --input='${bash}'"
-#        )
-#  '';
+  #  testScript = with helloDockerTools; ''
+  #    docker.wait_for_unit("sockets.target")
+  #    with subtest("Runs the GNU hello from a docker image built with dockerTools"):
+  #        docker.succeed("docker load --input='${helloDockerTools.myHello}'")
+  #  '';
 
-#  testScript = with helloDockerTools; ''
-#    docker.wait_for_unit("sockets.target")
-#    with subtest("Runs the GNU hello from a docker image built with dockerTools"):
-#        docker.succeed("docker load --input='${helloDockerTools.myHello}'")
-#  '';
+  #  testScript = ''
+  #    docker.wait_for_unit("sockets.target")
+  #    with subtest("Runs the GNU hello from a docker image built with dockerTools"):
+  #        docker.succeed("docker load --input='${helloDockerTools.myHello}'")
+  #  '';
 
-#  testScript = with import ./hello.nix; ''
-#    docker.wait_for_unit("sockets.target")
-#    with subtest("Runs the GNU hello from a docker image built with dockerTools"):
-#        docker.succeed("docker load --input='${myHello}'")
-#  '';
+  #  testScript = with (import ./hello.nix).myHello; ''
+  #    docker.wait_for_unit("sockets.target")
+  #    with subtest("Runs the GNU hello from a docker image built with dockerTools"):
+  #        docker.succeed("docker load --input='${myHello}'")
+  #  '';
+
+  #  testScript = with (import ./hello.nix).myHello; ''
+  #    docker.wait_for_unit("sockets.target")
+  #    with subtest("Runs the GNU hello from a docker image built with dockerTools"):
+  #        docker.succeed("docker load --input='${myHello}'")
+  #  '';
+
+  #  testScript = with import ./hello.nix; ''
+  #    docker.wait_for_unit("sockets.target")
+  #    with subtest("Runs the GNU hello from a docker image built with dockerTools"):
+  #        docker.succeed("docker load --input='${myHello}'")
+  #  '';
 
 }

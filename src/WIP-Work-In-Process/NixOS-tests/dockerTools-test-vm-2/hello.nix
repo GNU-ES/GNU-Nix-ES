@@ -1,10 +1,8 @@
-{ pkgs }:
-
-rec {
-
-    myHello = pkgs.dockerTools.buildImage {
-      name = "hello-docker-tools";
-      tag = "0.0.1";
-      config = { Cmd = [ "${pkgs.hello}/bin/hello" ]; };
-    };
+{ pkgs ? import <nixpkgs> { } }: rec {
+  myHello = pkgs.dockerTools.buildLayeredImage {
+    name = "bash-entrypoint";
+    tag = "latest";
+    contents = [ pkgs.bash ];
+    config.Entrypoint = [ "${pkgs.bash}/bin/bash" ];
+  };
 }

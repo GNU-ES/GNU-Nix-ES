@@ -1,3 +1,1 @@
-{ pkgs ? import <nixpkgs> {} }: {
-    test = pkgs.nixosTest ./test.nix;
-}
+{ pkgs ? import <nixpkgs> { } }: { test = pkgs.nixosTest ./test.nix; }

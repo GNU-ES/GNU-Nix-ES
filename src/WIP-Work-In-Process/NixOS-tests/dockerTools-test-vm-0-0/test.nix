@@ -1,6 +1,6 @@
 { pkgs, ... }: {
 
-  #nodes.server = ./server.nix;
+  nodes.server = ./server.nix;
 
   nodes = {
     docker = { pkgs, ... }: {
@@ -18,11 +18,9 @@
     };
   };
 
-  testScript = ''
-    start_all()
+  testScript = with pkgs.dockerTools; ''
     docker.wait_for_unit("sockets.target")
-
-    # Must match version 4 times to ensure client and server git commits and versions are correct
-    docker.succeed('[ $(docker version | grep ${pkgs.docker.version} | wc -l) = "4" ]') 
+    with subtest("Ensure Docker images use a stable date by default"):
+    docker.succeed('[ $(docker version | grep ${pkgs.docker.version} | wc -l) = "4" ]')
   '';
 }
