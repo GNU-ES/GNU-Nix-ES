@@ -185,6 +185,28 @@ curl -L https://nixos.org/nix/install | sh \
 How to do it using muslibc and not the glibc?
 
 
+### Podman from `apt` (Working)
+
+
+```bash
+. /etc/os-release \
+&& echo "deb https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/xUbuntu_${VERSION_ID}/ /" | sudo tee /etc/apt/sources.list.d/devel:kubic:libcontainers:stable.list \
+&& curl -L https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/xUbuntu_${VERSION_ID}/Release.key | sudo apt-key add - \
+&& sudo apt-get update \
+&& sudo apt-get -y upgrade \
+&& sudo apt-get -y install podman \
+&& podman \
+run \
+--interactive \
+--net=host \
+--tty \
+--rm \
+--workdir /code \
+--volume "$(pwd)":/code \
+ubuntu:20.04 \
+bash -c 'cat /etc/os-release && apt-get update && apt-get install -y hello && hello'
+```
+
 # Ref and TODOS
 
 
