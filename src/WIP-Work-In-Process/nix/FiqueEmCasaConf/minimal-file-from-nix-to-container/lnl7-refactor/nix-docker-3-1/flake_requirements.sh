@@ -24,7 +24,7 @@ sudo mkdir --mode=755 --parent /nix/var/nix/profiles
 #&& stat --format "uid=%u uname=%U gid=%g gname=%G %a %A" /home/pedroregispoar/.cache/nix/
 
 
-sudo chown --recursive pedroregispoar:wheel \
+sudo chown --recursive pedroregispoar:pedroregispoargroup \
   /tmp \
   /nix/var/nix \
   /nix/var/nix/profiles \
@@ -38,7 +38,7 @@ sudo chmod 755 /nix/var/nix/temproots
 sudo chmod 755 /tmp
 
 cd /nix/store \
-&& sudo find . ! -path '*sudo*' -exec chown pedroregispoar:wheel {} --verbose \;
+&& sudo find . ! -path '*sudo*' -exec chown pedroregispoar:pedroregispoargroup {} --verbose \;
 
 #nix-store --init && nix-store --load-db < /.reginfo
 
