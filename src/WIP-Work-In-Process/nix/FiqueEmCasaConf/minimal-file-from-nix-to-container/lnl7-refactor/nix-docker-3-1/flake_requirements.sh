@@ -34,6 +34,7 @@ sudo chown --recursive pedroregispoar:pedroregispoargroup \
 
 sudo chmod 755 /nix/store
 sudo chmod 755 /nix/var/nix
+sudo chmod 755 /nix/var
 sudo chmod 755 /nix/var/nix/temproots
 sudo chmod 755 /tmp
 
