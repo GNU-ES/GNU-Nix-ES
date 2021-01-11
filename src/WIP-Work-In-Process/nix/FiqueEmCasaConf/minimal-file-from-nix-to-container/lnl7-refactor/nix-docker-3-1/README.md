@@ -53,8 +53,17 @@
         '';
         
         
-NIX_BASE_IMAGE='nix-base:0.0.1' \
+
+git clone https://github.com/GNU-ES/GNU-Nix-ES.git \
+&& cd GNU-Nix-ES \
+&& git checkout 7b2de59fb48beccf3e0f5288dd4e08a6822ad587 \
+&& cd src/WIP-Work-In-Process/nix/FiqueEmCasaConf/minimal-file-from-nix-to-container/lnl7-refactor/nix-docker-3-1 \
+&& ./test_docker_dev_kvm_cache_privileged.sh \
+&& cd ../../../../../ubuntu-18-04-vm-QEMU-nix-cloud-images \
+&& echo 'Starting the image!' \
+&& NIX_BASE_IMAGE='nix-base:0.0.1' \
 && NIX_CACHE_VOLUME='nix-cache-volume' \
+&& NIX_CACHE_VOLUME_TMP='nix-cache-volume-tmp' \
 && docker run \
 --cap-add SYS_ADMIN \
 --cpus='0.7' \
@@ -65,6 +74,7 @@ NIX_BASE_IMAGE='nix-base:0.0.1' \
 --mount source="$NIX_CACHE_VOLUME",target=/home/pedroregispoar/.cache/ \
 --mount source="$NIX_CACHE_VOLUME",target=/home/pedroregispoar/.config/nix/ \
 --mount source="$NIX_CACHE_VOLUME",target=/home/pedroregispoar/.nix-defexpr/ \
+--mount source="$NIX_CACHE_VOLUME_TMP",target=/tmp/ \
 --net=host \
 --privileged=true \
 --tty \
