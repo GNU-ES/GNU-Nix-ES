@@ -2,7 +2,7 @@
 
 let
     inherit (pkgs) dockerTools stdenv buildEnv writeText;
-    inherit (pkgs) bashInteractive cacert commonsCompress coreutils docker findutils git gnutar nix man su which;
+    inherit (pkgs) bashInteractive cacert commonsCompress coreutils findutils git gnutar nix man su which;
 
     inherit (native.lib) concatStringsSep genList;
 
@@ -17,7 +17,7 @@ let
 
     path = buildEnv {
         name = "system-path";
-        paths = [ bashInteractive cacert commonsCompress coreutils docker findutils git gnutar pkgs.lzma.bin nix man shadow su sudo which ];
+        paths = [ bashInteractive cacert commonsCompress coreutils findutils git gnutar pkgs.lzma.bin nix man shadow su sudo which ];
     };
 
     nixconf = ''
