@@ -76,7 +76,6 @@ NIX_BASE_IMAGE='nix-base:0.0.1' \
 --volume=/var/run/docker.sock:/var/run/docker.sock \
 "$NIX_BASE_IMAGE" bash -c "sudo --preserve-env nix-shell -I nixpkgs=channel:nixos-20.09 --packages nixFlakes --run 'docker images'"
 
-
 #SHA_SYSTEMD_CONTAINER="$(docker run \
 #--cap-add SYS_ADMIN \
 #--detach=true \

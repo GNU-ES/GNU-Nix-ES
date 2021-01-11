@@ -116,6 +116,27 @@ let
         #chmod 4755 $(readlink $(which su)) 2> /dev/null
         chmod 4755 $(readlink $(which sudo)) 2> /dev/null
 
+        chmod 755 --recursive /tmp 2> /dev/null
+        chown --recursive pedroregispoar:wheel /tmp 2> /dev/null
+
+
+        #find /nix/store/ -exec echo {} \;
+        #find /nix -exec chown --recursive pedroregispoar:wheel {} --verbose \;
+        #chmod 4755 /run/current-system/sw/bin/sudo
+
+        # chown --recursive pedroregispoar:wheel /tmp
+
+        #find . \! \( -type d \( -path './*sudo*' \) -prune \) -exec chown --recursive pedroregispoar:wheel {} --verbose \;
+
+        #sudo --group="$(id --group)" --user="$(id --user)" id^C
+        #sudo --group=wheel --user=pedroregispoar id
+        #sudo find / -not \( -path /root -prune \) -not \( -path /proc -prune \) -not \( -path /var -prune \) -not \( -path $(readlink $(which sudo)) -prune \) -exec chown --recursive pedroregispoar:wheel {} \; && sudo chmod 755 --recursive /tmp
+
+        # find / \! \( -type d \( -path './root/*' -o -path './proc/*' -o -path './var/*' -o -path '.$(dirname $(readlink $(which sudo)))' -o -path './run/current-system/sw/bin' \) -prune \) -exec chown --recursive pedroregispoar:wheel {} --verbose \; && sudo chmod 755 --recursive /tmp
+
+        # find . \! \( -type d \( -path './f3/*' \) -prune \) -exec echo {} \;
+
+
         #chown "$NEW_USER_NAME":"$NEW_GROUP_NAME" $(which usermod)
         #chmod 4755 $(which usermod) 2> /dev/null
 
