@@ -61,7 +61,7 @@ docker run \
 --volume /sys/fs/cgroup/:/sys/fs/cgroup:ro \
 "$NIX_BASE_IMAGE" bash -c "nix-shell -I nixpkgs=channel:nixos-20.09 --packages nixFlakes --run 'nix flake show github:GNU-ES/hello'"
 
-
+# egrep -c '(vmx|svm)' /proc/cpuinfo
 # For now, not using DinD (Docker in Docker)
 #docker run \
 #--cap-add SYS_ADMIN \

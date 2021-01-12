@@ -38,8 +38,18 @@ sudo chmod 755 /nix/var
 sudo chmod 755 /nix/var/nix/temproots
 sudo chmod 755 /tmp
 
-cd /nix/store \
-&& sudo find . ! -path '*sudo*' -exec chown pedroregispoar:pedroregispoargroup {} --verbose \;
+sudo mkdir --mode=755 /home/pedroregispoar/.local
+
+cd /home/pedroregispoar/ \
+&& sudo find . ! -path '*sudo*' -exec chown pedroregispoar:pedroregispoargroup {} --verbose \; \
+&& cd -
+
+cd "$HOME" \
+&& sudo find "$HOME" ! -path '*sudo*' -exec chown pedroregispoar:pedroregispoargroup {} --verbose \; \
+&& cd -
+
+
+
 
 #nix-store --init && nix-store --load-db < /.reginfo
 

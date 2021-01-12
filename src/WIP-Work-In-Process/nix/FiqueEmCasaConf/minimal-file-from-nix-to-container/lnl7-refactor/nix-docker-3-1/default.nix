@@ -2,7 +2,7 @@
 
 let
     inherit (pkgs) dockerTools stdenv buildEnv writeText;
-    inherit (pkgs) bashInteractive cacert commonsCompress coreutils findutils git gnutar nix man su which;
+    inherit (pkgs) bashInteractive cacert commonsCompress coreutils findutils git gnutar gzip nix man man-db qemu su which;
 
     inherit (native.lib) concatStringsSep genList;
 
@@ -17,7 +17,7 @@ let
 
     path = buildEnv {
         name = "system-path";
-        paths = [ bashInteractive cacert commonsCompress coreutils findutils git gnutar pkgs.lzma.bin nix man shadow su sudo which ];
+        paths = [ bashInteractive cacert commonsCompress coreutils findutils git gnutar gzip pkgs.lzma.bin nix man man-db shadow su sudo which ];
     };
 
     nixconf = ''
@@ -82,6 +82,9 @@ let
 
             mkdir --parent $out/root/.config/nixpkgs
             echo '${nixconfig}' > $out/root/.config/nixpkgs/config.nix
+
+            mkdir --parent $out/${user_name}/.config/nixpkgs
+            echo '${nixconfig}' > $out/${user_name}/.config/nixpkgs/config.nix
 
             printRegistration=1 ${pkgs.perl}/bin/perl ${pkgs.pathsFromGraph} closure-* > $out/.reginfo
 
@@ -212,7 +215,7 @@ let
         config.Cmd = [ "${bashInteractive}/bin/bash" ];
 
         config.Env = [ "PATH=/root/.nix-profile/bin:/run/current-system/sw/bin:/nix/var/nix/profiles/default/bin:/nix/var/nix/profiles/default/sbin:/bin:/sbin:/usr/bin:/usr/sbin"
-            "MANPATH=/root/.nix-profile/share/man:/run/current-system/sw/share/man"
+            "MANPATH=/root/.nix-profile/share/man:/home/pedroregispoar/.nix-profile/share/man:/run/current-system/sw/share/man"
             "NIX_PAGER=cat"
             "NIX_PATH=nixpkgs=${unstable}"
             "NIX_SSL_CERT_FILE=${cacert}/etc/ssl/certs/ca-bundle.crt"
