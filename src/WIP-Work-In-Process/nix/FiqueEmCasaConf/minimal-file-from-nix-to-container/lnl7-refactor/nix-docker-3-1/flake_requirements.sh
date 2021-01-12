@@ -49,7 +49,7 @@ cd "$HOME" \
 && cd -
 
 
-
+echo 'system-features = kvm' >> ~/.config/nix/nix.conf
 
 #nix-store --init && nix-store --load-db < /.reginfo
 
