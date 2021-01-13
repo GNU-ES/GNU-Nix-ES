@@ -25,6 +25,42 @@ You can see a YouTube video example [Nix Friday - Home manager, (00:01:59 all du
  he explains about [4.1. Single User Installation](https://nixos.org/manual/nix/stable/#sect-single-user-installation) 
  and about  [4.2. Multi User Installation](https://nixos.org/manual/nix/stable/#sect-multi-user-installation).
 
+
+
+```bash
+sudo curl -L https://nixos.org/nix/install | sh \
+&& if [ ! -f ~/.config/nix/nix.conf ]; then
+  echo "File ~/.config/nix/nix.conf not found!"
+  echo "Creating ~/.config/nix/nix.conf"
+  mkdir --parent --mode=755 ~/.config/nix/
+  echo 'system-features = kvm' >> ~/.config/nix/nix.conf
+  echo 'experimental-features = nix-command flakes ca-references' >> ~/.config/nix/nix.conf
+  fi \
+&& if [ ! -f ~/.config/nixpkgs/ ]; then
+  echo "File ~/.config/nixpkgs/ not found!"
+  echo "Creating ~/.config/nixpkgs/config.nix"
+  mkdir --parent --mode=755 ~/.config/nixpkgs/
+  echo '{ allowUnfree = true; }' >> ~/.config/nixpkgs/config.nix
+  fi \
+&& . "$HOME"/.nix-profile/etc/profile.d/nix.sh \
+&& nix-env --install --attr nixpkgs.hello \
+&& hello \
+&& nix-env --uninstall nixpkgs.hello \
+&& nix-env --install --attr \
+nixpkgs.commonsCompress \
+nixpkgs.gnutar \
+nixpkgs.lzma.bin \
+nixpkgs.git \
+&& nix-shell -I nixpkgs=channel:nixos-20.09 --packages nixFlakes --run 'nix flake show github:GNU-ES/hello'
+```
+
+TODO: change the `[]` to `test -f "$file" || echo "$file"`
+https://stackoverflow.com/a/7023478
+
+POSIX
+https://stackoverflow.com/a/7810345
+
+
 ## First clone and open a terminal and run:
 ```
 git clone https://github.com/GNU-ES/GNU-Nix-ES.git \
