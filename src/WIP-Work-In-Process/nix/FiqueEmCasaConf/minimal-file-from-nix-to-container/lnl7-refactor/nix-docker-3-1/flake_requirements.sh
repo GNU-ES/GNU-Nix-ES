@@ -48,7 +48,8 @@ cd "$HOME" \
 && sudo find "$HOME" ! -path '*sudo*' -exec chown pedroregispoar:pedroregispoargroup {} --verbose \; \
 && cd -
 
-
+# TODO: check if it is necessary
+# mkdir --parent --mode=755 ~/.config/nix/
 echo 'system-features = kvm' >> ~/.config/nix/nix.conf
 
 # It relies on uid and gid to be correct (equal your host user and group) at this point
@@ -57,3 +58,5 @@ sudo chown --recursive pedroregispoar:pedroregispoargroup /tmp/.X11-unix
 #nix-store --init && nix-store --load-db < /.reginfo
 
 nix-shell -I nixpkgs=channel:nixos-20.09 --packages nixFlakes --run 'nix flake show github:GNU-ES/hello'
+
+
