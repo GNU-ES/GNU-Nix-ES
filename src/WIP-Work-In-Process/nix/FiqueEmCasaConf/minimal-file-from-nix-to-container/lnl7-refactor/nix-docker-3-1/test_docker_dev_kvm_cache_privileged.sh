@@ -28,6 +28,7 @@ docker run \
 --cap-add SYS_ADMIN \
 --cpus='0.5' \
 --device=/dev/kvm \
+--env "DISPLAY=${DISPLAY:-:0.0}" \
 --interactive \
 --mount source="$NIX_CACHE_VOLUME",target=/nix \
 --mount source="$NIX_CACHE_VOLUME",target=/home/pedroregispoar/.cache/ \
@@ -40,6 +41,7 @@ docker run \
 --workdir /code \
 --volume "$(pwd)":/code \
 --volume /sys/fs/cgroup/:/sys/fs/cgroup:ro \
+--volume /tmp/.X11-unix:/tmp/.X11-unix \
 "$NIX_BASE_IMAGE" bash -c "./flake_requirements.sh"
 
 
