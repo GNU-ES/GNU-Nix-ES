@@ -33,8 +33,8 @@ let
 
     group = ''
         root:x:0:
-        wheel:x:1:${user_name}
-        kvm:x:1:${user_name}
+        wheel:x:1:${user_name},kvm
+        kvm:x:2:kvm
         nixbld:x:30000:${concatStringsSep "," (genList (i: "nixbld${toString (i+1)}") 32)}
     '';
 #${user_group}:x:${user_group_id}:${user_name}
