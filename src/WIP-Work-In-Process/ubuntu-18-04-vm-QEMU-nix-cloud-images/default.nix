@@ -1,5 +1,5 @@
 let
-  pkgs = import (builtins.fetchTarball { url = "channel:nixos-19.09"; }) {};
+  pkgs = import (builtins.fetchTarball { url = "channel:nixos-20.09"; }) {};
   inherit (pkgs) runCommand;
 
   img_orig = "ubuntu-18.04-server-cloudimg-amd64.img";
@@ -29,7 +29,7 @@ rec {
     ];
   };
 
-  # Generate the initial user data disk. This containst extra configuration
+  # Generate the initial user data disk. This contains extra configuration
   # for the VM.
   userdata = runCommand
     "userdata.qcow2"
