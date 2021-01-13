@@ -106,5 +106,6 @@ venv.bak/
 ../.idea/
 .idea/
 result
+*.qcow
 *.qcow2
 *.iso
