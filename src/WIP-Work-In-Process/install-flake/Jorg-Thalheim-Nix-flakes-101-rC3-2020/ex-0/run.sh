@@ -4,8 +4,8 @@
 set -euxo pipefail
 
 
-git config --global user.email "you@example.com"
-git config --global user.name "Your Name"
+git config user.email "you@example.com"
+git config user.name "Your Name"
 echo 'result' >> '.gitignore'
 
 git init
