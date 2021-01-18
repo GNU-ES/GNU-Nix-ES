@@ -9,7 +9,7 @@ let
     # allow the container to be started with `--user`
     if [ "$1" = "redis-server" -a "$(${pkgs.coreutils}/bin/id -u)" = "0" ]; then
       ${pkgs.coreutils}/bin/chown -R redis .
-      exec ${pkgs.gosu.bin}/bin/gosu redis "$BASH_SOURCE" "$@"
+      exec ${pkgs.gosu}/bin/gosu redis "$BASH_SOURCE" "$@"
     fi
     exec "$@"
     '';

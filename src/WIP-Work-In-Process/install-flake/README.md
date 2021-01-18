@@ -32,10 +32,67 @@ systemctl status display-manager.service
 xhost
 
 xhost +local:
+TODO: Is this link the correct fix for this?
+https://bbs.archlinux.org/viewtopic.php?pid=1680674#p1680674
+
 
 export DISPLAY=':0.0' 
 
+Extra: about xterm
+https://unix.stackexchange.com/a/429120
+
+
 nix-shell -I nixpkgs=channel:nixos-20.09 --packages nixFlakes
+
+nix shell nixpkgs#qemu
+
+
+qemu-img create -f qcow2 nixos.img 2G
+
+
+qemu-system-x86_64 -enable-kvm -m 8192 -boot d -cdrom latest-nixos-minimal-x86_64-linux.iso -hda nixos.img
+ 
+qemu-system-x86_64 \
+-enable-kvm -m 8192 \
+-boot d \
+-cdrom latest-nixos-minimal-x86_64-linux.iso \
+-hda nixos.img \
+-vnc :1 \
+-serial mon:stdio \
+-smp 2 \
+-device "rtl8139,netdev=net0" \
+-netdev "user,id=net0,hostfwd=tcp:127.0.0.1:10022-:22"
+
+
+qemu-system-x86_64 \
+-enable-kvm -m 8192 \
+-cdrom latest-nixos-minimal-x86_64-linux.iso \
+-hda nixos.img \
+-vnc :1 \
+-serial mon:stdio \
+-vga std
+
+qemu-system-x86_64 \
+-enable-kvm -m 8192 \
+-cdrom latest-nixos-minimal-x86_64-linux.iso \
+-hda nixos.img \
+-vnc :1 \
+-serial mon:stdio \
+-nographic
+
+
+qemu-system-x86_64 \
+-enable-kvm -m 8192 \
+-cdrom latest-nixos-minimal-x86_64-linux.iso \
+-hda nixos.img \
+-nographic
+
+qemu-system-x86_64 \
+-enable-kvm -m 8192 \
+-cdrom latest-nixos-plasma5-x86_64-linux.iso \
+-hda nixos.img \
+-nographic
+
 
 
 
@@ -47,6 +104,11 @@ wget --output-document=debian-testing-amd64-netinst.iso http://cdimage.debian.or
 && qemu-img create -f qcow2 debian.qcow 2G \
 && qemu-system-x86_64 -hda debian.qcow -cdrom debian-testing-amd64-netinst.iso -boot d -m 512 -nographic \
 && echo
+
+qemu-system-x86_64 -enable-kvm -boot d -cdrom latest-nixos-minimal-x86_64-linux.iso -m 512 -nographic
+
+nix shell nixpkgs#qemu 
+
 
 https://nixos.wiki/wiki/Using_X_without_a_Display_Manager
 wget --output-document=latest-nixos-minimal-x86_64-linux.iso https://channels.nixos.org/nixos-20.09/latest-nixos-minimal-x86_64-linux.iso
@@ -359,4 +421,15 @@ nix flake info nixpkgs
 
 sudo nixos-rebuild switch --flake '.#' --no-write-lock-file
 
+
+### Referências
+
+- Instalação do `minikube`: https://minikube.sigs.k8s.io/docs/start/
+
+
+Teste feito usando ssh no PC do João, QEMU + cloud image ubuntu, `nix` + `flake` usando o `nix shell`:
+![image](https://user-images.githubusercontent.com/20312381/104532702-9fb64780-55ef-11eb-8611-99efc7484cde.png)
+
+
+https://github.com/actions/virtual-environments/issues/183#issuecomment-610723516
 
