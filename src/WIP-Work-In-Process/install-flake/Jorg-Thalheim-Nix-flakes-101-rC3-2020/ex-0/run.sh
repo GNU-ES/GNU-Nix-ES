@@ -4,11 +4,11 @@
 set -euxo pipefail
 
 
+git init
+
 git config user.email "you@example.com"
 git config user.name "Your Name"
 echo 'result' >> '.gitignore'
-
-git init
 
 git add .
 
