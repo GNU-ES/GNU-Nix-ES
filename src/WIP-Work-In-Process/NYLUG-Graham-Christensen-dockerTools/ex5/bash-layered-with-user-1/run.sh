@@ -1,42 +1,23 @@
 #!/usr/bin/env bash
 
-
 # See https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
 set -euxo pipefail
 
-nix-build ./bash-layered-with-user-1.nix
 
-docker load < ./result
+git init
 
-docker \
-run \
---interactive \
---tty \
-bash-layered-with-user \
-bash -c 'ls -la'
+git config user.email "you@example.com"
+git config user.name "Your Name"
 
-docker \
-run \
---interactive \
---tty \
---user=somebody \
-bash-layered-with-user \
-bash -c 'id'
+git add .
+
+git commit --message 'Save flake state'
+
+nix build
 
 
+./result/bin/python3.8 --version
 
-#    adduser \
-#    --disabled-password \
-#    --force-badname \
-#    --ingroup sudo \
-#    --quiet \
-#    --shell /bin/bash \
-#    --home /home/"$INPUTED_USER_OR_DEFAULT" \
-#    --gecos "User" "$INPUTED_USER_OR_DEFAULT"
-#
-#    useradd \
-#    --badnames \
-#    --gid sudo \
-#    --home-dir /home/"$INPUTED_USER_OR_DEFAULT"
-#    --shell /bin/bash \
-#    --no-user-group
+#nix develop --command python --version
+
+sudo rm --force --recursive .git result flake.lock
