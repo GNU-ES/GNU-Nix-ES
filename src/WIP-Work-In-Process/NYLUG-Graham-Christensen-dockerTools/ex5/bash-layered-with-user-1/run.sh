@@ -4,7 +4,7 @@
 # See https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
 set -euxo pipefail
 
-nix-build ./bash-layered-with-user.nix
+nix-build ./bash-layered-with-user-1.nix
 
 docker load < ./result
 
