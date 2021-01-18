@@ -19,7 +19,6 @@ let
       #ln -sf $out/include/python3m $out/include/python3
 
       ln -sf $out/include/python3 $out/include/python
-      ln -sf $out/include/python3 $out/include/python
       ln -sf $out/include/python3m $out/include/python3
     '';
   };
