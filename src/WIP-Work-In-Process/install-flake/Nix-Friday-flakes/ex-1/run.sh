@@ -4,10 +4,10 @@
 set -euxo pipefail
 
 
-git config --global user.email "you@example.com"
-git config --global user.name "Your Name"
-
 git init
+
+git config user.email "you@example.com"
+git config user.name "Your Name"
 
 git add .
 
@@ -15,6 +15,9 @@ git commit --message 'Save flake state'
 
 nix build
 
-nix develop --command python --version
+nix shell --command python --version
+nix shell --command python3 --version
 
-sudo rm --recursive .git result flake.lock
+
+
+sudo rm --force --recursive .git result flake.lock result
