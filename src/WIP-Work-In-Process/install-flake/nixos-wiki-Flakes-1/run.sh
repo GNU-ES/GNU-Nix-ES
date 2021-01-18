@@ -3,11 +3,12 @@
 # See https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
 set -euxo pipefail
 
-git config --global user.email "you@example.com"
-git config --global user.name "Your Name"
-
-
 git init
+
+
+git config user.email "you@example.com"
+git config user.name "Your Name"
+
 
 git add .
 git commit --message 'Save flake state'
@@ -27,4 +28,4 @@ nix flake list-inputs
 
 nix flake show
 
-#sudo rm --force --recursive .git result flake.lock
+sudo rm --force --recursive .git result flake.lock

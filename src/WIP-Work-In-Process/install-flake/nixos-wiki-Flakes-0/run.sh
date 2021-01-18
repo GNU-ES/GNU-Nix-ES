@@ -3,11 +3,12 @@
 # See https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
 set -euxo pipefail
 
-git config --global user.email "you@example.com"
-git config --global user.name "Your Name"
-
 
 git init
+
+
+git config user.email "you@example.com"
+git config user.name "Your Name"
 
 git add .
 git commit --message 'Save flake state'
@@ -22,6 +23,8 @@ git commit --message 'Save flake state 2'
 #nix build
 
 nix develop --command id
+
+nix develop --command python3
 
 nix flake list-inputs
 
