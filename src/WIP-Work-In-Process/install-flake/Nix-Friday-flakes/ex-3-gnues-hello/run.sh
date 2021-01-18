@@ -16,7 +16,8 @@ git commit --message 'Save flake state'
 nix build
 
 
-nix shell --command python --version
+#nix shell --command hello
+
 #nix develop --command python --version
 
 sudo rm --force --recursive .git result flake.lock

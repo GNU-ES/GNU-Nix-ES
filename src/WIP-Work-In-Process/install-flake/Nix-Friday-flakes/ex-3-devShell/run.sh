@@ -17,6 +17,6 @@ nix build
 
 
 nix shell --command python --version
-#nix develop --command python --version
+#nix develop --command hello
 
 sudo rm --force --recursive .git result flake.lock
