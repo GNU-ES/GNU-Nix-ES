@@ -1,5 +1,5 @@
 {
-  description = "nixpkgs-review";
+  description = "Example of flake using flake-utils.";
 
   inputs.flake-utils.url = "github:numtide/flake-utils";
 

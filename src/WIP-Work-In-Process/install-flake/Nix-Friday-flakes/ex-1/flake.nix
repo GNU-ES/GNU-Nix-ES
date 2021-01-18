@@ -1,5 +1,5 @@
 {
-  description = "nixpkgs-review";
+  description = "Flake example";
 
   outputs = { self, nixpkgs }: {
     packages.x86_64-linux.myExampleFlake = import ./. {
