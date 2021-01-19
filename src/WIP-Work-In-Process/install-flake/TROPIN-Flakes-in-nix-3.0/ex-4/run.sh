@@ -3,10 +3,11 @@
 # See https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
 set -euxo pipefail
 
-git config --global user.email "you@example.com"
-git config --global user.name "Your Name"
 
 git init
+
+git config user.email "you@example.com"
+git config user.name "Your Name"
 
 git add .
 
