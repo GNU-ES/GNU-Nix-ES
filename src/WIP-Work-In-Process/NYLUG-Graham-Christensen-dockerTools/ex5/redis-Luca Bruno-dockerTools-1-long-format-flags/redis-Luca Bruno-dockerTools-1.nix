@@ -7,8 +7,8 @@ let
 
     set -e
     # allow the container to be started with `--user`
-    if [ "$1" = "redis-server" -a "$(${pkgs.coreutils}/bin/id -u)" = "0" ]; then
-      ${pkgs.coreutils}/bin/chown -R redis .
+    if [ "$1" = "redis-server" -a "$(${pkgs.coreutils}/bin/id --user)" = "0" ]; then
+      ${pkgs.coreutils}/bin/chown --recursive redis .
       exec ${pkgs.gosu}/bin/gosu redis "$BASH_SOURCE" "$@"
     fi
     exec "$@"
@@ -20,7 +20,7 @@ pkgs.dockerTools.buildImage {
 
     name = "redis";
     tag = "0.0.1";
-    created = "now";
+    #created = "now";
 
     runAsRoot = ''
         #!${pkgs.stdenv}

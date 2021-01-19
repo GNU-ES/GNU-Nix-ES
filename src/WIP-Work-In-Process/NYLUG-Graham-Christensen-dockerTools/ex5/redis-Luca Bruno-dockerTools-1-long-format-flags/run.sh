@@ -28,4 +28,9 @@ nix-build './redis-Luca Bruno-dockerTools-1.nix'
 
 docker load < ./result
 
-docker run -it redis:0.0.1
+
+docker run \
+--interactive \
+--tty \
+--rm \
+redis:0.0.1
