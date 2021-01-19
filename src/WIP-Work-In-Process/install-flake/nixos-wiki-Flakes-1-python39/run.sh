@@ -24,7 +24,7 @@ git commit --message 'Save flake state 2'
 
 nix develop --command id
 
-#nix develop --command python3
+nix develop --command python --version
 
 nix flake list-inputs
 
