@@ -13,13 +13,13 @@ git add .
 
 git commit --message 'Save flake state'
 
-nix develop --command './prepare-poetry.sh'
+#nix develop --command './prepare-poetry.sh'
 
 # Smock test to detect if python is on PATH
 #nix develop --command python --version
 
 #
-#nix develop --command python -c 'import flask'
+nix develop --command python -c 'import flask'
 
-#sudo rm --recursive .git
+sudo rm --recursive .git
 #rm --force poetry.lock pyproject.toml
