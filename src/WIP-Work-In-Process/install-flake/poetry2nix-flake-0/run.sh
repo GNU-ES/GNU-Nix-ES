@@ -19,5 +19,4 @@ nix develop --command './prepare-poetry.sh'
 #nix develop --command python -c 'import flask'
 
 sudo rm --recursive .git
-
 rm --force poetry.lock pyproject.toml

@@ -3,9 +3,11 @@
 # See https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
 set -eux pipefail
 
+PROJECT_FOLDER_NAME='test-project'
 
-poetry new test-project \
-&& cd test-project \
+
+poetry new "$PROJECT_FOLDER_NAME" \
+&& cd "$PROJECT_FOLDER_NAME" \
 && ls -la \
 && poetry show --tree \
 && poetry lock \
@@ -15,7 +17,7 @@ poetry new test-project \
 && mv pyproject.toml ../pyproject.toml \
 && ls -la \
 && cd .. \
-&& rm --recursive test-project \
+&& rm --recursive "$PROJECT_FOLDER_NAME" \
 && poetry show --tree \
 && cat poetry.lock \
 && cat pyproject.toml \
@@ -27,3 +29,7 @@ poetry new test-project \
 && poetry show --tree \
 && poetry lock \
 && ls -la
+
+
+#mkdir "$PROJECT_FOLDER_NAME"
+#touch "$PROJECT_FOLDER_NAME"/'__init__.py'
