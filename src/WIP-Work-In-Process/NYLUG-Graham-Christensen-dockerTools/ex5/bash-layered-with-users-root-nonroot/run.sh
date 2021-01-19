@@ -4,7 +4,7 @@
 # See https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
 set -euxo pipefail
 
-nix-build ./bash-layered-with-user.nix
+nix-build './bash-layered-with-users-root-nonroot.nix'
 
 docker load < ./result
 
@@ -16,6 +16,7 @@ run \
 --tty \
 bash-layered-with-user \
 bash -c 'ls -la'
+
 
 echo 'Test if the user is the root one, passing explicitly with the flag --user'
 docker \
