@@ -3,15 +3,21 @@
 # See https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
 set -eux pipefail
 
-IMAGE="gnu-nix-es/$(git rev-parse --short HEAD)"
-VERSION=0.0.1
-IMAGE_VERSION="$IMAGE":"$VERSION"
 
+git init
 
-nix develop --command './test_.nix'
+git config user.email "you@example.com"
+git config user.name "Your Name"
 
-nix develop --command python -c 'import rtree'
+git add .
 
-sudo chown pedroregispoar:pedroregispoargroup --recursive /nix
+git commit --message 'Save flake state'
 
-sudo --preserve-env --user=pedroregispoar --group=pedroregispoargroup ls
+nix develop --command './prepare-poetry.sh'
+
+#
+#nix develop --command python -c 'import flask'
+
+sudo rm --recursive .git
+
+rm --force poetry.lock pyproject.toml

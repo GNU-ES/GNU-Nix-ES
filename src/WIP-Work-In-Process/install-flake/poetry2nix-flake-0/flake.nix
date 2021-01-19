@@ -8,33 +8,25 @@
   outputs = inputs:
     let
       system = "x86_64-linux";
-      #pkgs = inputs.unstable.legacyPackages.${system};
+      pkgs = inputs.unstable.legacyPackages.${system};
       unstable-pkgs = inputs.unstable.legacyPackages.${system};
-      pkgs = inputs.stable.legacyPackages.${system};
-      runtimeDeps = with pkgs; [ libspatialindex ];
+      #pkgs = inputs.stable.legacyPackages.${system};
+      #runtimeDeps = with pkgs; [ libspatialindex ];
       #env = pkgs.poetry2nix.mkPoetryEnv { projectDir = ./.; };
       config = {
         projectDir = ./.;
-        propagatedBuildInputs = runtimeDeps;
+        #propagatedBuildInputs = runtimeDeps;
       };
 
       app = unstable-pkgs.poetry2nix.mkPoetryApplication config;
-      env = app.dependencyEnv; # pkgs.poetry2nix.mkPoetryEnv config;
+      env = app.dependencyEnv;
+      #env = pkgs.poetry2nix.mkPoetryEnv config;
 
     in {
       devShell."${system}" = pkgs.mkShell {
         #buildInputs = with pkgs; [ poetry];
-        buildInputs = with pkgs; [ env
-                                   direnv
-                                   git
-                                   gnumake
-				                   kubectl
-				                   python38Packages.cython
-				                   libspatialindex
-                                   lorri
-                                   neovim
+        buildInputs = with pkgs; [
                                    poetry
-                                   python39
                                  ];
       };
     };
