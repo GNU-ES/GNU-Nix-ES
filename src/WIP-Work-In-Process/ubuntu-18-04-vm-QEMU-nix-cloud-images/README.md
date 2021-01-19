@@ -25,40 +25,44 @@ You can see a YouTube video example [Nix Friday - Home manager, (00:01:59 all du
  he explains about [4.1. Single User Installation](https://nixos.org/manual/nix/stable/#sect-single-user-installation) 
  and about  [4.2. Multi User Installation](https://nixos.org/manual/nix/stable/#sect-multi-user-installation).
 
+TODO: this command is not idempotent, make it be!!
+
 
 
 ```bash
-sudo curl -L https://nixos.org/nix/install | sh \
-&& if [ ! -f ~/.config/nix/nix.conf ]; then
-  echo "File ~/.config/nix/nix.conf not found!"
-  echo "Creating ~/.config/nix/nix.conf"
-  mkdir --parent --mode=755 ~/.config/nix/
-  echo 'system-features = kvm' >> ~/.config/nix/nix.conf
-  echo 'experimental-features = nix-command flakes ca-references' >> ~/.config/nix/nix.conf
-  fi \
-&& if [ ! -f ~/.config/nixpkgs/ ]; then
-  echo "File ~/.config/nixpkgs/ not found!"
-  echo "Creating ~/.config/nixpkgs/config.nix"
-  mkdir --parent --mode=755 ~/.config/nixpkgs/
-  echo '{ allowUnfree = true; }' >> ~/.config/nixpkgs/config.nix
-  fi \
+test -d /nix || sudo mkdir --mode=0755 /nix \
+&& sudo chown "$USER": /nix \
+&& command -v nix >/dev/null 2>&1 || curl -L https://nixos.org/nix/install | sh \
+&& test -d ~/.config/nix || mkdir --parent --mode=755 ~/.config/nix && touch ~/.config/nix/nix.conf \
+&& cat ~/.config/nix/nix.conf | grep 'kvm' >/dev/null && /bin/true || echo 'system-features = kvm' >> ~/.config/nix/nix.conf \
+&& cat ~/.config/nix/nix.conf | grep 'flakes' >/dev/null && /bin/true || echo 'experimental-features = nix-command flakes ca-references' >> ~/.config/nix/nix.conf \
+&& test -d ~/.config/nixpkgs || mkdir --parent --mode=755 ~/.config/nixpkgs && touch ~/.config/nixpkgs/config.nix \
+&& cat ~/.config/nixpkgs/config.nix | grep 'allowUnfree' >/dev/null && /bin/true || echo '{ allowUnfree = true; }' >> ~/.config/nixpkgs/config.nix \
 && . "$HOME"/.nix-profile/etc/profile.d/nix.sh \
+&& echo 'Testing the installer installing the hello package' \
 && nix-env --install --attr nixpkgs.hello \
 && hello \
+&& echo 'Unstalling the hello package' \
 && nix-env --uninstall nixpkgs.hello \
-&& nix-env --install --attr \
-nixpkgs.commonsCompress \
-nixpkgs.gnutar \
-nixpkgs.lzma.bin \
-nixpkgs.git \
-&& nix-shell -I nixpkgs=channel:nixos-20.09 --packages nixFlakes --run 'nix flake show github:GNU-ES/hello'
+&& nix-shell -I nixpkgs=channel:nixos-20.09 --packages nixFlakes --run 'nix flake show github:GNU-ES/hello' \
+&& nix-shell -I nixpkgs=channel:nixos-20.09 --packages nixFlakes --run 'nix shell nixpkgs#nix-info --command nix-info --markdown' \
+&& nix-collect-garbage --delete-old \
+&& nix-shell -I nixpkgs=channel:nixos-20.09 --packages nixFlakes --run 'echo Instalation seems to be successfull!'
 ```
+https://stackoverflow.com/a/57737607
+
 
 TODO: change the `[]` to `test -f "$file" || echo "$file"`
 https://stackoverflow.com/a/7023478
 
 POSIX
 https://stackoverflow.com/a/7810345
+
+
+TODO: test it 
+
+mkdir -m 0755 /etc/nix
+echo 'sandbox = false' > /etc/nix/nix.conf
 
 
 ## First clone and open a terminal and run:
@@ -98,7 +102,7 @@ docker run hello-world
 ### Clear and boot again
  
 ```
-rm -f disk.qcow2 userdata.qcow2 \
+rm --force --verbose disk.qcow2 userdata.qcow2 \
 && ./wootbuntu 
 ```
 
@@ -120,6 +124,25 @@ sudo adduser --quiet --disabled-password --shell /bin/bash --home /home/pedro --
 && docker run hello-world \
 && sudo reboot
 ```
+
+```
+sudo groupadd docker \
+&& sudo usermod --append --groups docker "$USER" \
+&& nix shell nixpkgs#docker --command docker --version \
+&& docker run hello-world 
+```
+
+docker --version \
+&& docker run hello-world 
+
+nix-env --install --attr nixpkgs.docker \
+&& docker --version \
+&& docker run hello-world 
+
+
+sudo groupadd podman \
+&& sudo usermod --append --groups podman "$USER" \
+nix shell nixpkgs#podman
 
 Error after reboot:
 ```
@@ -242,6 +265,123 @@ run \
 ubuntu:20.04 \
 bash -c 'cat /etc/os-release && apt-get update && apt-get install -y hello && hello'
 ```
+
+
+
+How to share a folder between KVM host and guest using virt-manager?
+https://askubuntu.com/a/1274315
+
+TODO: test the debug strategy, console=ttyS0, mount
+https://askubuntu.com/questions/1108334/how-to-boot-and-install-the-ubuntu-server-image-on-qemu-nographic-without-the-g?noredirect=1&lq=1
+
+
+How can I copy&paste from the host to a KVM guest?
+TODO: openssh-server? "It also seems that an X server needs to be running for the clipboard 
+to work via SPICE if using virt-viewer but it should work with virt-manager with spice-vdagent installed."
+
+TODO: test Ciro Santilli script
+https://askubuntu.com/questions/884534/how-to-run-ubuntu-desktop-on-qemu
+
+TODO: how nix package the "two operating mode" of QEMU?
+qemu-system-x86_64 -boot d -cdrom image.iso -m 512
+https://linux-tips.com/t/booting-from-an-iso-image-using-qemu/136
+
+
+QEMU and NixOS
+
+http://www.cs.fsu.edu/~langley/CNT4603/2019-Fall/assignment-nixos-2019-fall.html
+
+qemu-system-x86_64 -enable-kvm -m 8192 -boot d -cdrom nixos-graphical-19.09.891.80b42e630b2-x86_64-linux.iso -hda nixos.img 
+
+
+TODO: re do all this and please, use long flags, i have no ideia on what `-d -J -p -R -i` is.
+isoinfo -d -J -p -R -i
+
+https://discourse.nixos.org/t/booting-nixos-installation-iso-fails-on-hosters-qemu-kvm-virtual-machine/8783/4
+
+
+Maybe that is the problem: i mean, some kernel module is missing?
+`boot.initrd.kernelModules = [ "cdrom" "sr_mod" "isofs" ];`
+https://discourse.nixos.org/t/booting-nixos-installation-iso-fails-on-hosters-qemu-kvm-virtual-machine/8783/5
+
+
+TODO: re do this, i tryied using a remote access and i am not sure about the result, it looks like it "hangs"
+
+What i think is really important is the syntax. How to do the same with the minimal iso?
+ 
+https://gist.github.com/573/c1d73a4fd04b8f8ca63885393856f9ea
+`nix-build '<nixpkgs/nixos>' -A vm --arg configuration "{ imports = [ <nixpkgs/nixos/maintainers/scripts/openstack/openstack-image.nix> ]; }"`
+
+Related with the above:
+
+`boot.kernelParams = [ "console=ttyS0" ];`
+
+Have not tested it, but looks interesting, a think add the kernel things 
+`boot.initrd.kernelModules = [ "cdrom" "sr_mod" "isofs" ];` to do a test.
+
+https://gist.github.com/tarnacious/f9674436fff0efeb4bb6585c79a3b9ff
+
+
+I think it is all related.
+
+About `-vnc` flag to view via `vncviewer`, what is that?
+https://github.com/NixOS/nixpkgs/issues/36134#issuecomment-369542629
+
+Is it doable in NixOS, create an `configuration.nix` and build it?
+https://github.com/Mic92/nixos-shell/blob/master/share/nixos-shell/nixos-shell.nix#L87-L93
+
+TODO: study this super nix script
+https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/virtualisation/qemu-vm.nix
+
+TODO: try this
+https://unix.stackexchange.com/a/276490
+
+I was doing this in some folder, dont remember where. 
+https://documentation.suse.com/sles/11-SP4/html/SLES-all/cha-qemu-running.html#cha-qemu-running-gen-opts-basic
+
+
+
+TODO: do it using flakes!
+How do I get a shell.nix with cross compiler and qemu?
+
+```
+  nativeBuildInputs = [
+    buildPackages.buildPackages.qemu
+    buildPackages.gdb
+  ];
+```
+
+https://discourse.nixos.org/t/how-do-i-get-a-shell-nix-with-cross-compiler-and-qemu/7658/2
+
+
+TODO: well, really advanced (just because it is broken. If it not runs successfully in one command,
+it is broken, for me it is like software without tests, broken by default.).
+https://nixos.wiki/wiki/Kernel_Debugging_with_QEMU
+
+
+TODO: simplify and build, the EC2 one, if works would be cool
+https://github.com/NixOS/nixpkgs/blob/master/nixos/release.nix
+
+
+TODO:
+https://wiki.debian.org/QEMU#Installation
+
+
+
+egrep -c '(vmx|svm)' /proc/cpuinfo
+
+egrep -q 'vmx|svm' /proc/cpuinfo && echo yes || echo no
+
+https://github.com/actions/virtual-environments/issues/183#issuecomment-580992331
+https://github.com/sickcodes/Docker-OSX/issues/15#issuecomment-640088527
+https://minikube.sigs.k8s.io/docs/drivers/kvm2/#installing-prerequisites
+
+Related:
+https://github.com/NixOS/nix/issues/2964#issuecomment-504164262
+
+
+About KVM and nix build in AWS:
+https://github.com/NixOS/nix/issues/2964
 
 # Ref and TODOS
 
