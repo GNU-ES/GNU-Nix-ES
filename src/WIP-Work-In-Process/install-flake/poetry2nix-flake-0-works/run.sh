@@ -22,4 +22,7 @@ git commit --message 'Save flake state'
 nix develop --command python -c 'import flask'
 
 sudo rm --recursive .git
-#rm --force poetry.lock pyproject.toml
+
+# If you want to version the flake.lock to be complete reprodutible
+# coment the below line:
+rm --force flake.lock
