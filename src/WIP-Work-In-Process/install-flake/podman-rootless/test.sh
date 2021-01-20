@@ -7,8 +7,8 @@ set -euxo pipefail
 # TODO: Why not only
 # sudo echo pedroregispoar:10000:65536 >> /etc/sub?id
 #
-sudo su -c 'echo pedroregispoar:10000:65536 >> /etc/subuid'
-sudo su -c 'sudo echo pedroregispoar:10000:65536 >> /etc/subgid'
+sudo su -c 'echo pedroregispoar:100000:65536 >> /etc/subuid'
+sudo su -c 'sudo echo pedroregispoar:100000:65536 >> /etc/subgid'
 
 podman \
 run \
