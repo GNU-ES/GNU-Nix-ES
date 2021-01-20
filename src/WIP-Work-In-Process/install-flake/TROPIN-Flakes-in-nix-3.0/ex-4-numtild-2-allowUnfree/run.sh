@@ -21,5 +21,7 @@ git commit --message 'Save flake state'
 # sudo chown 755 "$HOME"
 nix develop --command postman --version
 
+# To run this via ssh evem using -X i needed:
+# export DISPLAY=':0.0'
 sudo rm --force --recursive .git
 rm --force --recursive flake.lock
