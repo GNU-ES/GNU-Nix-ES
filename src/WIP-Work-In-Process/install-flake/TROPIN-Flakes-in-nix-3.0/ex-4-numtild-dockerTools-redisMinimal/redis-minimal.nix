@@ -7,13 +7,13 @@ pkgs.redis.overrideAttrs (old: {
         makeFlagsArray=(PREFIX="$out"
                         CC="${pkgs.musl.dev}/bin/musl-gcc -static"
                         CFLAGS="-I${pkgs.musl.dev}/include -I${pkgs.openssl.dev}/include"
-                        LDFLAGS="-L${pkgs.musl.dev}/lib -L${pkgs.openssl.dev}/lib")
+                        LDFLAGS="-L${pkgs.musl.dev}/lib -L${pkgs.libssl.dev}/lib")
     '';
     # Let's remove some binaries which we don't need
     postInstall = "rm -f $out/bin/redis-{benchmark,check-*,cli}";
 
     #buildInputs = old.buildInputs ++ [ pkgs.binutils ];
-    nativeBuildInputs = old.nativeBuildInputs ++ [ pkgs.openssl.dev ];
+    nativeBuildInputs = old.nativeBuildInputs ++ [ pkgs.libssl.dev ];
 
     }
 
