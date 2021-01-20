@@ -10,6 +10,6 @@ pkgs.stdenv.mkDerivation {
   name = "test-derivation";
   buildInputs = with pkgs; [ myScript
                              python39
-                             postman
+
                            ];
 }

@@ -11,16 +11,21 @@
         config = { allowUnfree = true; };
       };
       myExampleFlake = import ./default.nix {
-      pkgs = pkgs;
-    };
+        pkgs = pkgs;
+      };
+
     in
     {
-      packages.myExampleFlake = myExampleFlake;
 
-      defaultPackage = self.packages.${system}.myExampleFlake;
+      # TODO: make it work. What is the sintax?
+      #packages.x86_64-linux.myattr = myExampleFlake;
+      #defaultPackage = self.packages.${system}.myExampleFlake;
+
+      devShell = pkgs.mkShell {
+        buildInputs = with pkgs; [ postman ];
+      };
+
     }
-
-
   );
 
 }
