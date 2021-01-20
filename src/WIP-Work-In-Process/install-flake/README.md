@@ -131,7 +131,7 @@ docker ps --all --quiet | xargs --no-run-if-empty docker stop --time=0 \
 && docker container prune --force \
 && docker volume prune --force
 
-
+```
 echo 'Start' \
 && NIX_BASE_IMAGE='nix-base:0.0.1' \
 && NIX_CACHE_VOLUME='nix-cache-volume' \
@@ -155,10 +155,11 @@ echo 'Start' \
 --volume="$(pwd)":/code \
 --volume="$XAUTHORITY":/root/.Xauthority \
 --volume=/sys/fs/cgroup/:/sys/fs/cgroup:ro \
---volume /tmp/.X11-unix:/tmp/.X11-unix \
+--volume=/tmp/.X11-unix:/tmp/.X11-unix \
+--volume=/var/run/docker.sock:/var/run/docker.sock \
 "$NIX_BASE_IMAGE" bash -c 'nix-shell -I nixpkgs=channel:nixos-20.09 --packages nixFlakes' \
 && echo 'End'
-
+```
 
 
 echo 'Start' \
