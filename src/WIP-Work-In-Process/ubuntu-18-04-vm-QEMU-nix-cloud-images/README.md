@@ -25,9 +25,6 @@ You can see a YouTube video example [Nix Friday - Home manager, (00:01:59 all du
  he explains about [4.1. Single User Installation](https://nixos.org/manual/nix/stable/#sect-single-user-installation) 
  and about  [4.2. Multi User Installation](https://nixos.org/manual/nix/stable/#sect-multi-user-installation).
 
-TODO: this command is not idempotent, make it be!!
-
-
 
 ```bash
 test -d /nix || sudo mkdir --mode=0755 /nix \
@@ -63,6 +60,14 @@ TODO: test it
 
 mkdir -m 0755 /etc/nix
 echo 'sandbox = false' > /etc/nix/nix.conf
+
+
+## Uninstall
+
+[zimbatm comment](https://github.com/NixOS/nix/issues/1402#issuecomment-312496360)
+
+It is a big exercise to figure out all this and make tests for it, we need tests for this kind of stuff!
+Test it on many ISOs and in OCI images.
 
 
 ## First clone and open a terminal and run:
