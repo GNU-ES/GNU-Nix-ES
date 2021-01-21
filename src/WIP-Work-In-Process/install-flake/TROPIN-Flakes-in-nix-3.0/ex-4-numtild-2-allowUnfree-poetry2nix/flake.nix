@@ -8,7 +8,7 @@
     let
       pkgs = import nixpkgs {
         system = "x86_64-linux";
-        config = { allowUnfree = true; };
+        #config = { allowUnfree = true; };
       };
       myExampleFlake = import ./default.nix {
         pkgs = pkgs;
@@ -31,8 +31,8 @@
       #env = pkgs.poetry2nix.mkPoetryEnv config;
 
       devShell = pkgs.mkShell {
-        buildInputs = with pkgs; [ opera ];
-        #buildInputs = with pkgs; [ gnumake coreutils which findutils geogebra];
+        #buildInputs = with pkgs; [ env ];
+        buildInputs = with pkgs; [ gnumake coreutils which findutils awscli httpie ];
       };
 
     }

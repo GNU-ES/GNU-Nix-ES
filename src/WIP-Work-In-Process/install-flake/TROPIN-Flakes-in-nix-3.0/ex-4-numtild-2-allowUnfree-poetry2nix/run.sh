@@ -1,3 +1,6 @@
+
+
+
 #!/usr/bin/env bash
 
 # See https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
@@ -19,7 +22,13 @@ git commit --message 'Save flake state'
 # stat "$HOME"
 # sudo chown pedroregispoar:pedroregispoargroup "$HOME"
 # sudo chown 755 "$HOME"
-nix develop --command opera --version
+
+#nix develop --ignore-environment --command make --version
+
+# Does not work because of the flag --ignore-environment obviusly...
+#nix develop --ignore-environment --command 'test_free_packages.sh'
+nix develop --command ./test_free_packages.sh
+#nix develop --command opera --version
 
 # To run this via ssh evem using -X i needed:
 # export DISPLAY=':0.0'
