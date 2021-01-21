@@ -32,7 +32,14 @@
 
       devShell = pkgs.mkShell {
         #buildInputs = with pkgs; [ env ];
-        buildInputs = with pkgs; [ gnumake coreutils which findutils awscli httpie ];
+
+        buildInputs = with pkgs; [ gnumake 
+                                   coreutils 
+                                   nodejs
+                                   podman
+                                   keepassxc
+                                   which findutils awscli httpie terraform terraform vscodium insomnia ];
+        #buildInputs = with pkgs; [ ngrok opera google-crhome ];
       };
 
     }
