@@ -122,6 +122,13 @@ nix-shell -I nixpkgs=channel:nixos-20.09 --packages nixFlakes --run 'nix-collect
 
 
 ```
+du --apparent-size --human --summarize --total /nix
+
+du --block-size=1 --human-readable --summarize --total /nix
+```
+
+
+```
 sudo strace --attach=$(ps -aux | grep -v 'grep' | grep nix | cut --delimiter=' ' --fields=6)
 
 lsof -p $(ps -aux | grep -v 'grep' | grep nix | cut --delimiter=' ' --fields=6)
