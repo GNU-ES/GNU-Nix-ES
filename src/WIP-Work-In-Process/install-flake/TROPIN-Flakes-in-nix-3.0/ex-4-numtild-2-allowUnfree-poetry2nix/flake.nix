@@ -8,7 +8,7 @@
     let
       pkgs = import nixpkgs {
         system = "x86_64-linux";
-        #config = { allowUnfree = true; };
+        config = { allowUnfree = true; };
       };
       myExampleFlake = import ./default.nix {
         pkgs = pkgs;
@@ -38,6 +38,8 @@
                                    coreutils 
                                    nodejs
                                    podman
+                                   firefox
+                                   opera
                                    keepassxc
                                    which findutils awscli httpie terraform terraform vscodium insomnia ];
         #buildInputs = with pkgs; [ ngrok opera google-crhome ];
