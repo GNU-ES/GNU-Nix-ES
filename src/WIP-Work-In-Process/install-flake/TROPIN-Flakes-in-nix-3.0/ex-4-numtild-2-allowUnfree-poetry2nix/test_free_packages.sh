@@ -22,3 +22,8 @@ nix develop --ignore-environment --command podman --version
 
 # Via ssh it was showing a big warning
 #nix develop --ignore-environment --command keepassxc --version
+
+
+nix develop --ignore-environment --command python --version
+
+nix develop --ignore-environment --command python -c 'import flask'

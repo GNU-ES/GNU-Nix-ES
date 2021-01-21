@@ -34,6 +34,7 @@
         #buildInputs = with pkgs; [ env ];
 
         buildInputs = with pkgs; [ gnumake 
+                                   env
                                    coreutils 
                                    nodejs
                                    podman
