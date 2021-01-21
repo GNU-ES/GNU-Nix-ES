@@ -106,6 +106,31 @@ rm --force --verbose disk.qcow2 userdata.qcow2 \
 && ./wootbuntu 
 ```
 
+```
+git clone https://github.com/GNU-ES/GNU-Nix-ES.git \
+&& cd GNU-Nix-ES \
+&& git checkout 33594bdbed8aabc1d02a48ce4e98d847a710b245 \
+&& cd src/WIP-Work-In-Process/install-flake/TROPIN-Flakes-in-nix-3.0/ex-4-numtild-2-allowUnfree-poetry2nix/ \
+&& ./run.sh
+```
+
+
+
+```
+nix-shell -I nixpkgs=channel:nixos-20.09 --packages nixFlakes --run 'nix-collect-garbage --delete-old && du -sch /nix'
+```
+
+
+```
+sudo strace --attach=$(ps -aux | grep -v 'grep' | grep nix | cut --delimiter=' ' --fields=6)
+
+lsof -p $(ps -aux | grep -v 'grep' | grep nix | cut --delimiter=' ' --fields=6)
+
+ls -al /proc/$(ps -aux | grep -v 'grep' | grep nix | cut --delimiter=' ' --fields=6)/fd/*
+
+cat /proc/$(ps -aux | grep -v 'grep' | grep nix | cut --delimiter=' ' --fields=6)/io
+```
+
 
 ## Test 2, Nix, Docker install (Broken)
 
