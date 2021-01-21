@@ -135,3 +135,6 @@ import re
 string = '&& git checkout a674302cf85f80ff9b7368c25ccd8f61d8205cca \\'
 
 print(re.sub(r'(?<=^&& git checkout \b).*(?=\b)', 'WWW', string))
+
+
+[Can't eta-reduce with flakes: expected a function but got a thunk](https://github.com/NixOS/nix/issues/4384)
