@@ -15,5 +15,5 @@ TODO: combine ldd $(which id) with a `find` to do a the recursion part.
 User this to build a image of the closure of the minimal iso with red nodes
 of packages that still not pure. 
 
-TODO: create a pacth and version it, but aply it inside the repository 
-created in this folder to show that it 
+TODO: create a patch and version it, but apply it inside the repository 
+created in this folder to show that it works.
