@@ -69,7 +69,7 @@ echo 'sandbox = false' > /etc/nix/nix.conf
 ```
 git clone https://github.com/GNU-ES/GNU-Nix-ES.git \
 && cd GNU-Nix-ES \
-&& git checkout 71f58bc999b3ff8dcd3bff3c598e8955dad12915 \
+&& git checkout 44db7f3e70c352786c57f809d2d6b4f6036c9fbe \
 && cd src/WIP-Work-In-Process/ubuntu-18-04-vm-QEMU-nix-cloud-images \
 && ./wootbuntu 
 ```
