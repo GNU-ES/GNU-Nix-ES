@@ -217,6 +217,16 @@ Failed to start docker.service: Unit docker.service not found.
 
 **How to solve this?!**
 
+
+TODO: may be usefull when downloading the ISO?! 
+```
+$ curl -L -o Argu.6.0.0.zip https://www.nuget.org/api/v2/package/Argu/6.0.0
+$ nix-hash --type sha256 --flat --base32 ./Argu.6.0.0.zip
+```
+
+[The journey of packaging a .NET app on Nix](https://sgt.hootr.club/molten-matter/dotnet-on-nix/)
+
+
 ### Refs
 
 `systemctl show --property ActiveState docker` 

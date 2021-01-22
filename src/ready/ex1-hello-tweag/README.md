@@ -138,3 +138,10 @@ print(re.sub(r'(?<=^&& git checkout \b).*(?=\b)', 'WWW', string))
 
 
 [Can't eta-reduce with flakes: expected a function but got a thunk](https://github.com/NixOS/nix/issues/4384)
+
+
+[flake registry](https://github.com/NixOS/flake-registry)
+
+
+Really good points of what problems flakes solve:
+https://blog.ysndr.de/posts/internals/2021-01-01-flake-ification/
