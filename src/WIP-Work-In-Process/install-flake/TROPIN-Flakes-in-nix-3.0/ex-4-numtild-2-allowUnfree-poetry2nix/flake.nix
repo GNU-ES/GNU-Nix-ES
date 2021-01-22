@@ -20,7 +20,36 @@
       };
       
       env = pkgs.poetry2nix.mkPoetryEnv config;
+
+      freePackages = with pkgs; [  gnumake 
+                                   coreutils 
+                                   nodejs 
+                                   firefox
+                                   keepassxc
+                                   which    
+                                   findutils
+                                   awscli   
+                                   httpie    
+                                   terraform 
+                                   vscodium  
+                                   insomnia
+	                           gnupg 
+				 ];
   
+    unfreePackages = with pkgs; [
+                                  ngrok 
+                                  opera 
+                                  google-chrome 
+                                  gitkraken
+                                ];  
+
+    podmandDependencies = with pkgs; [ podman 
+                                       conmon
+                                       runc
+                                       slirp4netns
+                                       shadow
+                                        ];
+
     in
     {
 
@@ -32,18 +61,9 @@
 
       devShell = pkgs.mkShell {
         #buildInputs = with pkgs; [ env ];
-
-        buildInputs = with pkgs; [ gnumake 
-                                   env
-                                   coreutils 
-                                   nodejs
-                                   podman
-                                   firefox
-                                   opera
-                                   keepassxc
-                                   which findutils awscli httpie terraform terraform vscodium insomnia ];
+        buildInputs = with pkgs; [ env ] ++ freePackages ++ unfreePackages ++ podmandDependencies;
         #buildInputs = with pkgs; [ ngrok opera google-crhome ];
-      };
+       };
 
     }
   );
