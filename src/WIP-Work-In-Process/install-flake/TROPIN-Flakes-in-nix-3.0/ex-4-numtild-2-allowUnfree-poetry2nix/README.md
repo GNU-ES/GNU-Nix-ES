@@ -3,9 +3,9 @@
 
 git clone https://github.com/GNU-ES/GNU-Nix-ES.git \
 && cd GNU-Nix-ES \
-&& git checkout 6edc21610cc82012a673b0b0d66db88363d76cb9 \
-&& src/WIP-Work-In-Process/ubuntu-18-04-vm-QEMU-nix-cloud-images \
-&& ./install-nix.sh \
+&& git checkout f049d8acf6e85c3d0b377ae06e2931009e680aba \
+&& ./src/WIP-Work-In-Process/ubuntu-18-04-vm-QEMU-nix-cloud-images/install-nix.sh
+
 
 
 f

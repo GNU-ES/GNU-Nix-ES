@@ -1,6 +1,8 @@
-#!/usr/bin/env nix-shell
-#!nix-shell -i bash
-set -euo pipefail
+#!/usr/bin/env bash
+
+
+# See https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
+set -eux pipefail
 
 
 test -d /nix || sudo mkdir --mode=0755 /nix \
