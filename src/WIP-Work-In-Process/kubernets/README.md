@@ -167,7 +167,9 @@ nix-shell -I nixpkgs=channel:nixos-20.09 --packages nixFlakes
 nix shell nixpkgs#podman nixpkgs#conmon nixpkgs#runc nixpkgs#slirp4netns nixpkgs#shadow
 ```
 
-
+TODO: 
+nix shell --ignore-environment nixpkgs#{coreutils,shadow,which} --command readlink --canonicalize $(which newuidmap)
+nix shell --ignore-environment nixpkgs#{coreutils,shadow,which} --command readlink $(which newuidmap)
 
 ``` bash
 sudo setcap cap_setuid+ep $(readlink --canonicalize $(which newuidmap))
