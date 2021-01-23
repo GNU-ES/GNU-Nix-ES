@@ -21,13 +21,10 @@
       
       env = pkgs.poetry2nix.mkPoetryEnv config;
 
-      freePackages = with pkgs; [  gnumake 
-                                   coreutils 
+      freePackages = with pkgs; [  gnumake
                                    nodejs 
                                    firefox
                                    keepassxc
-                                   which    
-                                   findutils
                                    awscli   
                                    httpie    
                                    terraform 
@@ -50,6 +47,11 @@
                                        shadow
                                         ];
 
+    minimalUtils = with pkgs; [ coreutils
+                                which
+                                findutils
+                                file
+                                ];
     in
     {
 
@@ -60,9 +62,8 @@
       #env = pkgs.poetry2nix.mkPoetryEnv config;
 
       devShell = pkgs.mkShell {
-        #buildInputs = with pkgs; [ env ];
-        buildInputs = with pkgs; [ env ] ++ freePackages ++ unfreePackages ++ podmandDependencies;
-        #buildInputs = with pkgs; [ ngrok opera google-crhome ];
+        #buildInputs = with pkgs; [ env ] ++ freePackages ++ unfreePackages ++ podmandDependencies ++ minimalUtils;
+        buildInputs = with pkgs; podmandDependencies ++ minimalUtils;
        };
 
     }
