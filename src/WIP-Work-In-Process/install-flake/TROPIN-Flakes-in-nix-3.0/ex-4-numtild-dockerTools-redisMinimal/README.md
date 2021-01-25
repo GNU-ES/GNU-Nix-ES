@@ -56,6 +56,9 @@ configureFlags = [
 [openssl_1_0_2](https://github.com/NixOS/nixpkgs/issues/76925#issuecomment-571451340)
 
 
+[OPENSSL_INCLUDE_DIR = "${openssl.out.dev}/include";](https://github.com/nix-community/todomvc-nix/blob/1c8e52c4861a8fe1c550bbd0d012df1b9e5d553b/devshell.nix#L78)
+
+
 Maybe usefull to troubleshoot:
 patchelf --print-needed something
 [Extra Dynamic Libraries](https://nixos.wiki/wiki/Packaging/Binaries)
