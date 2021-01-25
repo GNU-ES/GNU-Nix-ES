@@ -51,6 +51,8 @@
                                 which
                                 findutils
                                 file
+                                neovim
+                                nano
                                 ];
     in
     {
