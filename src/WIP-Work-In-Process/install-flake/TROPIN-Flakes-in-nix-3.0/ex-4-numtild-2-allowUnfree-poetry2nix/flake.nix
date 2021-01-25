@@ -5,70 +5,78 @@
 
   outputs = { self, nixpkgs, flake-utils }:
     flake-utils.lib.eachDefaultSystem (system:
-    let
-      pkgs = import nixpkgs {
-        system = "x86_64-linux";
-        config = { allowUnfree = true; };
-      };
-      myExampleFlake = import ./default.nix {
-        pkgs = pkgs;
-      };
+      let
+        pkgs = import nixpkgs {
+          system = "x86_64-linux";
+          config = { allowUnfree = true; };
+        };
+        myExampleFlake = import ./default.nix {
+          pkgs = pkgs;
+        };
 
-      config = {
-        projectDir = ./.;
-        #propagatedBuildInputs = runtimeDeps;
-      };
-      
-      env = pkgs.poetry2nix.mkPoetryEnv config;
+        config = {
+          projectDir = ./.;
+          #propagatedBuildInputs = runtimeDeps;
+        };
 
-      freePackages = with pkgs; [  gnumake
-                                   nodejs 
-                                   firefox
-                                   keepassxc
-                                   awscli   
-                                   httpie    
-                                   terraform 
-                                   vscodium  
-                                   insomnia
-	                           gnupg 
-				 ];
-  
-    unfreePackages = with pkgs; [
-                                  ngrok 
-                                  opera 
-                                  google-chrome 
-                                  gitkraken
-                                ];  
+        env = pkgs.poetry2nix.mkPoetryEnv config;
 
-    podmandDependencies = with pkgs; [ podman 
-                                       conmon
-                                       runc
-                                       slirp4netns
-                                       shadow
-                                        ];
+        freePackages = with pkgs; [
+          awscli
+          firefox
+          gnumake
+          gnupg
+          httpie
+          insomnia
+          keepassxc
+          nodejs
+          terraform
+          vscodium
+        ];
 
-    minimalUtils = with pkgs; [ coreutils
-                                which
-                                findutils
-                                file
-                                neovim
-                                nano
-                                ];
-    in
-    {
+        unfreePackages = with pkgs; [
+          ngrok
+          opera
+          google-chrome
+          gitkraken
+        ];
 
-      # TODO: make it work. What is the sintax?
-      #packages.x86_64-linux.myattr = myExampleFlake;
-      #defaultPackage = self.packages.${system}.myExampleFlake;
-      
-      #env = pkgs.poetry2nix.mkPoetryEnv config;
+        podmandDependencies = with pkgs; [
+          conmon
+          podman
+          runc
+          shadow
+          slirp4netns
+        ];
 
-      devShell = pkgs.mkShell {
-        #buildInputs = with pkgs; [ env ] ++ freePackages ++ unfreePackages ++ podmandDependencies ++ minimalUtils;
-        buildInputs = with pkgs; podmandDependencies ++ minimalUtils;
-       };
+        minimalUtils = with pkgs; [
+          coreutils
+          file
+          findutils
+          nano
+          neovim
+          nixpkgs-fmt
+          which
+        ];
+      in
+      {
 
-    }
-  );
+        # TODO: make it work. What is the sintax?
+        #packages.x86_64-linux.myattr = myExampleFlake;
+        #defaultPackage = self.packages.${system}.myExampleFlake;
+
+        #env = pkgs.poetry2nix.mkPoetryEnv config;
+
+        devShell = pkgs.mkShell {
+          #buildInputs = with pkgs; [ env ]
+          #  ++ freePackages
+          #  ++ unfreePackages
+          #  ++ podmandDependencies
+          #  ++ minimalUtils;
+          buildInputs = with pkgs; podmandDependencies ++ minimalUtils;
+        };
+
+      }
+    );
 
 }
