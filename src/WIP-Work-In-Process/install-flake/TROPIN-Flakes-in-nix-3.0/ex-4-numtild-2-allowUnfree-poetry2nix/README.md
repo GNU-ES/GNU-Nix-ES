@@ -13,3 +13,8 @@ git clone https://github.com/GNU-ES/GNU-Nix-ES.git \
 cd src/WIP-Work-In-Process/install-flake/TROPIN-Flakes-in-nix-3.0/ex-4-numtild-2-allowUnfree-poetry2nix \
 && ./run.sh
 
+
+
+TODO: find the example that builds a OCI image with the python app using poetry, convert it to a flake
+and merge/get what s usefull from this:
+https://discord.com/channels/568306982717751326/747637173364457632/801787525248712724 
