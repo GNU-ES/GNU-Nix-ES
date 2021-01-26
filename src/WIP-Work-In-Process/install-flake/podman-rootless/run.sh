@@ -13,7 +13,8 @@ git add .
 
 git commit --message 'Save flake state'
 
-nix develop
-#nix develop --command mywhich 'podman'
+nix develop ./test_podman-rootless-wrapper.sh
 
-#sudo rm --recursive .git flake.lock
+nix develop  mywhich 'podman'
+
+sudo rm --recursive .git flake.lock

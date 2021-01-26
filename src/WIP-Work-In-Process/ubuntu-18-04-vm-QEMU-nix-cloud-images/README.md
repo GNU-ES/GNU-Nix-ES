@@ -70,6 +70,8 @@ It is a big exercise to figure out all this and make tests for it, we need tests
 Test it on many ISOs and in OCI images.
 
 
+
+
 ## First clone and open a terminal and run:
 ```
 git clone https://github.com/GNU-ES/GNU-Nix-ES.git \
@@ -276,6 +278,20 @@ The solution should be to make a nix `shell.nix` with `python` and `poetry` like
 
 
 ## Podman
+
+
+```
+git clone https://github.com/GNU-ES/GNU-Nix-ES.git \
+&& cd GNU-Nix-ES \
+&& git checkout bfa7607373075538435a1f8d1c70791d55f3aae3 \
+&& cd src/WIP-Work-In-Process/install-flake/podman-rootless \
+&& ./run.sh
+```
+
+```
+cd ~ \
+&& sudo rm -r GNU-Nix-ES
+```
 
 ```
 curl -L https://nixos.org/nix/install | sh \
