@@ -175,8 +175,8 @@ nix shell --ignore-environment nixpkgs#{coreutils,shadow,which} --command readli
 sudo setcap cap_setuid+ep $(readlink --canonicalize $(which newuidmap))
 sudo setcap cap_setgid+ep $(readlink --canonicalize $(which newgidmap))
 
-chmod -s $(readlink --canonicalize $(which newuidmap))
-chmod -s $(readlink --canonicalize $(which newgidmap))
+sudo chmod -s $(readlink --canonicalize $(which newuidmap))
+sudo chmod -s $(readlink --canonicalize $(which newgidmap))
 ```
 
 
