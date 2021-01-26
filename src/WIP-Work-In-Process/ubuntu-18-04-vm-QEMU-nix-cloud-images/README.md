@@ -26,6 +26,14 @@ You can see a YouTube video example [Nix Friday - Home manager, (00:01:59 all du
  and about  [4.2. Multi User Installation](https://nixos.org/manual/nix/stable/#sect-multi-user-installation).
 
 
+```
+git clone https://github.com/GNU-ES/GNU-Nix-ES.git \
+&& cd GNU-Nix-ES \
+&& git checkout a3bf7a6da4fcca4ea246ce751bfca532a94a6850 \
+&& cd src/WIP-Work-In-Process/ubuntu-18-04-vm-QEMU-nix-cloud-images \
+&& ./run.sh 
+```
+
 ```bash
 test -d /nix || sudo mkdir --mode=0755 /nix \
 && sudo chown "$USER": /nix \
@@ -62,6 +70,19 @@ mkdir -m 0755 /etc/nix
 echo 'sandbox = false' > /etc/nix/nix.conf
 
 
+```
+git clone https://github.com/GNU-ES/GNU-Nix-ES.git \
+&& cd GNU-Nix-ES \
+&& git checkout a3bf7a6da4fcca4ea246ce751bfca532a94a6850 \
+&& cd src/WIP-Work-In-Process/install-flake/TROPIN-Flakes-in-nix-3.0/ex-4-numtild-dockerTools-poetry2nix-multiple-outputs-podman-rootless \
+&& ./run.sh
+```
+
+```
+cd ~/teste-pedro/ && sudo rm -r GNU-Nix-ES
+```
+
+
 ## Uninstall
 
 [zimbatm comment](https://github.com/NixOS/nix/issues/1402#issuecomment-312496360)
@@ -76,9 +97,9 @@ Test it on many ISOs and in OCI images.
 ```
 git clone https://github.com/GNU-ES/GNU-Nix-ES.git \
 && cd GNU-Nix-ES \
-&& git checkout 44db7f3e70c352786c57f809d2d6b4f6036c9fbe \
+&& git checkout a3bf7a6da4fcca4ea246ce751bfca532a94a6850 \
 && cd src/WIP-Work-In-Process/ubuntu-18-04-vm-QEMU-nix-cloud-images \
-&& ./wootbuntu 
+&& ./run.sh 
 ```
 
 TODO: bypass this annoying input of user and login, it is going to be really cool to use this VM, 
@@ -283,14 +304,13 @@ The solution should be to make a nix `shell.nix` with `python` and `poetry` like
 ```
 git clone https://github.com/GNU-ES/GNU-Nix-ES.git \
 && cd GNU-Nix-ES \
-&& git checkout 48ab21b8676a265343e07e61d771dcb9940d32d8 \
+&& git checkout a3bf7a6da4fcca4ea246ce751bfca532a94a6850 \
 && cd src/WIP-Work-In-Process/install-flake/TROPIN-Flakes-in-nix-3.0/ex-4-numtild-dockerTools-poetry2nix-multiple-outputs-podman-rootless \
 && ./run.sh
 ```
 
 ```
-cd ~ \
-&& sudo rm -r GNU-Nix-ES
+cd ~/teste-pedro/ && sudo rm -r GNU-Nix-ES
 ```
 
 ```
