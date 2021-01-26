@@ -11,7 +11,7 @@ chmod -s $(readlink --canonicalize $(which newuidmap))
 chmod -s $(readlink --canonicalize $(which newgidmap))
 
 #mkdir --mode=755 --parent ~/.config/containers
-# TODO: make test showing it is idempotent and respet if the
+# TODO: make test showing it is idempotent and respect if the
 # folder has some thing in it.
 mkdir --mode=755 --parent ~/.config/containers --verbose
 
