@@ -25,11 +25,45 @@ nix flake update --commit-lock-file
 
 nix build .#myExampleFlake
 
-sudo setcap cap_setuid+ep $(readlink --canonicalize $(which newuidmap))
-sudo setcap cap_setgid+ep $(readlink --canonicalize $(which newgidmap))
+#NEWUIDMAP=$(readlink --canonicalize $(which newuidmap))
+#NEWGIDMAP=$(readlink --canonicalize $(which newgidmap))
+#
+#sudo setcap cap_setuid+ep "$NEWUIDMAP"
+#sudo setcap cap_setgid+ep "$NEWGIDMAP"
+#
+#sudo chmod -s "$NEWUIDMAP"
+#sudo chmod -s "$NEWGIDMAP"
+#
+#
+#getcap "$NEWUIDMAP"
+#getcap "$NEWGIDMAP"
+#
+#
+#sudo rm "$NEWUIDMAP"
+#sudo rm "$NEWGIDMAP"
+#
+#sudo ln --symbolic /usr/bin/newuidmap "$NEWUIDMAP"
+#sudo ln --symbolic /usr/bin/newgidmap "$NEWGIDMAP"
 
-sudo chmod -s $(readlink --canonicalize $(which newuidmap))
-sudo chmod -s $(readlink --canonicalize $(which newgidmap))
+
+cat << EOF > policy.json
+{
+    "default": [
+        {
+            "type": "insecureAcceptAnything"
+        }
+    ],
+    "transports":
+        {
+            "docker-daemon":
+                {
+                    "": [{"type":"insecureAcceptAnything"}]
+                }
+        }
+}
+EOF
+
+
 
 nix develop --command ./test_podman-rootless-wrapper.sh
 

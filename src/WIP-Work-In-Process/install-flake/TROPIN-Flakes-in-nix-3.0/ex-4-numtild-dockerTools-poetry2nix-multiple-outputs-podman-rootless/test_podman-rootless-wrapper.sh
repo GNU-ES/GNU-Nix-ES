@@ -10,6 +10,7 @@ run \
 --interactive \
 --rm \
 --runtime $(which runc) \
+--signature-policy policy.json \
 docker.io/tianon/toybox \
 sh -c id
 
@@ -17,8 +18,9 @@ podman \
 run \
 --interactive \
 --net=host \
---tty \
 --rm \
+--signature-policy policy.json \
+--tty \
 --workdir /code \
 --volume "$(pwd)":/code \
 docker.io/library/alpine:3.13.0 \
@@ -33,4 +35,5 @@ run \
 --interactive \
 --tty \
 --publish=5000:5000 \
+--signature-policy policy.json \
 localhost/numtild-dockertools-poetry2nix:0.0.1 nixfriday
