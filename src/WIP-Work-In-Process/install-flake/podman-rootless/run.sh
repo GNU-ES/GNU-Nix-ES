@@ -13,8 +13,6 @@ git add .
 
 git commit --message 'Save flake state'
 
-nix develop --command mywhich 'nix'
-
-nix develop --command python --version
+nix develop --command mywhich 'podman'
 
 sudo rm --recursive .git flake.lock
