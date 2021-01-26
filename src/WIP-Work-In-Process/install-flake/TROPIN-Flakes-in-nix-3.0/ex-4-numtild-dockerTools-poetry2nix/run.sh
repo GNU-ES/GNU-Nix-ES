@@ -22,15 +22,15 @@ nix build --out-link oci_image
 #&& mv oci_image_out oci_image
 
 
-docker load < ./oci_image
+podman load < ./oci_image
 
 
-docker \
+podman \
 run \
 --interactive \
 --tty \
---port=5000:5000 \
-numtild-dockertools-poetry2nix:0.0.1 nixfriday
+--publish=5000:5000 \
+localhost/numtild-dockertools-poetry2nix:0.0.1 nixfriday
 
 
 sudo rm --force --recursive .git flake.lock result oci_image
