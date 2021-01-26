@@ -16,7 +16,7 @@ git commit --message 'Save flake state'
 nix flake update --commit-lock-file
 
 #nix build --out-link oci_image
-nix build
+#nix build
 
 
 #cp --no-dereference --recursive --verbose $(nix-store --query --requisites oci_image) oci_image_out \
@@ -24,6 +24,12 @@ nix build
 
 
 nix build .#myExampleFlake
+
+sudo setcap cap_setuid+ep $(readlink --canonicalize $(which newuidmap))
+sudo setcap cap_setgid+ep $(readlink --canonicalize $(which newgidmap))
+
+sudo chmod -s $(readlink --canonicalize $(which newuidmap))
+sudo chmod -s $(readlink --canonicalize $(which newgidmap))
 
 nix develop --command ./test_podman-rootless-wrapper.sh
 

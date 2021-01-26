@@ -283,8 +283,8 @@ The solution should be to make a nix `shell.nix` with `python` and `poetry` like
 ```
 git clone https://github.com/GNU-ES/GNU-Nix-ES.git \
 && cd GNU-Nix-ES \
-&& git checkout bfa7607373075538435a1f8d1c70791d55f3aae3 \
-&& cd src/WIP-Work-In-Process/install-flake/podman-rootless \
+&& git checkout 0ecbe7af32228b9dbc68bd6f12a3b7a62e42f07e \
+&& cd src/WIP-Work-In-Process/install-flake/TROPIN-Flakes-in-nix-3.0/ex-4-numtild-dockerTools-poetry2nix-multiple-outputs-podman-rootless \
 && ./run.sh
 ```
 
