@@ -25,25 +25,14 @@ nix flake update --commit-lock-file
 
 nix build .#myExampleFlake
 
-#NEWUIDMAP=$(readlink --canonicalize $(which newuidmap))
-#NEWGIDMAP=$(readlink --canonicalize $(which newgidmap))
-#
-#sudo setcap cap_setuid+ep "$NEWUIDMAP"
-#sudo setcap cap_setgid+ep "$NEWGIDMAP"
-#
-#sudo chmod -s "$NEWUIDMAP"
-#sudo chmod -s "$NEWGIDMAP"
-#
-#
-#getcap "$NEWUIDMAP"
-#getcap "$NEWGIDMAP"
-#
-#
-#sudo rm "$NEWUIDMAP"
-#sudo rm "$NEWGIDMAP"
-#
-#sudo ln --symbolic /usr/bin/newuidmap "$NEWUIDMAP"
-#sudo ln --symbolic /usr/bin/newgidmap "$NEWGIDMAP"
+NEWUIDMAP=$(readlink --canonicalize $(which newuidmap))
+NEWGIDMAP=$(readlink --canonicalize $(which newgidmap))
+
+sudo setcap cap_setuid+ep "$NEWUIDMAP"
+sudo setcap cap_setgid+ep "$NEWGIDMAP"
+
+sudo chmod -s "$NEWUIDMAP"
+sudo chmod -s "$NEWGIDMAP"
 
 
 cat << EOF > policy.json
