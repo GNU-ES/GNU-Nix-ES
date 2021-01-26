@@ -171,13 +171,16 @@ TODO:
 nix shell --ignore-environment nixpkgs#{coreutils,shadow,which} --command readlink --canonicalize $(which newuidmap)
 nix shell --ignore-environment nixpkgs#{coreutils,shadow,which} --command readlink $(which newuidmap)
 
-``` bash
+```bash
 sudo setcap cap_setuid+ep $(readlink --canonicalize $(which newuidmap))
 sudo setcap cap_setgid+ep $(readlink --canonicalize $(which newgidmap))
 
 chmod -s $(readlink --canonicalize $(which newuidmap))
 chmod -s $(readlink --canonicalize $(which newgidmap))
+```
 
+
+```
 #mkdir --mode=755 --parent ~/.config/containers
 # TODO: make test showing it is idempotent and respet if the 
 # folder has some thing in it.
@@ -203,13 +206,10 @@ EOF
 podman \
 run \
 --interactive \
---net=host \
---tty \
 --rm \
---workdir /code \
---volume "$(pwd)":/code \
-docker.io/library/alpine:3.13.0 \
-sh -c 'apk add --no-cache git && git init'
+--runtime $(which runc) \
+docker.io/tianon/toybox \
+sh -c id
 ```
 
 ```bash
@@ -221,6 +221,7 @@ run \
 docker.io/library/busybox \
 sh -c id
 ```
+
 
 ```
 cat << EOF > policy.json
@@ -246,7 +247,7 @@ run \
 --rm \
 --runtime $(which runc) \
 --signature-policy policy.json \
-docker.io/library/busybox \
+docker.io/tianon/toybox \
 sh -c id
 ```
 
