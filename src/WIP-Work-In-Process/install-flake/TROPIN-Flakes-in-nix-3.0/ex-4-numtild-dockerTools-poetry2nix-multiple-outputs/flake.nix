@@ -15,7 +15,8 @@
     };
 
     defaultPackage = self.packages.${system}.myExampleFlake;
-    packages = self.packages.${system}.myExampleFlake2;
+
+    packages.${system} = self.packages.myExampleFlake2;
   });
 
 }
