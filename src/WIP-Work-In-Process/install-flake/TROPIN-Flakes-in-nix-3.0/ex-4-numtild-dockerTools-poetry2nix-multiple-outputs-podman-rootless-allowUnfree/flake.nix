@@ -14,12 +14,14 @@
       #packages.myExampleFlake = import ./default.nix {
       #  pkgs = nixpkgs.legacyPackages.${system};
       #};
-
       #packages.myExampleFlake = import ./default.nix { pkgs = self.pkgs; };
 
     in
     {
 
+        packages.myExampleFlake = import ./default.nix {
+          pkgs = nixpkgs.legacyPackages.${system};
+        };
         packages.podman = import ./podman.nix {
             pkgs = nixpkgs.legacyPackages.${system};
           };
