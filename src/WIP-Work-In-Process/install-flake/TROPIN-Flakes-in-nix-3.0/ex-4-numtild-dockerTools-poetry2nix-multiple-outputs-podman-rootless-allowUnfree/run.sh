@@ -24,38 +24,10 @@ nix flake update --commit-lock-file
 
 nix develop --command podman --help
 
-nix build .#myExampleFlake
-
-#NEWUIDMAP=$(readlink --canonicalize $(which newuidmap))
-#NEWGIDMAP=$(readlink --canonicalize $(which newgidmap))
-#
-#sudo setcap cap_setuid+ep "$NEWUIDMAP"
-#sudo setcap cap_setgid+ep "$NEWGIDMAP"
-#
-#sudo chmod -s "$NEWUIDMAP"
-#sudo chmod -s "$NEWGIDMAP"
-#
-#
-#cat << EOF > policy.json
-#{
-#    "default": [
-#        {
-#            "type": "insecureAcceptAnything"
-#        }
-#    ],
-#    "transports":
-#        {
-#            "docker-daemon":
-#                {
-#                    "": [{"type":"insecureAcceptAnything"}]
-#                }
-#        }
-#}
-#EOF
-
+nix build .#poetry2nixOCIImage
 
 
 nix develop --command ./test_podman-rootless-wrapper.sh
 
 
-sudo rm --force --recursive .git flake.lock result oci_image
+sudo rm --force --recursive .git result oci_image

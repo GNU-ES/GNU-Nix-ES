@@ -1,5 +1,6 @@
-{ pkgs ?  import <nixpkgs> {} }:
+{ pkgs ? import <nixpkgs> { } }:
 let
+
   myScript = pkgs.writeShellScriptBin "compleInstallPodman" ''
     #!${pkgs.stdenv.shell}
     echo 'The wrapper!'
@@ -30,14 +31,17 @@ let
     }
     EOF
   '';
+
 in
 pkgs.stdenv.mkDerivation {
   name = "test-derivation";
-  buildInputs = with pkgs; [ myScript
-          conmon
-          podman
-          runc
-          shadow
-          slirp4netns
-        ];
+  buildInputs = with pkgs; [
+    myScript
+    conmon
+    podman
+    runc
+    shadow
+    slirp4netns
+    geogebra
+  ];
 }
