@@ -16,10 +16,16 @@ Run ./wootbuntu to start the VM. It will automatically download the ISO and
 setup QEMU. Make sure to have KVM enabled on your machine for it to be fast
 (/dev/kvm should exist on the host).
 
+
 # Install
 
 Note: you may need anable KVM. Refs: ["KVM: disabled by BIOS" error](https://www.linux-kvm.org/page/FAQ#.22KVM:_disabled_by_BIOS.22_error),
  [Note: You may need to enable virtualization support in your BIOS](https://wiki.archlinux.org/index.php/KVM).
+
+TODOs:
+[system-features requiredSystemFeatures = [ "kvm" ];](https://www.mankier.com/5/nix.conf)
+
+[lots of parameters, must see it](https://blog.matejc.com/blogs/myblog/playing-on-qemu)
 
 You can see a YouTube video example [Nix Friday - Home manager, (00:01:59 all duration)]( https://www.youtube.com/embed/2emuPcomQ98?start=227&end=346&version=3),
  he explains about [4.1. Single User Installation](https://nixos.org/manual/nix/stable/#sect-single-user-installation) 
@@ -39,11 +45,15 @@ test -d /nix || sudo mkdir --mode=0755 /nix \
 && sudo chown "$USER": /nix \
 && command -v nix >/dev/null 2>&1 || curl -L https://nixos.org/nix/install | sh \
 && test -d ~/.config/nix || mkdir --parent --mode=755 ~/.config/nix && touch ~/.config/nix/nix.conf \
-&& cat ~/.config/nix/nix.conf | grep 'kvm' >/dev/null && /bin/true || echo 'system-features = kvm' >> ~/.config/nix/nix.conf \
+&& cat ~/.config/nix/nix.conf | grep 'kvm' >/dev/null && /bin/true || echo 'system-features = kvm nixos-test' >> ~/.config/nix/nix.conf \
 && cat ~/.config/nix/nix.conf | grep 'flakes' >/dev/null && /bin/true || echo 'experimental-features = nix-command flakes ca-references' >> ~/.config/nix/nix.conf \
 && test -d ~/.config/nixpkgs || mkdir --parent --mode=755 ~/.config/nixpkgs && touch ~/.config/nixpkgs/config.nix \
 && cat ~/.config/nixpkgs/config.nix | grep 'allowUnfree' >/dev/null && /bin/true || echo '{ allowUnfree = true; }' >> ~/.config/nixpkgs/config.nix \
+&& cat ~/.bashrc | grep 'flake' >/dev/null && /bin/true || echo "alias flake='nix-shell -I nixpkgs=channel:nixos-20.09 --packages nixFlakes'" >> ~/.bashrc \
+&& cat ~/.bashrc | grep 'collect' >/dev/null && /bin/true || echo "alias ncgd='nix-collect-garbage --delete-old'" >> ~/.bashrc \
 && . "$HOME"/.nix-profile/etc/profile.d/nix.sh \
+&& . ~/.bashrc \
+&& flake \
 && echo 'Testing the installer installing the hello package' \
 && nix-env --install --attr nixpkgs.hello \
 && hello \
@@ -57,6 +67,8 @@ test -d /nix || sudo mkdir --mode=0755 /nix \
 https://stackoverflow.com/a/57737607
 
 
+TODO: `nix show-config` really cool!
+
 TODO: change the `[]` to `test -f "$file" || echo "$file"`
 https://stackoverflow.com/a/7023478
 
@@ -68,6 +80,9 @@ TODO: test it
 
 mkdir -m 0755 /etc/nix
 echo 'sandbox = false' > /etc/nix/nix.conf
+
+git config --global user.email "pedroalencarregis@hotmail.com"
+git config --global user.name "PedroRegisPOAR"
 
 
 ```

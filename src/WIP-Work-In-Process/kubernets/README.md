@@ -159,6 +159,13 @@ chmod -s $(readlink $(which newuidmap))
 chmod -s $(readlink $(which newgidmap))
 
 
+sudo setcap cap_setuid+ep $(which newuidmap)
+sudo setcap cap_setgid+ep $(which newgidmap)
+
+chmod -s $(which newuidmap)
+chmod -s $(which newgidmap)
+
+
 ```bash
 nix-shell -I nixpkgs=channel:nixos-20.09 --packages nixFlakes
 ```
