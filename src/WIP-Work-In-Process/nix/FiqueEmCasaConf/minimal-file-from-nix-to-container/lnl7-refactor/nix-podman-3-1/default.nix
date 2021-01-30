@@ -23,10 +23,13 @@ let
     nixconf = ''
         build-users-group = nixbld
         sandbox = false
+        experimental-features = nix-command flakes ca-references
+        system-features = kvm nixos-test
     '';
 
     passwd = ''
         root:x:0:0::/root:${run_time_bash}
+        ${user_name}:x:${user_id}:${user_id}::/home/${user_name}:${run_time_bash}
         ${concatStringsSep "\n" (genList (i: "nixbld${toString (i+1)}:x:${toString (i+30001)}:30000::/var/empty:/run/current-system/sw/bin/nologin") 32)}
     '';
 #        ${user_name}:x:${user_id}:${user_group_id}::/home/${user_name}:${run_time_bash}
@@ -35,6 +38,7 @@ let
         root:x:0:
         wheel:x:1:${user_name},kvm
         kvm:x:2:kvm
+        ${user_group}:x:${user_group_id}:
         nixbld:x:30000:${concatStringsSep "," (genList (i: "nixbld${toString (i+1)}") 32)}
     '';
 #${user_group}:x:${user_group_id}:${user_name}
