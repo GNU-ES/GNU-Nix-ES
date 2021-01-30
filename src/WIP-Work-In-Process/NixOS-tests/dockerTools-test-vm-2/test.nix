@@ -2,6 +2,16 @@
 
   #helloDockerTools = import ./hello.nix;
 
+    let
+      helloDockerTools = pkgs.dockerTools.buildImage {
+        name = "bash";
+        tag = "latest";
+        contents = pkgs.bashInteractive;
+      };
+    in
+   {
+
+
   nodes = {
     docker = { pkgs, ... }: {
       virtualisation.docker.enable = true;
@@ -19,17 +29,20 @@
   };
 
   testScript = { nodes, ... }:
-    let
-      helloDockerTools = pkgs.dockerTools.buildImage {
-        name = "bash";
-        tag = "latest";
-        contents = pkgs.bashInteractive;
-      };
-    in ''
-      docker.wait_for_unit("sockets.target")
-      with subtest("Runs the GNU hello from a docker image built with dockerTools"):
+    #let
+    #  helloDockerTools = pkgs.dockerTools.buildImage {
+    #    name = "bash";
+    #    tag = "latest";
+    #    contents = pkgs.bashInteractive;
+    #  };
+    #in
+    
+      testScript = ''
+        docker.wait_for_unit("sockets.target")
+        with subtest("Runs the GNU hello from a docker image built with dockerTools"):
           docker.succeed("docker load --input='${helloDockerTools}'")
-    '';
+      '';
+  }
 
   #  testScript = with pkgs.dockerTools.examples; ''
   #    docker.wait_for_unit("sockets.target")
