@@ -7,7 +7,7 @@ in
 rec {
   image = pkgs.fetchurl {
     url = "https://cloud-images.ubuntu.com/releases/18.04/release/${img_orig}";
-    sha256 = "0n5qkyyfb97l089lihqgrhkxdn4rz511yx590pqj0b3j02gq1c6d";
+    sha256 = "2CKReVObP7TfFnwYW083Iy7KAcmJVxpK3x2T99kN2HI=";
   };
 
   # This is the cloud-init config
