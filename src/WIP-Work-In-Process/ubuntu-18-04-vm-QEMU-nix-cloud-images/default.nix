@@ -2,12 +2,12 @@ let
   pkgs = import (builtins.fetchTarball { url = "channel:nixos-20.09"; }) {};
   inherit (pkgs) runCommand;
 
-  img_orig = "ubuntu-20.04-minimal-cloudimg-amd64.img";
+  img_orig = "ubuntu-18.04-server-cloudimg-amd64.img";
 in
 rec {
   image = pkgs.fetchurl {
-    url = "https://cloud-images.ubuntu.com/minimal/releases/focal/release/${img_orig}";
-    hash = "sha256:1cpvcx0zy1699vxs5shl1j36qzk4nkcyaifpxzhfg83jfv5ah90r";
+    url = "https://cloud-images.ubuntu.com/releases/18.04/release/${img_orig}";
+    sha256 = "2CKReVObP7TfFnwYW083Iy7KAcmJVxpK3x2T99kN2HI=";
   };
 
   # This is the cloud-init config
