@@ -20,7 +20,7 @@ podman run \
 --rm \
 --workdir /code \
 --volume "$(pwd)":/code \
-nix-base:0.0.1 bash -c "sudo ls -al && id"
+localhost/nix-base:0.0.1 bash -c "sudo ls -al && id"
 
 
 podman run \

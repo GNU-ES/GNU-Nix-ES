@@ -16,7 +16,7 @@ sudo --preserve-env mkdir --parent ~/.config/nix/nix \
 sudo mkdir --mode=755 --parent /nix/var/nix/profiles
 
 # TODO:
-sudo chown pedroregispoar:pedroregispoargroup "$HOME"
+sudo chown pedroregispoar:pedroregispoargroup --recursive "$HOME"
 sudo chmod 755 "$HOME"
 
 #stat --format "uid=%u uname=%U gid=%g gname=%G %a %A" /tmp \

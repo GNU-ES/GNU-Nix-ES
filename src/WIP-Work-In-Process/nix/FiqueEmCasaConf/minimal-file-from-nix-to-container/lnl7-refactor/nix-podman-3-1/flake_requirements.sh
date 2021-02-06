@@ -14,10 +14,8 @@ sudo --preserve-env mkdir --parent ~/.config/nix/nix \
 
 
 sudo mkdir --mode=755 --parent /nix/var/nix/profiles
-
-# TODO:
-sudo chown pedroregispoar:pedroregispoargroup "$HOME"
-sudo chmod 755 "$HOME"
+sudo --preserve-env --set-home chown pedroregispoar:pedroregispoargroup "$HOME"
+sudo --preserve-env --set-home chmod 755 "$HOME"
 
 #stat --format "uid=%u uname=%U gid=%g gname=%G %a %A" /tmp \
 #&& stat --format "uid=%u uname=%U gid=%g gname=%G %a %A" /nix/var/nix \
@@ -26,30 +24,38 @@ sudo chmod 755 "$HOME"
 #&& stat --format "uid=%u uname=%U gid=%g gname=%G %a %A" /home/pedroregispoar/.cache/var \
 #&& stat --format "uid=%u uname=%U gid=%g gname=%G %a %A" /home/pedroregispoar/.cache/nix/
 
+#  /nix/store \
 
-sudo chown --recursive pedroregispoar:pedroregispoargroup \
+sudo --preserve-env --set-home mkdir --mode=755 "$HOME"/.local
+sudo mkdir --mode=755 --parent /nix/var/nix/profiles
+
+sudo --preserve-env --set-home chown --recursive pedroregispoar:pedroregispoargroup \
   /tmp \
   /nix/var/nix \
   /nix/var/nix/profiles \
   /nix/var/nix/temproots \
-  /home/pedroregispoar/.cache/var \
-  /home/pedroregispoar/.cache/nix/
+  "$HOME"/ \
+    --verbose
 
 sudo chmod 755 /nix/store
 sudo chmod 755 /nix/var/nix
 sudo chmod 755 /nix/var
 sudo chmod 755 /nix/var/nix/temproots
 sudo chmod 755 /tmp
+sudo chmod 755 "$HOME"
+sudo chmod 755 "$HOME"/.local
 
-sudo mkdir --mode=755 /home/pedroregispoar/.local
 
-cd /home/pedroregispoar/ \
-&& sudo find . ! -path '*sudo*' -exec chown pedroregispoar:pedroregispoargroup {} --verbose \; \
+cd /nix/store \
+&& sudo find /nix/store ! -path '*sudo*' -exec chown pedroregispoar:pedroregispoargroup {} --verbose \; \
 && cd -
 
 cd "$HOME" \
 && sudo find "$HOME" ! -path '*sudo*' -exec chown pedroregispoar:pedroregispoargroup {} --verbose \; \
 && cd -
+
+nix-shell -I nixpkgs=channel:nixos-20.09 --packages nixFlakes --run 'nix flake show github:GNU-ES/hello'
+
 
 # TODO: check if it is necessary
 # mkdir --parent --mode=755 ~/.config/nix/
