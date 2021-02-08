@@ -4,10 +4,10 @@ let
    ''
      mkdir $out
      hello > $out/hello
-   ''
-in pkgs.dockerTool.buidLayeredImage {
+   '';
+in pkgs.dockerTools.buidLayeredImage {
   name = "hello-output";
   created = "now";
   tag = "0.0.1";
   contents = [ hello-out ];
-}
+};
