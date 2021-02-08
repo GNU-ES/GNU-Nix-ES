@@ -3,6 +3,7 @@
 
 [Nix: How and Why it Works](https://www.youtube.com/watch?v=lxtHH838yko)
 
+[github nix-how-and-why](https://github.com/grahamc/talks/tree/a83a3ece6f3a88b01b612dfec145576745923550/talks-nixcon-2019/nix-how-and-why)
 
 [Docker Tip #66: Fixing Error Response from Daemon: Invalid Mode](https://nickjanetakis.com/blog/docker-tip-66-fixing-error-response-from-daemon-invalid-mode)
 
@@ -47,6 +48,7 @@ e423deb6bfc3:/code# cat result
 
 Para um curso, revisar o que é um link simbólico.
 
+```
 e423deb6bfc3:/code# nix-build example.nix 
 these derivations will be built:
   /nix/store/09igh8mwk25z9hlp19y086aw8zgjv1d8-hello.drv
@@ -58,9 +60,9 @@ e423deb6bfc3:/code# cat result
 Hello World
 e423deb6bfc3:/code# readlink result 
 /nix/store/8gnccbbc5gjjacc13m7rwwfq86k4lkwk-hello
+```
 
-
-
+```
 e423deb6bfc3:/code# cat source.nix 
 let
   pkgs = import <nixpkgs> {};
@@ -75,9 +77,9 @@ building '/nix/store/1sv9746b39f7a1ax0paa4xkc8i83p2wx-hello.drv'...
 cp: cannot stat './talk.md': No such file or directory
 builder for '/nix/store/1sv9746b39f7a1ax0paa4xkc8i83p2wx-hello.drv' failed with exit code 1
 error: build of '/nix/store/1sv9746b39f7a1ax0paa4xkc8i83p2wx-hello.drv' failed
+```
 
-
-
+```
 e423deb6bfc3:/code# nix-build file.nix 
 these derivations will be built:
   /nix/store/ns0252m5xwm9dny6fcibqm4r1nck3v6y-file-lorem-ipsum.drv
@@ -85,6 +87,7 @@ building '/nix/store/ns0252m5xwm9dny6fcibqm4r1nck3v6y-file-lorem-ipsum.drv'...
 /nix/store/80g6ylq8vbj8jsgc6g86v8sn6kyi0wzd-file-lorem-ipsum
 e423deb6bfc3:/code# cat result 
 "Aquele que ama ou exerce ou deseja a dor, pode ocasionalmente adquirir algum prazer na labuta. Para dar um exemplo trivial, qual de nós se submete a laborioso exercício físico, exceto para obter alguma vantagem com isso. Desmoralizado pelos encantos do prazer, percebe que a dor não resulta em prazer algum. Está tão cego pelo desejo que não pode prever quem não cumprirá seu dever por fraqueza de vontade."
+```
 
 https://pt.wikipedia.org/wiki/Lorem_ipsum
 
