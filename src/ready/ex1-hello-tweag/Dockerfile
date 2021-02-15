@@ -6,6 +6,6 @@ RUN mkdir -p ~/.config/nix/nix \
  && echo 'experimental-features = nix-command flakes ca-references' >> ~/.config/nix/nix.conf
 
 # Why there is no long form of the flag -I in `nix-shell -I` ?
-RUN sh -c 'nix-shell -I nixpkgs=channel:nixos-20.03 --packages nixFlakes'
+RUN sh -c 'nix-shell -I nixpkgs=channel:nixos-20.09 --packages nixFlakes'
 
-ENTRYPOINT ["nix-shell", "-I", "nixpkgs=channel:nixos-20.03", "--packages", "nixFlakes"]
+ENTRYPOINT ["nix-shell", "-I", "nixpkgs=channel:nixos-20.09", "--packages", "nixFlakes"]
