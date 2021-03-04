@@ -8,7 +8,7 @@ git init my-flake
 
 cd $_
 
-nix flake init -t templates#simpleContainer
+nix flake init --template templates#simpleContainer
 
 git config --global user.email "you@example.com"
 git config --global user.name "Your Name"
@@ -20,6 +20,9 @@ git commit -m 'Initial version'
 nix flake show templates
 
 nix build "$(pwd)"#nixosConfigurations.container.config.system.build.toplevel
+
+# In QEMU it failled
+# ./result/init
 
 # TODO:
 # nix run "$(pwd)"#nixosConfigurations.container.config.system.build.toplevel flake-test -- nixos-version --json
