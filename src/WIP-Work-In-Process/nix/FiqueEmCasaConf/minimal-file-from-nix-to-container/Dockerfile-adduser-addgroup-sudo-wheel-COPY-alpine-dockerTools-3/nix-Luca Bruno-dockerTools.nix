@@ -10,9 +10,12 @@ let
     '';
 
   ubuntuBase = pkgs.dockerTools.pullImage {
-    imageName = "alpine:3.12.0";
-    imageDigest = "sha256:a24bb4013296f61e89ba57005a7b3e52274d8edd3ae2077d04395f806b63d83e";
+    imageName = "nixos/nix";
+    imageDigest = "sha256:15299d86263a3059cf19f419f9d286cc9f06d3c13146a8ebbb21b3437f598357";
+    #imageDigest = "sha256:0179d85479fde68004bed845d43e79c85ab22b4e862ba46d9aeaad5e707b0e3";
+    #imageDigest = "sha256:85299d86263a3059cf19f419f9d286cc9f06d3c13146a8ebbb21b3437f598357";
     sha256 = "07q9y9r7fsd18sy95ybrvclpkhlal12d30ybnf089hq7v1hgxbi7";
+    #sha256 = "0vnp3mhpk4ny3xa3cgngqsargnmvfgld54d5sn4b5av6yqzzp67z";
     finalImageTag = "2.2.1";
     finalImageName = "nix";
   };
@@ -23,8 +26,8 @@ pkgs.dockerTools.buildImage {
     fromImage = ubuntuBase;
 
     name = "alpine-gnu-nix-es";
-    tag = "3.12.0";
-    created = "now";
+    #tag = "3.12.0";
+    #created = "now";
 
     runAsRoot = ''
         #!${pkgs.stdenv}
