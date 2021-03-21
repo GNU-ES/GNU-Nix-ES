@@ -81,3 +81,8 @@ https://www.youtube.com/watch?v=TbIHRHy7_JM
 
 Is NixOS Reproducible?
 https://github.com/grahamc/r13y.com
+
+
+
+[New users using NixOS wrong](https://discourse.nixos.org/t/new-users-using-nixos-wrong/9973)
+[New users using Nix (not NixOS) wrong](https://discourse.nixos.org/t/new-users-using-nix-not-nixos-wrong/9996)
