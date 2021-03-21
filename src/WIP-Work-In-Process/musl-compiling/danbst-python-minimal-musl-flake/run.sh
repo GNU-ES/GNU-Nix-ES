@@ -4,7 +4,17 @@
 set -eux pipefail
 
 
-nix-build ./danbst-python-minimal.nix
+sudo rm --force --recursive .git
+git init
+
+git config user.email "you@example.com"
+git config user.name "Your Name"
+
+git add .
+
+git commit --message 'Save flake state'
+
+nix build .#danbst-python-minimal
 
 du \
 --human-readable \
@@ -12,10 +22,9 @@ du \
 --total \
 $(nix-store --query --requisites result) | sort --human-numeric-sort
 
-nix-build ./danbst-python-minimal.nix
-
 file $(readlink result/bin/python)
 
 result/bin/python --version
 
+sudo rm --force --recursive .git
 rm --force result
