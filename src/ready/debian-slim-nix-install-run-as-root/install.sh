@@ -17,7 +17,7 @@ wget --directory-prefix=/download-nix https://nixos.org/releases/nix/nix-${NIX_V
 # for i in $(seq 1 30); do adduser -S -D -h /var/empty -g "Nix build user $i" -u $((30000 + i)) -G nixbld nixbld$i ; done
 
 groupadd --system nixbld
-for n in $(seq 1 10); do
+for n in $(seq 1 32); do
     useradd \
     --comment "Nix build user $n" \
     --gid nixbld \
