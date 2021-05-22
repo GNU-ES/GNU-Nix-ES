@@ -41,6 +41,11 @@ export DISPLAY=':0.0'
 Extra: about xterm
 https://unix.stackexchange.com/a/429120
 
+`xhost si:localuser:root`
+From: https://askubuntu.com/a/928979
+
+
+Another way `DISPLAY=unix$DISPLAY`, from https://gis.stackexchange.com/a/289122
 
 nix-shell -I nixpkgs=channel:nixos-20.09 --packages nixFlakes
 
@@ -215,7 +220,9 @@ NIX_BASE_IMAGE='nix-base:0.0.1' \
 
 sudo --preserve-env su -c 'nix-shell -I nixpkgs=channel:nixos-20.09 --packages nixFlakes'
 
-docker run \
+TODO: make it work with podman
+docker \
+run \
 --env=DISPLAY="$DISPLAY" \
 --interactive \
 --net=host \
@@ -247,6 +254,28 @@ xhost -local:
 
 xhost +local:
 https://askubuntu.com/a/1113062
+
+
+#xhost +
+#podman \
+#run \
+#--env="DISPLAY=${DISPLAY:-:0}" \
+#--interactive=true \
+#--tty=true \
+#--rm=true \
+#--workdir=/code \
+#--volume="$(pwd)":/code \
+#--volume=/tmp/.X11-unix:/tmp/.X11-unix \
+#python:3.9 \
+#bash \
+#-c \
+#"id && echo \$DISPLAY && python -c 'from tkinter import Tk; Tk()'"
+#xhost -
+#
+#unset DISPLAY
+#echo $DISPLAY
+#export DISPLAY=':0'
+#echo $DISPLAY
 
 
 NIX_BASE_IMAGE='nix-base:0.0.1' \   
@@ -328,8 +357,9 @@ https://stackoverflow.com/questions/51192198/how-to-video-record-selenium-tests-
 https://www.linuxquestions.org/questions/linux-general-1/root-can%27t-start-x-apps-512667/#post2554053
 http://fabiorehm.com/blog/2014/09/11/running-gui-apps-with-docker/
 
-Put it in a OCI image
+Put it in a OCI image. Build it from inside of a container and run it.
 nix develop --profile nixpkgs#xorg.xclock
+nix shell nixpkgs#bottom --command btm
 
 [Think of the ONBUILD command as an instruction the parent Dockerfile gives to the child Dockerfile.](https://docs.docker.com/develop/develop-images/dockerfile_best-practices/#onbuild)
 
@@ -349,7 +379,7 @@ sudo nixos-rebuild switch --no-write-lock-file
 
 nixos-rebuild --flake .#mymachine switch
 
-
+Adds export TMPDIR=/tmp in shellHook
 sudo nix-channel --list
 sudo nix-channel --add https://nixos.org/channels/nixos-20.09
 sudo nix-channel --list
@@ -377,6 +407,9 @@ nixpkgs https://nixos.org/channels/nixpkgs-unstable
 nix-instantiate --eval --expr '(import <nixpkgs> {}).lib.version'
 "20.03.3236.2257e6cf4d7"
 
+
+
+nix upgrade-nix
 
 ## Trying to make flake work 
 
@@ -418,7 +451,7 @@ nix --version
 nix flake update
 
 
-nix flake info nixpkgs
+nix flake metadata
 
 sudo nixos-rebuild switch --flake '.#' --no-write-lock-file
 
