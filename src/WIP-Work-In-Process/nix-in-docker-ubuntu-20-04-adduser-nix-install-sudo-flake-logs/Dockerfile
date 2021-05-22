@@ -5,39 +5,48 @@ RUN apt-get update \
     ca-certificates \
     curl \
     xz-utils \
-    sudo \
     tar \
+ && echo '##############################' \
+ && adduser \
+      --quiet \
+      --disabled-password \
+      --shell /bin/bash \
+      --home /home/pedro \
+      --gecos "User" \
+      pedro \
+ && echo "pedro:123" | chpasswd \
+ && usermod \
+    --append \
+    --groups \
+    sudo \
+    pedro \
+ && mkdir --mode=0755 /nix \
+ && mkdir \
+ --mode=0755 \
+ --parent /home/pedro/.config/nix/nix \
+ && chown pedro /nix /home/pedro/.config/nix/nix \
+ && echo 'experimental-features = nix-command flakes ca-references' >> /home/pedro/.config/nix/nix.conf \
+ && echo '##############################' \
+ && addgroup --gid 30000 nixbld \
+ && for i in $(seq 1 32); do adduser -S -D -h /var/empty --gecos "Nix build user $i" -u $((30000 + i)) -G nixbld nixbld$i ; done \
+ && curl -L https://nixos.org/nix/install | sh \
+ && echo '##############################' \
  && apt-get -y autoremove \
  && apt-get -y clean  \
  && rm -rf /var/lib/apt/lists/*
 
-RUN adduser --quiet --disabled-password --shell /bin/bash --home /home/pedro --gecos "User" pedro
+# && apt purge -y curl xz-utils tar \
 
-RUN echo "pedro:123" | chpasswd
-
-RUN usermod -a -G sudo pedro
-
-RUN mkdir -m 0755 /nix && chown pedro /nix
-
-USER pedro
-
+# USER pedro
+# RUN  id
 # RUN curl -L https://nixos.org/nix/install | sh
-RUN echo "123" | sudo -S curl -L https://nixos.org/nix/install | sh \
- && echo '. /home/pedro/.nix-profile/etc/profile.d/nix.sh' >> ~/.bashrc
-
-
-
-RUN /nix/var/nix/profiles/per-user/pedro/profile/bin/nix-env --install --attr nixpkgs.commonsCompress nixpkgs.gnutar nixpkgs.lzma.bin nixpkgs.git
-
-RUN mkdir -p ~/.config/nix/nix \
- && echo 'experimental-features = nix-command flakes ca-references' >> ~/.config/nix/nix.conf
+# RUN echo "123" | sudo --stdin curl -L https://nixos.org/nix/install | sh \
+#  && echo '. /home/pedro/.nix-profile/etc/profile.d/nix.sh' >> ~/.bashrc
 
 # Why there is no long form of the flag -I in `nix-shell -I` ?
-RUN /nix/var/nix/profiles/per-user/pedro/profile/bin/nix-shell -I nixpkgs=channel:nixos-20.03 --packages nixFlakes
+RUN /nix/var/nix/profiles/per-user/pedro/profile/bin/nix-shell -I nixpkgs=channel:nixos-20.09 --packages nixFlakes
 
-ENTRYPOINT ["nix-shell", "-I", "nixpkgs=channel:nixos-20.03", "--packages", "nixFlakes"]
-
-
+ENTRYPOINT ["nix-shell", "-I", "nixpkgs=channel:nixos-20.09", "--packages", "nixFlakes"]
 
 ONBUILD ENV \
     ENV=/etc/profile \
