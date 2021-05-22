@@ -1,5 +1,9 @@
 
 
+TODO: read all this!
+https://github.com/NixOS/nixpkgs/issues/115179
+https://discourse.nixos.org/t/kubernetes-the-nixos-module-of-the-future/3922/4
+
     
 [Jaka Hudoklin: Kubernetes cluster on NixOS](https://www.youtube.com/watch?v=XgZWbrBLP4I)
 
