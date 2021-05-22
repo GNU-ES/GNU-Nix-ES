@@ -89,3 +89,14 @@ https://github.com/grahamc/r13y.com
 
 [Handy scripts for fuzzy searching nixpkgs and nixos-options](https://discourse.nixos.org/t/handy-scripts-for-fuzzy-searching-nixpkgs-and-nixos-options/1659)
 
+
+[How to put your /nix directory on a separate device](https://cs-syd.eu/posts/2019-09-14-nix-on-seperate-device)
+
+
+[awesome-nix](https://github.com/nix-community/awesome-nix)
+[NixDB](https://4shells.com/nixdb/pkg/python3/3.8.6)
+
+About the nix flake CLI: [edolstra commented on Jul 3, 2020](https://github.com/NixOS/nix/issues/3779#issuecomment-653598626)
+
+
+[Practical Nix Flakes](https://serokell.io/blog/practical-nix-flakes)
