@@ -27,7 +27,7 @@ pkgs.dockerTools.buildLayeredImage {
 
     name = "bash-interactive-coreutils-nonroot";
     tag = "0.0.1";
-    created = "now";
+    #created = "now";
 
     contents = with pkgs; [
         bashInteractive

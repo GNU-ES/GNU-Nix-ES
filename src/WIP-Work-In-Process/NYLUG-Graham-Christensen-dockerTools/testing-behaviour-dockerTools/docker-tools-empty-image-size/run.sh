@@ -9,4 +9,4 @@ set -euxo pipefail
 
 nix-build './docker-tools-empty-image-size.nix'
 
-docker load < ./result
+podman load < ./result
