@@ -30,3 +30,9 @@ https://discourse.nixos.org/t/cross-compiling-libx11-with-musl/4763/3
 TODO: reproduce this!
 nix-env --set-flag priority 4 python3-minimal-3.7.6
 nix-env --install --attr nixos.python38Full
+
+
+
+> They are incompatible with themselves. By "incompatible" I mean that a binary compiled under alpine 
+> is linked against the musl library, not against glibc.
+https://stackoverflow.com/a/59376077
