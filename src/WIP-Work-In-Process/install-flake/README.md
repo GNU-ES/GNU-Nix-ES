@@ -356,6 +356,7 @@ https://askubuntu.com/questions/1249043/run-simple-x11-app-in-docker-container-o
 https://stackoverflow.com/questions/51192198/how-to-video-record-selenium-tests-running-headless-inside-a-docker
 https://www.linuxquestions.org/questions/linux-general-1/root-can%27t-start-x-apps-512667/#post2554053
 http://fabiorehm.com/blog/2014/09/11/running-gui-apps-with-docker/
+https://github.com/sickcodes/Docker-OSX#what-is-display-00
 
 Put it in a OCI image. Build it from inside of a container and run it.
 nix develop --profile nixpkgs#xorg.xclock

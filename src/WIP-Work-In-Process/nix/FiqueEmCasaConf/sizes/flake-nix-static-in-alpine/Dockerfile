@@ -23,7 +23,7 @@ RUN cp --no-dereference --recursive --verbose $(nix-store --query --requisites /
  && touch /output/store.links
 
 # https://github.com/containers/podman/blob/master/docs/source/markdown/podman-cp.1.md#alternatives
-FROM alpine:3.13.0 as ETC_FILES_ALPINE
+FROM alpine:3.14.2 as ETC_FILES_ALPINE
 
 RUN apk add --no-cache shadow \
  && groupadd --gid 30000 nixbld \
@@ -107,7 +107,7 @@ ENV \
     NIX_SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt
 
 
-FROM alpine:3.13.0 AS NIX_STATIC_ALPINE_AS_ROOT
+FROM alpine:3.14.2 AS NIX_STATIC_ALPINE_AS_ROOT
 
 COPY --from=ETC_FILES_ALPINE /etc/passwd /etc/passwd
 COPY --from=ETC_FILES_ALPINE /etc/group /etc/group
@@ -137,7 +137,7 @@ ENV \
     NIX_SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt
 
 
-FROM alpine:3.13.0 AS NIX_STATIC_ALPINE_ROOTLESS
+FROM alpine:3.14.2 AS NIX_STATIC_ALPINE_ROOTLESS
 
 COPY --from=ETC_FILES_ALPINE /etc/passwd /etc/passwd
 COPY --from=ETC_FILES_ALPINE /etc/group /etc/group
@@ -159,7 +159,7 @@ ENV \
 
 
 FROM scratch AS NIX_STATIC_SCRATCH_ROOTLESS
-# FROM alpine:3.13.0 AS NIX_STATIC_SCRATCH_ROOTLESS
+# FROM alpine:3.14.2 AS NIX_STATIC_SCRATCH_ROOTLESS
 
 COPY --from=ETC_FILES_ALPINE /etc/passwd /etc/passwd
 COPY --from=ETC_FILES_ALPINE /etc/group /etc/group

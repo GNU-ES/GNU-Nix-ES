@@ -42,7 +42,7 @@ run \
 --user=0 \
 --volume="$(pwd)":'/code' \
 --workdir=/code' \
-docker.io/library/alpine:3.13.0 \
+docker.io/library/alpine:3.14.2 \
 sh
 
 mkdir -p /home/nix_user/nix-static/

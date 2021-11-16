@@ -32,4 +32,4 @@ cat << EOF > /etc/containers/policy.json
 }
 EOF
 
-nix-shell -I nixpkgs=channel:nixos-20.09 --packages nixFlakes --run 'nix develop github:ES-Nix/nix-flakes-shellHook-writeShellScriptBin-defaultPackage/9260e7ed15c91cc35c02bbdec1b1bff0c0931ec5 --command podman pull alpine:3.13.0'
+nix-shell -I nixpkgs=channel:nixos-20.09 --packages nixFlakes --run 'nix develop github:ES-Nix/nix-flakes-shellHook-writeShellScriptBin-defaultPackage/9260e7ed15c91cc35c02bbdec1b1bff0c0931ec5 --command podman pull alpine:3.14.2'

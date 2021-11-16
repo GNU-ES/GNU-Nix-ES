@@ -23,7 +23,7 @@ run \
 --tty \
 --workdir /code \
 --volume "$(pwd)":/code \
-docker.io/library/alpine:3.13.0 \
+docker.io/library/alpine:3.14.2 \
 sh -c 'apk add --no-cache curl && curl google.com'
 
 

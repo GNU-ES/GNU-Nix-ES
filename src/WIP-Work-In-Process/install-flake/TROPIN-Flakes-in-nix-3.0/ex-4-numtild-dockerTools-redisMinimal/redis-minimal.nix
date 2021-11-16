@@ -3,6 +3,7 @@ pkgs.redis.overrideAttrs (old: {
     # no need for systemd support in our docker image
     makeFlags = old.makeFlags ++ ["USE_SYSTEMD=no"];
     # build static binary with musl
+    # https://discourse.nixos.org/t/ssl-peer-certificate-or-ssh-remote-key-was-not-ok-error-on-fresh-nix-install-on-macos/3582/10
     preBuild = ''
         makeFlagsArray=(PREFIX="$out"
                         CC="${pkgs.musl.dev}/bin/musl-gcc -static"

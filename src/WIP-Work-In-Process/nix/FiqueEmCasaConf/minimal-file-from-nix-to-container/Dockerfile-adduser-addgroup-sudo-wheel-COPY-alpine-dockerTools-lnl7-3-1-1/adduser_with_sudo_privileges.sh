@@ -36,7 +36,7 @@ then
     # Here the password is changed:
     echo "$INPUTED_USER_OR_DEFAULT":"$INPUTED_PASSWORD_OR_DEFAULT" | chpasswd
 
-    # Here wthe sudoers file is edited
+    # Here the sudoers file is edited
     # https://stackoverflow.com/a/27355109
     sed -i '/wheel/s/^#//g' /etc/sudoers
  #   echo '%wheel ALL=(ALL) ALL' > /etc/sudoers.d/wheel

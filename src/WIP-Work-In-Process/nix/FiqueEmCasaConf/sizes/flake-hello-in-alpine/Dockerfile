@@ -20,6 +20,6 @@ RUN cp --no-dereference --recursive --verbose $(nix-store --query --requisites /
 
 
 #FROM scratch
-FROM alpine:3.13.0
+FROM alpine:3.14.2
 COPY --from=0 /output/store /nix/store
 COPY --from=0 /nix/var/nix/profiles/per-user/root/profile/ /usr/local/

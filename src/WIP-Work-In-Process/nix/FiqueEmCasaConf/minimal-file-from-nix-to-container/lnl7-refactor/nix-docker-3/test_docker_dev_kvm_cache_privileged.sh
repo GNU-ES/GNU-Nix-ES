@@ -20,7 +20,8 @@ nix-build --attr image
 
 docker load < ./result
 
-docker run \
+docker \
+run \
 --cap-add SYS_ADMIN \
 --device=/dev/kvm \
 --interactive \
@@ -36,7 +37,8 @@ docker run \
 --volume /sys/fs/cgroup/:/sys/fs/cgroup:ro \
 "$NIX_BASE_IMAGE" bash -c "./flake_requirements.sh && sudo --preserve-env nix-shell -I nixpkgs=channel:nixos-20.09 --packages nixFlakes --run 'nix flake show github:GNU-ES/hello'"
 
-docker run \
+docker \
+run \
 --cap-add SYS_ADMIN \
 --device=/dev/kvm \
 --interactive \
@@ -92,7 +94,8 @@ docker run \
 
 #nix-base:0.0.1 bash -c 'nix-env --install --attr nixpkgs.systemd && systemctl --version'
 
-docker run \
+docker \
+run \
 --cap-add SYS_ADMIN \
 --device=/dev/kvm \
 --interactive \
@@ -109,7 +112,8 @@ docker run \
 "$NIX_BASE_IMAGE" bash -c "sudo --preserve-env nix-shell -I nixpkgs=channel:nixos-20.09 --packages nixFlakes --run 'nix flake show github:GNU-ES/hello'"
 
 
-#docker run \
+#docker \
+# run \
 #--cap-add SYS_ADMIN \
 #--device=/dev/kvm \
 #--interactive \
@@ -126,7 +130,8 @@ docker run \
 #"$NIX_BASE_IMAGE" bash -c "sudo --preserve-env nix-shell -I nixpkgs=channel:nixos-20.09 --packages nixFlakes --run 'nix shell nixpkgs#nixos-shell nixpkgs#git nixpkgs#man nixpkgs#man-db'"
 
 
-#docker run \
+#docker \
+# run \
 #--cap-add SYS_ADMIN \
 #--device=/dev/kvm \
 #--interactive \

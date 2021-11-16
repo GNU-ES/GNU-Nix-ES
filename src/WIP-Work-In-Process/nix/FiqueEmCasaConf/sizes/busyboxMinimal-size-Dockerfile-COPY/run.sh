@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
 
 # See https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
-set -euxo pipefail
+#set -euxo pipefail
 
 # TODO use rp (ripgrep) to be able to use "$IMAGE_VERSION"
 SEARCH_NAME=sizes
@@ -10,13 +10,17 @@ VERSION=0.0.1
 
 IMAGE_VERSION="$IMAGE":"$VERSION"
 
-docker build --tag "$IMAGE_VERSION" .
+podman build --tag "$IMAGE_VERSION" .
 
-docker images | grep "$SEARCH_NAME"
+podman images | grep "$SEARCH_NAME"
 
 
-docker run \
+podman \
+run \
 --interactive \
 --tty \
 --rm \
-gnu-nix-es/sizes:0.0.1 sh -c "echo 'It works!'"
+gnu-nix-es/sizes:0.0.1 \
+sh \
+-c \
+"echo 'It works!'"

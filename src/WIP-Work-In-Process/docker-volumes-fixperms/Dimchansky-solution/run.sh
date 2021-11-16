@@ -13,7 +13,7 @@ run \
 --rm=true \
 --workdir=/artifacts \
 --volume="$(pwd)"/artifacts:/artifacts \
-docker.io/library/alpine:3.13.0 \
+docker.io/library/alpine:3.14.2 \
 sh \
 << COMMANDS
 echo Changing owner from \$(id -u):\$(id -g) to $(id -u):$(id -g)

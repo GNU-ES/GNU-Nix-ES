@@ -256,7 +256,7 @@ run \
 --user=0 \
 --volume="$(pwd)":'/code' \
 --workdir='/home' \
-docker.io/library/alpine:3.13.0 \
+docker.io/library/alpine:3.14.2 \
 sh
 
 
