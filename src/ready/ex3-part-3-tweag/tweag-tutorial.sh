@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
 
 # See https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
-set -euxo pipefail
+#set -euxo pipefail
 
 
 git init my-flake
@@ -18,8 +18,9 @@ git add .
 git commit -m 'Initial version'
 
 nix flake show templates
+exit 0
 
-nix build "$(pwd)"#nixosConfigurations.container.config.system.build.toplevel
+#nix build "$(pwd)"#nixosConfigurations.container.config.system.build.toplevel
 
 # In QEMU it failled
 # ./result/init

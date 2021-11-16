@@ -8,7 +8,8 @@ VERSION=0.0.1
 IMAGE_VERSION="$IMAGE":"$VERSION"
 
 
-docker build \
+docker \
+build \
 --label org.opencontainers.image.created=$(date -u +"%Y-%m-%dT%H:%M:%SZ") \
 --label org.opencontainers.image.revision=$(git rev-parse $(git rev-parse --short HEAD)) \
 --tag \
@@ -21,7 +22,8 @@ docker build \
 #"$IMAGE_VERSION" --run 'nix flake show github:GNU-ES/hello'
 
 
-docker run \
+docker \
+run \
 --interactive \
 --tty \
 --rm \
